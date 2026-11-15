@@ -186,124 +186,768 @@
 
     <!-- ==================== FULL STUDY GUIDE VIEW ==================== -->
     <section id="view-guide" class="hidden space-y-4">
-      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 prose-guide">
-        <div class="flex flex-wrap gap-1.5 pb-3 border-b border-[var(--border)]">
-          <a href="#sec-1" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">1. Stereoskopia</a>
-          <a href="#sec-2" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">2. Grafika 3D</a>
-          <a href="#sec-3" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">3. Fotogrametria</a>
-          <a href="#sec-4" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">4. Formaty 3D</a>
-          <a href="#sec-5" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">5. GML i KML</a>
-          <a href="#sec-6" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">6. 3D GIS i Cesium</a>
-          <a href="#sec-7" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">🔥 Pytania</a>
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 prose-guide space-y-2">
+        <div class="flex flex-wrap gap-1.5 pb-3 mb-4 border-b border-[var(--border)]">
+          <a href="#part-1" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">1. Stereoskopia</a>
+          <a href="#part-2" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">2. Grafika 3D i Fotogrametria</a>
+          <a href="#part-3" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">3. Formaty 3D</a>
+          <a href="#part-4" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">4. 3D GIS</a>
+          <a href="#part-5" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">5. 🔥 Baza pytań (TWDP)</a>
         </div>
-
-        <h2 id="sec-1">1. Widzenie przestrzenne i Stereoskopia (Stereoscopy.pdf)</h2>
-        <h3>1.1. Fizyka widzenia i perspektywa</h3>
-        <ul>
-          <li><strong>3 zasady fizyki widzenia:</strong> (1) Obiekty dalsze wydają się mniejsze niż bliższe; (2) Ocena głębi wymaga co najmniej dwóch punktów obserwacji; (3) Krzywizna Ziemi bezpośrednio wpływa na linię horyzontu.</li>
-          <li><strong>Perspektywa:</strong> Ludzki wzrok (dwoje oczu) to w praktyce <strong>perspektywa dwupunktowa</strong> będąca złożeniem dwóch perspektyw liniowych (jednopunktowych). Wyróżniamy perspektywy od 1-punktowej (np. <em>Ostatnia Wieczerza</em>), przez 2–4-punktową, aż po 5-punktową (półsfera / <em>hemisphere</em>) i 6-punktową (pełna sfera 360° / <em>sphere</em>).</li>
-          <li><strong>Geometria stereoskopowa:</strong> <code>stereo base (e)</code> to odległość między kamerami/oczami; <code>stereo window distance (f)</code> to odległość do okna stereoskopowego.</li>
-        </ul>
-        <h3>1.2. Dwa sposoby stymulacji głębi 3D</h3>
-        <ol>
-          <li><strong>Oszukanie mózgu (Deceiving the brain):</strong> <strong>Autostereogramy</strong> – powtarzanie tych samych wzorów w zmiennych odstępach pozwala mózgowi posortować je w warstwy głębokości. Patrzenie: <em>„wall-eyed”</em> (za obraz, przez „niewidzialną szybę”) lub <em>„cross-eyed”</em> (na zeza przed obraz).</li>
-          <li><strong>Osobny obraz dla każdego oka:</strong></li>
-        </ol>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Technologia</th><th>Zasada działania</th><th>Zalety / Wady</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Stereoskopy</strong></td><td>Soczewki rozdzielające parę zdjęć (Brewster 1839, Holmes 1861, lorneta S.F.14.Z.Gi).</td><td>Pełne kolory; małe pole widzenia (FOV).</td></tr>
-              <tr><td><strong>Anaglify</strong></td><td>Nałożenie 2 obrazów z przesunięciem poziomym w wykluczających się barwach: <em>Red-Blue, Red-Cyan, Red-Green, Dark Blue-Amber</em>.</td><td>Bardzo tanie; <strong>silna degradacja kolorów</strong>.</td></tr>
-              <tr><td><strong>Dolby 3D Cinema</strong></td><td>Dwa zestawy filtrów (projektor + okulary) kodujące różne częstotliwości RGB.</td><td>Świetne kolory i głębia; drogi, opatentowany sprzęt.</td></tr>
-              <tr><td><strong>Polaryzacja liniowa</strong></td><td>Filtry ortogonalne (pion/poziom) – <strong>1 filtr na oko</strong>.</td><td>Zachowuje kolory kosztem rozdzielczości; wrażliwe na przechył głowy.</td></tr>
-              <tr><td><strong>Polaryzacja kołowa</strong></td><td>Polaryzacja lewo/prawoskrętna – <strong>2 filtry na oko</strong> (kołowy ćwierćfalówka + liniowy).</td><td>Odporne na przechył głowy; niższa rozdzielczość.</td></tr>
-              <tr><td><strong>Active Shutter</strong></td><td>Okulary migawkowe naprzemiennie przysłaniają oczy w rytm ekranu.</td><td>Pełny kolor i rozdzielczość; wymaga <strong>min. 120 Hz</strong> (poniżej: zmęczenie wzroku).</td></tr>
-              <tr><td><strong>Glasses-free 3D</strong></td><td>Ekran kieruje wiązki bez okularów.</td><td>Działa tylko z jednego punktu obserwacji.</td></tr>
-              <tr><td><strong>HMD (VR)</strong></td><td>Jak stereoskop, ale z bardzo dużym FOV (np. OSVR HDK2).</td><td>Soczewki wymagają wstępnie zniekształconego obrazu (<em>warped image</em>).</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <h3>1.3. Generowanie 3D CGI</h3>
-        <ul>
-          <li>Wymaga 2 kamer, ale koszt jest <strong>mniejszy niż dwukrotny</strong> (współdzielenie Z-bufora i tekstur). <em>Depth-buffer based stereoscopy</em> redukuje narzut do <strong>ok. 20%</strong> (kosztem jakości głębi).</li>
-          <li><strong>Differential encoding</strong> (kodowanie różnicowe) redukuje rozmiar obrazów/filmów 3D do <strong>ok. 150%</strong> wersji 2D.</li>
-          <li>Kamery równoległe (<em>NP-camera</em>) nie wprowadzają zniekształceń trapezowych (w przeciwieństwie do kamer obróconych do środka – <em>rotated cameras</em>).</li>
-        </ul>
-
-        <h2 id="sec-2">2. Grafika komputerowa 3D (Computer graphics.pdf)</h2>
-        <div class="callout">
-          <strong>Kolejność etapów potoku graficznego (pewniak!):</strong><br>
-          1. Ustawienie wierzchołków &rarr; 2. Transformacja sceny &rarr; 3. Projekcja widoku &rarr; 4. Rasteryzacja &rarr; 5. Teksturowanie &rarr; 6. Oświetlenie i cieniowanie.
-        </div>
-        <ul>
-          <li><strong>Układy współrzędnych:</strong> Tradycyjny ma oś <strong>Z</strong> w górę; CGI ma oś <strong>Y</strong> w górę, a Z to głębokość.</li>
-          <li><strong>Kolejność transformacji obiektu:</strong> <strong>1) Scaling &rarr; 2) Rotation &rarr; 3) Translation &rarr; 4) Projection</strong>.</li>
-          <li><strong>FoV i ogniskowa:</strong> Im krótsza ogniskowa, tym większy FOV i większe zniekształcenia obiektów blisko kamery.</li>
-          <li><strong>Rasteryzacja:</strong> Konwersja wektora 2D na raster 2D. Piksel należy do trójkąta, gdy leży w środku lub zawiera jego <strong>top-left, top lub left edge</strong>.</li>
-          <li><strong>Oświetlenie (ADS):</strong> <em>Ambient</em> (bazowa jasność), <em>Diffuse</em> (światło odbite od powierzchni – przyjmuje kolor obiektu!), <em>Specular</em> (reflektor kierunkowy / odbicie lustrzane).</li>
-          <li><strong>Cienie:</strong> <em>Shadow Mapping</em> (renderowanie bufora głębi ze źródła światła do tekstury); <em>Shadow Volume / Stencil Shadows</em> (wektory przez wierzchołki w buforze szablonowym).</li>
-          <li><strong>Shadery:</strong> <em>Pixel Shader</em> (post-processing, normal mapping, oświetlenie per-pixel), <em>Vertex Shader</em> (animacja wody i roślinności), <em>Geometry Shader</em> (tworzenie nowych wierzchołków, teselacja, displacement mapping).</li>
-          <li><strong>Optymalizacja:</strong> <em>Clipping</em> (obcinanie poza bryłą widzenia), <em>Z-buffering</em> (bufor głębi), <em>Occlusion culling</em> (obiekty zasłonięte przez inne), <em>Backface culling</em> (tylne ściany), <em>LOD</em> (uproszczone wersje modeli dla dalszych obiektów), <em>Mip-mapping</em> (do 8 mniejszych tekstur – wydajność + redukcja efektu mory).</li>
-          <li><strong>Mapowanie powierzchni:</strong> <em>Bump mapping</em> (skala szarości: biały=wypukłe, czarny=wklęsłe; nie zwiększa poligonów), <em>Normal mapping</em> (normalne X,Y,Z w kanałach R,G,B z modelu High Poly; nie zwiększa wierzchołków), <em>Displacement mapping</em> (bump + teselacja = <strong>tworzy nowe wierzchołki</strong>, bardzo kosztowne).</li>
-          <li><strong>Zaawansowane efekty:</strong> <em>Ambient Occlusion</em> (przyciemnianie szczelin), <em>Depth of Field</em> (rozmycie soczewkowe), <em>Subsurface Scattering (SSS/SSLT)</em> (półprzezroczystość skóry/wosku; najważniejszy parametr: <em>scattering distance / depth</em>).</li>
-        </ul>
-        <div class="callout callout-warn">
-          <strong>Path Tracing (Slajdy 40–43):</strong> Implementacja ray tracingu. Symuluje cienie, odbicia, załamania, <strong>ambient occlusion</strong>, kaustykę, <strong>depth of field</strong>, motion blur. <strong>NIE symuluje (slajd 43!):</strong> Subsurface Scattering, aberracji chromatycznej oraz fluorescencji. Optymalizacja: mniej promieni + <em>denoising</em> lub selektywny bufor niskiej rozdzielczości.
-        </div>
-
-        <h2 id="sec-3">3. Fotogrametria</h2>
-        <ul>
-          <li>Dziedzina nauki zajmująca się <strong>odtwarzaniem trójwymiarowych modeli fotografowanych obiektów</strong> poprzez wyznaczenie pozycji elementów w 3D z dużej liczby zdjęć wykonanych dookoła obiektu (automatyzacja: <em>feature extraction &amp; matching</em>).</li>
-          <li><strong>Programy:</strong> Agisoft Metashape (komercyjny), 3DF Zephyr Free (darmowy do 50 zdjęć), Regard3D (Open Source), COLMAP + OpenMVS + MeshLab (Open Source dla zaawansowanych) + post-processing w Blenderze.</li>
-          <li><strong>Potok COLMAP + OpenMVS:</strong> COLMAP (sparse cloud) &rarr; InterfaceCOLMAP &rarr; DensifyPointCloud &rarr; ReconstructMesh &rarr; RefineMesh &rarr; TextureMesh (<code>.obj</code>).</li>
-        </ul>
-
-        <h2 id="sec-4">4. Formaty danych 3D (3D Data Formats.pdf)</h2>
-        <ul>
-          <li><strong>Podział:</strong> Binarne (<code>LAS, glTF, 3ds, COLLADA</code>) vs Tekstowe: lokalne (<code>Wavefront OBJ</code>) i globalne (<code>GML, KML</code>).</li>
-          <li><strong>LAS (chmury punktów LiDAR):</strong> Przechowuje X,Y,Z, Intensity, liczbę odbić, kierunek lustra, klasyfikację, kąt wiązki (z roll), czas GPS, RGB. <strong>Wada:</strong> brak cross-referencing (ręczne układanie w siatkę, w CODGiK kafelki 0,29 km²).</li>
-          <li><strong>3D Tiles:</strong> Otwarty standard AGI/Cesium oparty na <strong>glTF</strong>. Drzewa podziału: <strong>quadtree</strong> (równomierne) i <strong>k-d tree</strong> (nierównomierne). Typy: <em>Point Clouds</em>, <em>Batched 3D Models (b3dm)</em>, <em>Instanced 3D Models</em>, <em>Composite</em>.</li>
-          <li><strong>Wavefront OBJ (.obj + .mtl):</strong>
-            <br><code>.obj</code>: <code>v</code> (wierzchołki), <code>vt</code> (tekstura), <code>vn</code> (normalne), <code>vp</code> (parametryczne); <code>p</code> (punkt), <code>l</code> (linia), <code>f v/vt/vn</code> (poligon, np. <code>f 1//1</code> bez tekstury); <code>g</code>, <code>o</code>, <code>sw</code>, <code>mg</code>, <code>mtllib</code>, <code>usemtl</code>.
-            <br><code>.mtl</code>: <code>newmtl</code>, <code>Ka, Kd, Ks</code>, <code>d 1.0</code> (nieprzezroczysty), <code>illum 0/1/2</code> (0=Diffuse, 1=D+A, 2=ADS), <code>map_Ka/Kd/Ks/d, bump, disp</code>.</li>
-        </ul>
-
-        <h2 id="sec-5">5. GML i KML</h2>
-        <ul>
-          <li><strong>GML (ISO 19136:2007 / OGC):</strong> Pierwowzór dla KML! Ma 11 typów węzłów: <em>Feature, Geometry, CRS, Topology, Time, Dynamic feature, Coverage, Unit of measure, Directions, Observations, Styles</em>. Profile upraszczają XML (trzeba je zaimportować).</li>
-          <li><strong>Współrzędne w GML (<code>&lt;gml:posList&gt;</code>):</strong> (1) Mercator (metry), (2) Stopnie/min/sek, (3) <strong>Stopnie dziesiętne + wysokość w metrach</strong> (np. Gdańsk <code>18.25, 54.10, 28</code>), (4) Układ kartezjański.</li>
-          <li><strong>KML:</strong> Podzbiór GML 1.0/2.1.2 w <strong>jednej przestrzeni nazw</strong> (od 2008 r. standard OGC). Kolory zapisywane odwrotnie: <strong><code>aabbggrr</code> (ABGR)</strong>!</li>
-          <li><strong>Kluczowe elementy KML:</strong> <code>&lt;LookAt&gt;</code> (lon, lat, alt, heading, tilt, range), <code>&lt;altitudeMode&gt;</code> (<code>relativeToGround</code>, <code>absolute</code>), <code>&lt;extrude&gt;1</code> (punkt&rarr;łupek, linia&rarr;ściana, poligon&rarr;bryła), <code>&lt;tessellate&gt;1</code> (linia dopasowana do rzeźby terenu), <code>&lt;Polygon&gt;</code> (<code>outerBoundaryIs</code> + <code>innerBoundaryIs</code>).</li>
-          <li><strong>Overlays i LoD w KML:</strong> <code>&lt;GroundOverlay&gt;</code> (na teren), <code>&lt;ScreenOverlay&gt;</code> (na ekran – <code>overlayXY</code> na <code>screenXY</code> + <code>size</code>), <code>&lt;PhotoOverlay&gt;</code> (zdjęcia na obiekty 3D + <strong>dynamiczny LoD</strong>, <code>ImagePyramid</code> 256 px, kształty: rectangle, cylinder, sphere), <code>&lt;Region&gt;</code> (zawiera parę <strong><code>&lt;LatLonAltBox&gt;</code> + <code>&lt;Lod&gt;</code></strong>).</li>
-        </ul>
-
-        <h2 id="sec-6">6. Systemy 3D GIS i Biblioteka Cesium (3D GIS.pdf)</h2>
-        <ul>
-          <li><strong>Desktop:</strong> ArcGIS Engine SDK, GRASS, NASA WorldWind, Google Earth. <strong>Web:</strong> Cesium, NASA WorldWind, Bing Maps 3D.</li>
-          <li><strong>ArcGIS Engine SDK:</strong> .NET/Java/C++; wymaga licencji <em>Developer Kit</em> oraz płatnej <strong>Engine Runtime</strong> na każdy PC użytkownika końcowego.</li>
-          <li><strong>GRASS GIS:</strong> Open Source; skrypty do wyciągania 3D (<em>extrusion</em>), symulacji powodzi (<em>flood risk</em> z DTM), rektyfikacji braków danych i generowania anaglifów.</li>
-          <li><strong>Cesium (CesiumJS):</strong> Open Source JS + WebGL (<strong>nie wymaga wtyczek!</strong>). Wizualizacja 4D, modele COLLADA/glTF, prymitywy (w tym <strong>Billboardy</strong> – płaskie obiekty zawsze zwrócone do kamery), nawigacja klawiatura/mysz/dotyk, wysokiej precyzji Z-buffer (brak <em>z-fighting</em>).</li>
-          <li><strong>CesiumWidget vs CesiumViewer:</strong> Widget = 1 div + własny CSS. Viewer = 3 divy (<code>cesiumContainer, loadingOverlay, toolbar</code>) + <code>bucket.css</code>.</li>
-          <li><strong>Kod w Cesium:</strong> Warstwy w <code>viewer.scene.imageryLayers</code> (<code>alpha, brightness</code>). Kolory normalnie w <strong>RGBA</strong> (<code>Cesium.Color.fromRgba(...)</code>). Polilinie domyślnie podążają po elipsoidzie; prosta linia bez krzywizny Ziemi: <strong><code>arcType: Cesium.ArcType.NONE</code></strong>. Modele 3D (<code>.glb</code>) liczone są względem elipsoidy WGS84 (przy DTM mogą wymagać korekty wysokości).</li>
-        </ul>
-
-        <h2 id="sec-7">🔥 Szybka ściąga z bazy pytań (TWDP_pytania.pdf)</h2>
-        <ol>
-          <li><code>(18.25, 54.10, 28)</code> w GML = <strong>stopnie (x,y) i metry (z)</strong>.</li>
-          <li><code>&lt;Lod&gt;</code> w KML = <strong>wszystkie poprawne</strong> (w parze z <code>&lt;LatLonAltBox&gt;</code>, wewnątrz <code>&lt;Region&gt;</code>, dynamiczny LoD).</li>
-          <li>Potok graficzny = <strong>Ustawienie wierzchołków &rarr; Transformacja sceny &rarr; Projekcja widoku &rarr; Rasteryzacja &rarr; Teksturowanie &rarr; Oświetlenie i cieniowanie</strong>.</li>
-          <li>Fałszywe zdanie o KML/GML = <strong>„GML przegrał i przestał być rozwijany”</strong>.</li>
-          <li><code>PhotoOverlays</code> w KML = <strong>zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach</strong>.</li>
-          <li>Fotogrametria = <strong>odtwarzanie trójwymiarowych modeli fotografowanych obiektów</strong>.</li>
-          <li>Kolory w KML = <strong>ABGR</strong> (<code>aabbggrr</code>); w Cesium = <strong>RGBA</strong>.</li>
-          <li>Fałszywe zdanie o Cesium = <strong>„wymagana jest instalacja dedykowanej wtyczki do przeglądarki”</strong>.</li>
-          <li>Billboardy = <strong>płaskie, prymitywne obiekty zawsze zwrócone przodem w kierunku obserwatora</strong>.</li>
-        </ol>
+<h1 class="text-xl font-extrabold mb-2">Kompletne Opracowanie: Trójwymiarowa Wizualizacja Danych Przestrzennych (3D Visualization of Space Data)</h1>
+<div class="callout">[!IMPORTANT]<br/>Poniższe opracowanie łączy <strong>100% treści ze wszystkich 4 prezentacji wykładowych</strong> ([Stereoscopy.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/Stereoscopy.pdf), [Computer graphics.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/Computer%20graphics.pdf), [3D Data Formats.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/3D%20Data%20Formats.pdf), [3D GIS.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/3D%20GIS.pdf)), pliku z notatkami ([Trójwymiarowa Wizualizacja Danych.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/Tr%C3%B3jwymiarowa%20Wizualizacja%20Danych.pdf)) oraz bazy pytań egzaminacyjnych ([TWDP_pytania.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/TWDP_pytania.pdf)). W miejscach, gdzie studenckie notatki zawierały drobne skróty myślowe lub niepewności (np. „tessellate – chyba łączy punkty”), dodano precyzyjne wyjaśnienie ze slajdów.</div>
+<hr class="my-5 border-[var(--border)]" />
+<h2 id="part-1">Część 1: Widzenie przestrzenne i Stereoskopia (<code>Stereoscopy.pdf</code>)</h2>
+<h3>1.1. Fizyka widzenia i perspektywa (The physics of vision)</h3>
+<ul>
+<li><strong>Podstawowe zasady fizyki widzenia:</strong></li>
+<ol>
+<li><strong>Obiekty znajdujące się dalej wydają się mniejsze</strong> niż obiekty położone bliżej (<em>Far away objects appear smaller than closer ones</em>).</li>
+<li><strong>Ocena głębi (Depth assessment) wymaga co najmniej dwóch punktów obserwacji</strong> (<em>at least two observation points</em>).</li>
+<li><strong>Krzywizna Ziemi bezpośrednio wpływa na linię horyzontu</strong> (<em>Earth curvature directly influences the horizon</em>).</li>
+</ol>
+<li><strong>Perspektywa i ludzkie oko:</strong></li>
+<ul>
+<li><strong>Poziom wzroku (Eye level / Horizon Line):</strong> linia horyzontu, na której zbiegają się linie zbieżne (<em>Converging Lines</em>) w <strong>punkcie zbiegu (Vanishing Point)</strong> (przykład ze slajdów: <em>Ostatnia Wieczerza</em> Leonarda da Vinci – perspektywa jednopunktowa/liniowa).</li>
+<li><strong>Rodzaje perspektyw (od 1- do 6-punktowej):</strong></li>
+<ul>
+<li><strong>1-punktowa (Linear perspective):</strong> jeden punkt zbiegu.</li>
+<li><strong>2-punktowa (Two-point perspective):</strong> dwa punkty zbiegu; <strong>ludzki wzrok (dwoje oczu)</strong> to w praktyce złożenie dwóch perspektyw liniowych (jednopunktowych), co daje perspektywę dwupunktową.</li>
+<li><strong>3-punktowa, 4-punktowa:</strong> uwzględniają zbieżność w pionie/krzywizny.</li>
+<li><strong>5-punktowa (Hemisphere):</strong> odwzorowanie półsfery (rybie oko / 180°).</li>
+<li><strong>6-punktowa (Sphere):</strong> pełna sfera 360° (dwie półsfery – widok dookoła obserwatora).</li>
+</ul>
+</ul>
+</ul>
+<h3>1.2. Percepcja głębi i sztuczna stymulacja 3D (Depth assessment)</h3>
+<ul>
+<li><strong>Mechanizm biologiczny:</strong> Ludzki mózg postrzega głębię poprzez ocenę <strong>przesunięcia (displacement / paralaksy)</strong> obiektów widzianych jednocześnie przez lewe i prawe oko.</li>
+<li><strong>Kluczowe pojęcia geometrii stereoskopowej (ze schematów):</strong></li>
+<ul>
+<li><strong>Stereo base ($e$):</strong> baza stereoskopowa – odległość między lewą a prawą kamerą (lub rozstaw oczu).</li>
+<li><strong>Stereo window distance ($f$):</strong> odległość do okna stereoskopowego (<em>stereoscopic window</em>), w którym przecinają się osie widzenia.</li>
+</ul>
+<li><strong>Dwa sposoby sztucznego wywołania wrażenia głębi:</strong></li>
+<ol>
+<li><strong>Oszukanie mózgu (<em>Deceiving the brain</em>)</strong> – np. stereogramy / autostereogramy (jeden obraz zawierający zakodowane informacje dla obu oczu).</li>
+<li><strong>Dostarczenie każdemu oku dedykowanego (osobnego) obrazu (<em>Providing each eye with a dedicated image</em>)</strong> – np. stereoskopy, filtry spektralne (anaglify, Dolby 3D), polaryzacja, okulary migawkowe, HMD, ekrany autostereoskopowe (Glasses-free 3D).</li>
+</ol>
+</ul>
+<h3>1.3. Metoda 1: Oszukiwanie mózgu – Stereogramy i Autostereogramy</h3>
+<ul>
+<li><strong>Stereogramy:</strong> przedstawienie dwóch obrazów na jednym w celu oszukania mózgu.</li>
+<li><strong>Autostereogramy (np. <em>Magic Eye</em>):</strong></li>
+<ul>
+<li>Powtarzanie tych samych wzorów w <strong>zmiennych odstępach (at varying intervals)</strong> pozwala mózgowi pogrupować je w warstwy głębokości (<em>sort them into layers</em>).</li>
+<li>Modyfikując wielkość przesunięć w kolejnych powtórzeniach wzoru, wpływamy na postrzeganą głębokość (mapę głębi, np. ukryty rekin lub tygrysy na slajdzie 10).</li>
+<li><strong>Dwa sposoby patrzenia na autostereogramy:</strong></li>
+<ul>
+<li><strong>„Wall-eyed” (rozbieżny / równoległy):</strong> wzrok zogniskowany <em>za</em> obrazem (tak jakbyśmy patrzyli przez „niewidzialną szybę”), a linie widzenia przecinają płaszczyznę obrazu w sąsiednich powtórzeniach wzoru.</li>
+<li><strong>„Cross-eyed” (zbieżny / na zeza):</strong> skrzyżowanie osi widzenia <em>przed</em> obrazem.</li>
+</ul>
+</ul>
+</ul>
+<h3>1.4. Metoda 2: Osobny obraz dla każdego oka – przegląd technologii</h3>
+<div class="table-wrap"><table><thead><tr><th>Technologia</th><th>Zasada działania</th><th>Zalety</th><th>Wady / Wymagania</th><th>Przykłady ze slajdów</th></tr></thead><tbody><tr><td><strong>Stereoskopy (Stereoscopes)</strong></td><td>Optyczne rozdzielenie toru widzenia – każde oko patrzy przez soczewkę/układ optyczny na osobne zdjęcie z pary stereoskopowej.</td><td>Pełne kolory, brak migotania, prosta konstrukcja optyczna.</td><td>Wymaga fizycznego urządzenia przy oczach, małe pole widzenia (FOV) w klasycznych wersjach.</td><td><strong>Brewster</strong> (1839–1849), <strong>Holmes</strong> (1861), lorneta nożycowa <strong>S.F.14.Z.Gi, H/6400</strong> (II WŚ)</td></tr><tr><td><strong>Filtry spektralne: Anaglify (Anaglyphs)</strong></td><td>Dwa obrazy nałożone na siebie z lekkim przesunięciem poziomym, zakodowane wykluczającymi się barwami (filtrami widma elektromagnetycznego).</td><td>Bardzo tanie okulary, działa na każdym zwykłym monitorze i wydruku.</td><td><strong>Silna degradacja kolorów</strong> (<em>sacrifice of perceivable color gamut</em>) – tańsze metody wycinają duże części widma.</td><td>Kombinacje: <strong>1) Red-Blue</strong>, <strong>2) Red-Cyan</strong>, <strong>3) Red-Green</strong>, <strong>4) Dark Blue-Amber (Color-Code)</strong></td></tr><tr><td><strong>Filtry spektralne: Dolby 3D Cinema</strong></td><td>Opatentowana technologia wykorzystująca <strong>dwa zestawy filtrów</strong>: jeden na projektorze (<em>objective filter</em>), drugi w okularach. Obrazy dla lewego i prawego oka są kodowane za pomocą <strong>różnych częstotliwości składowych RGB</strong> (nieco inne pasma czerwonego, zielonego i niebieskiego dla każdego oka).</td><td>Bardzo dobra percepcja głębi oraz <strong>zachowanie oryginalnych kolorów</strong>.</td><td>Wymaga <strong>drogiego, opatentowanego sprzętu</strong> (projektor + wielowarstwowe okulary).</td><td>Kina Dolby 3D</td></tr><tr><td><strong>Okulary polaryzacyjne liniowe (Linearly polarized)</strong></td><td>Obrazy kodowane za pomocą <strong>filtrów ortogonalnych (prostopadłych)</strong>. Każde oko wymaga <strong>pojedynczego filtra</strong> (pionowego lub poziomego).</td><td>Zachowuje pełne kolory obrazu, tanie pasywne okulary.</td><td>Obniżenie rozdzielczości (przy przeplocie), <strong>wrażliwość na przechylenie głowy</strong> (utrata separacji obrazów).</td><td>Starsze systemy projekcyjne 3D</td></tr><tr><td><strong>Okulary polaryzacyjne kołowe (Circularly polarized)</strong></td><td>Obrazy kodowane za pomocą <strong>polaryzacji kołowej lewo- i prawoskrętnej</strong>. Każde oko wymaga <strong>dwóch filtrów: kołowego (ćwierćfalówki – <em>Quarter Wave Plate</em>) oraz liniowego (<em>Linear Polarizer</em>)</strong>.</td><td>Zachowuje kolory, <strong>odporne na przekrzywianie głowy</strong> przez widza.</td><td>Kosztem rozdzielczości (lub wymaga specjalnego ekranu srebrnego / dwóch projektorów).</td><td>Współczesne kina (np. IMAX / RealD)</td></tr><tr><td><strong>Aktywne okulary migawkowe (Active shutter 3D glasses)</strong></td><td>Zsynchronizowane z monitorem lub TV – <strong>naprzemiennie przysłaniają (wygaszają) każde oko</strong> w rytm wyświetlanych klatek dla lewego i prawego oka.</td><td><strong>W pełni zachowują zarówno kolory, jak i pełną rozdzielczość</strong> obrazu.</td><td>Wymagają odświeżania ekranu <strong>co najmniej 120 Hz</strong> (po 60 Hz na oko). Przy niższych częstotliwościach powodują <strong>zmęczenie wzroku (eye strain)</strong>.</td><td><strong>Famicom 3D System</strong> (1987), <strong>Elsa 3D Revelator</strong> (1999), <strong>Nvidia 3D Vision</strong> (2008)</td></tr><tr><td><strong>Glasses-free 3D (Autostereoskopia ekranowa)</strong></td><td>Ekran (np. z barierą paralaksy lub soczewkami lentikularnymi) kieruje wiązki światła z parzystych/nieparzystych kolumn pikseli bezpośrednio do lewego i prawego oka bez okularów.</td><td>Brak konieczności noszenia okularów.</td><td>Działa tylko w określonym punkcie obserwacji (<em>Watching single point, glasses-free 3D TV</em>) i obniża rozdzielczość poziomą.</td><td>Telewizory Glasses-free 3D, Nintendo 3DS</td></tr><tr><td><strong>Head Mounted Display (HMD – gogle VR)</strong></td><td>Działa jak stereoskop (osobny ekran/część ekranu dla każdego oka), ale z <strong>dużo większym polem widzenia (FOV)</strong>.</td><td>Ogromny FOV, pełna immersja, śledzenie głowy.</td><td>Soczewki szerokokątne wprowadzają dystorsję beczkowatą, dlatego <strong>wymagają wyświetlania wstępnie zniekształconego obrazu (<em>Lenses require warped image</em>)</strong>.</td><td><strong>OSVR HDK2</strong>, współczesne gogle VR</td></tr></tbody></table></div>
+<h3>1.5. Generowanie grafiki 3D na komputerze (Computer-generated 3D / 3D CGI)</h3>
+<ul>
+<li><strong>Wymagania renderowania:</strong> 3D CGI wymaga wyrenderowania <strong>dwóch obrazów zamiast jednego</strong>, co oznacza umieszczenie <strong>dodatkowej kamery</strong> w wirtualnym świecie.</li>
+<li><strong>Koszt obliczeniowy i optymalizacja:</strong></li>
+<ul>
+<li>Koszt obliczeniowy jest zazwyczaj <strong>mniejszy niż dwukrotność (less than double)</strong> kosztu generowania obrazu 2D, ponieważ niektóre operacje (np. <strong>buforowanie głębi – <em>depth buffering</em>, teksturowanie – <em>texturing</strong></em>) mogą zostać ponownie wykorzystane (<em>reused</em>).</li>
+<li>Zastosowanie <strong>stereoskopii opartej na buforze głębi (<em>depth-buffer based stereoscopy</em>)</strong> może zredukować ten dodatkowy koszt do <strong>około 20%</strong>, ale kosztem jakości efektu głębi (<em>at the cost of depth effect quality</em>).</li>
+</ul>
+<li><strong>Kompresja obrazów i filmów 3D:</strong></li>
+<ul>
+<li>Obrazy i filmy 3D mogą wykorzystywać <strong>kodowanie różnicowe (<em>differential encoding</em>)</strong>, co redukuje ich rozmiar do <strong>około 150% rozmiaru wariantu 2D</strong> (zamiast pełnych 200%).</li>
+</ul>
+<li><strong>Orientacja kamer w 3D CGI (Camera orientation):</strong></li>
+<ul>
+<li>Kamery definiuje się przez położenie (<code>location</code>), kierunek (<code>direction</code> / <code>look_at</code>), kąt rozwarcia (<code>angle</code>) oraz wektory <code>up</code> i <code>right</code>.</li>
+<li><strong>Kamery równoległe (NP-camera / Non-rotated):</strong> osie obu kamer są równoległe do głównego kierunku (<code>primary direction</code>). Płaszczyzny obrazu są wspólne, a po bokach odrzuca się fragmenty niepokrywające się (<em>cut off</em>). Daje to poprawny geometrycznie obraz 3D bez zniekształceń trapezowych.</li>
+<li><strong>Kamery obrócone do wewnątrz (Rotated cameras / Toe-in):</strong> gdy kamery są obrócone w stronę obiektu, ich płaszczyzny rzutowania są nachylone względem siebie. Powoduje to zniekształcenia trapezowe w pionie (lewa kamera widzi trapez rozszerzający się w jedną stronę, prawa w drugą), co psuje efekt 3D na brzegach sceny i męczy wzrok.</li>
+</ul>
+<li><strong>Laboratorium 1 (ze slajdów):</strong> program <em>StereoPhoto Maker</em> (<code>http://stereo.jpn.org/eng/stphmkr/</code>) – tworzenie zdjęć anaglifowych z 2 par fotografii wykonanych na zewnątrz.</li>
+</ul>
+<hr class="my-5 border-[var(--border)]" />
+<h2 id="part-2">Część 2: Grafika komputerowa 3D i Fotogrametria (<code>Computer graphics.pdf</code>)</h2>
+<h3>2.1. Potok graficzny (The graphics pipeline)</h3>
+<div class="callout">[!CAUTION]<br/><strong>Pewniak egzaminacyjny!</strong> Kolejność etapów potoku graficznego pojawia się w pytaniach testowych ([TWDP_pytania.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/TWDP_pytania.pdf)).</div>
+<pre class="bg-[var(--secondary)] border border-[var(--border)] rounded-lg p-3 overflow-x-auto text-xs my-3"><code>flowchart LR
+    A["1. Ustawienie wierzchołków&lt;br/&gt;(Vertex processing / setup)"] --&gt; B["2. Transformacja sceny&lt;br/&gt;(Model &amp; View transformation)"]
+    B --&gt; C["3. Projekcja widoku&lt;br/&gt;(Projection transformation)"]
+    C --&gt; D["4. Rasteryzacja&lt;br/&gt;(Rasterization)"]
+    D --&gt; E["5. Teksturowanie&lt;br/&gt;(Texturing)"]
+    E --&gt; F["6. Oświetlenie i cieniowanie&lt;br/&gt;(Lighting &amp; Shading / Fragment processing)"]</code></pre>
+<ul>
+<li><strong>Kolejność w pytaniu egzaminacyjnym:</strong></li>
+<ol>
+<li><strong>Ustawienie wierzchołków</strong> (<em>Vertex processing</em>)</li>
+<li><strong>Transformacja sceny</strong> (<em>Scene transformation</em>)</li>
+<li><strong>Projekcja widoku</strong> (<em>View projection</em>)</li>
+<li><strong>Rasteryzacja</strong> (<em>Rasterization</em>)</li>
+<li><strong>Teksturowanie</strong> (<em>Texturing</em>)</li>
+<li><strong>Oświetlenie i cieniowanie</strong> (<em>Lighting and Shading</em>)</li>
+</ol>
+<li>**Schemat ze slajdu 2 (<code>Computer graphics.pdf</code>):**</li>
+<ul>
+<li><code>3D mesh</code> $\rightarrow$ <strong>[Vertex processing]</strong> $\rightarrow$ <code>Triangles</code> $\rightarrow$ <strong>[Rasterization]</strong> $\rightarrow$ <code>Fragments</code> $\rightarrow$ <strong>[Texture &amp; Lighting]</strong> $\rightarrow$ <code>Fragments with colors</code> $\rightarrow$ <strong>[Fragment processing]</strong> $\rightarrow$ Ekran.</li>
+</ul>
+</ul>
+<h3>2.2. Układy współrzędnych i modelowanie 3D</h3>
+<ul>
+<li><strong>Tradycyjny układ współrzędnych vs. układ CGI (Slajd 3):</strong></li>
+<ul>
+<li><strong>Traditional coordinates:</strong> oś <strong>Z</strong> skierowana w górę (wysokość), osie X i Y tworzą płaszczyznę poziomą.</li>
+<li><strong>CGI coordinates:</strong> oś <strong>Y</strong> skierowana w górę, oś <strong>X</strong> w prawo, oś <strong>Z</strong> skierowana w stronę obserwatora (głębokość ekranu).</li>
+</ul>
+<li><strong>Budowa modelu 3D (Slajdy 4–5):</strong></li>
+<ol>
+<li><strong>Współrzędne wierzchołków (Vertex Coordinates):</strong> np. <code>{0,1,1}</code>, <code>{0,1,0}</code>... tworzą <strong>chmurę punktów (Cloud of points / Points)</strong>.</li>
+<li><strong>Triangulacja (Triangulation) / Elementy modelu (Model Elements):</strong> łączenie indeksów punktów w trójkąty, np. <code>{1,2,3}</code>, <code>{3,2,4}</code>, <code>{4,2,7}</code> $\rightarrow$ powstaje <strong>Model 3D (3D Mesh)</strong>.</li>
+</ol>
+</ul>
+<h3>2.3. Transformacje w scenie 3D i Projekcja</h3>
+<ul>
+<li>Przed umieszczeniem na scenie każdy model przechodzi <strong>standardową transformację</strong> (we współrzędnych jednorodnych $4\times 4$ dla wektora $[x, y, z, 1]^T$):</li>
+<ol>
+<li><strong>Translacja (Translation)</strong> o wektor $\langle p, q, r \rangle$: $$ \begin{bmatrix} x' \\ y' \\ z' \\ 1 \end{bmatrix} = \begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; p \\ 0 &amp; 1 &amp; 0 &amp; q \\ 0 &amp; 0 &amp; 1 &amp; r \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} $$</li>
+<li><strong>Rotacja (Rotation)</strong> wokół osi X, Y oraz Z o kąt $a$ (macierze obrotu z funkcjami $\cos a$ i $\sin a$).</li>
+<li><strong>Skalowanie (Scaling)</strong> o wektor $\langle p, q, r \rangle$: $$ \begin{bmatrix} x' \\ y' \\ z' \\ 1 \end{bmatrix} = \begin{bmatrix} p &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; q &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; r &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix} \cdot \begin{bmatrix} x \\ y \\ z \\ 1 \end{bmatrix} $$</li>
+</ol>
+<li><strong>Trzy główne grupy transformacji w scenie (Slajd 7):</strong></li>
+<ol>
+<li><strong>Model transformation</strong> – przekształcenie obiektu (modelu) w przestrzeni sceny.</li>
+<li><strong>View transformation</strong> – umieszczenie i przekształcenie <strong>kamery</strong> (translacja/rotacja/skalowanie punktu widzenia).</li>
+<li><strong>Projection transformation</strong> – przekształcenie współrzędnych 3D sceny/kamery na <strong>współrzędne 2D ekranu</strong> (<code>Scene coordinates (3D)</code> $\rightarrow$ <code>Camera coordinates (3D)</code> $\rightarrow$ <code>Screen Coordinates (2D)</code>).</li>
+</ol>
+<li><strong>Kluczowa kolejność wykonywania transformacji pojedynczego obiektu (Slajd 8):</strong> &gt; [!IMPORTANT] &gt; Zachowanie właściwej kolejności mnożenia macierzy transformacji jest kluczowe (<em>paramount</em>): &gt; <strong>1) Scaling (Skalowanie) $\rightarrow$ 2) Rotation (Rotacja) $\rightarrow$ 3) Translation (Translacja) $\rightarrow$ 4) Projection (Projekcja)</strong>.</li>
+<li><strong>Pole widzenia (FoV – Field of View) i ogniskowa (Focal length) (Slajdy 9–11):</strong></li>
+<ul>
+<li>Zmiana FoV w kamerze wirtualnej odpowiada zmianie obiektywu (soczewki) w aparacie fotograficznym.</li>
+<li><strong>Im krótsza ogniskowa (shorter focal length), tym wyższe pole widzenia (higher FOV)</strong> (np. FoV 30° vs 90° vs 175°).</li>
+<li><strong>Zniekształcenia (Distortions):</strong> Im bliżej kamery znajduje się obiekt (np. twarz w portrecie), tym <strong>większe zniekształcenia wprowadzają mniejsze ogniskowe</strong> (np. 24 mm mocno zniekształca proporcje twarzy z bliska w porównaniu do 100–165 mm).</li>
+<li><strong>Macierz projekcji perspektywicznej z uwzględnieniem FOV:</strong> wykorzystuje współczynnik skali: $$ S = \frac{1}{\tan\left(\frac{fov}{2} \cdot \frac{\pi}{180}\right)} $$ oraz płaszczyzny obcinania bliską ($n$ – <em>near clipping plane</em>) i daleką ($f$ – <em>far clipping plane</em>) do normalizacji współrzędnej $z$ (wyrazy $-\frac{f}{f-n}$ oraz $-\frac{f \cdot n}{f-n}$).</li>
+</ul>
+</ul>
+<h3>2.4. Rasteryzacja (Rasterisation)</h3>
+<ul>
+<li><strong>Definicja:</strong> Proces konwersji <strong>obrazu wektorowego 2D</strong> (po projekcji) na <strong>obraz rastrowy 2D (piksele)</strong>, który może zostać wyświetlony na ekranie. Rozdzielczość rastra odpowiada zazwyczaj rozdzielczości ekranu.</li>
+<li><strong>Reguła przynależności piksela do trójkąta (Top-left rule, Slajd 13):</strong></li>
+<ul>
+<li>Piksel reprezentuje dany trójkąt, jeśli znajduje się <strong>całkowicie wewnątrz trójkąta</strong> LUB zawiera jego <strong>górny-lewy wierzchołek, górną krawędź lub lewą krawędź</strong> (<em>top-left, top or left edge</em>). Zapobiega to podwójnemu rysowaniu lub dziurom na styku sąsiednich trójkątów.</li>
+</ul>
+<li>Po rasteryzacji dalsze operacje graficzne wykonywane są <strong>per-pixel</strong> (dla każdego piksela).</li>
+</ul>
+<h3>2.5. Oświetlenie (Lighting) – model ADS (Ambient, Diffuse, Specular)</h3>
+<ol>
+<li><strong>Ambient (światło otoczenia):</strong></li>
+<ul>
+<li>Określa <strong>bazowy poziom jasności sceny</strong> (<em>basic brightness of the scene</em>).</li>
+<li>Zazwyczaj nie jest powiązane z żadnym konkretnym źródłem światła (działa niezależnie od tego, czy jesteśmy na zewnątrz, czy w piwnicy).</li>
+</ul>
+<li><strong>Diffuse (światło rozproszone):</strong></li>
+<ul>
+<li>Reprezentuje światło rozproszone przez odbicie od powierzchni sceny (np. ścian).</li>
+<li>Ponieważ odbija się od powierzchni (część widma ulega pochłonięciu), <strong>zazwyczaj nie jest czysto białe – przyjmuje kolor obiektu</strong>, od którego się odbija!</li>
+</ul>
+<li><strong>Specular (światło kierunkowe / odbłyskowe):</strong></li>
+<ul>
+<li>Skierowany reflektor (<em>directed spotlight</em>), używany do podkreślenia oświetlenia wybranego obiektu na scenie lub symulacji <strong>światła odbitego od powierzchni lustrzanej</strong> (<em>mirror surface</em>). Zbyt silne bezpośrednie światło (np. lampa błyskowa na wprost) może spłaszczyć obiekt (utrata wrażenia głębi) i stworzyć ostre cienie w tle.</li>
+</ul>
+</ol>
+<h3>2.6. Generowanie światła i cieni (Generating light and shadow)</h3>
+<div class="table-wrap"><table><thead><tr><th>Technika</th><th>Opis i zasada działania</th><th>Koszt / Zastosowanie</th></tr></thead><tbody><tr><td><strong>Ray Tracing (Śledzenie promieni)</strong></td><td>„Poprawna fizycznie” metoda śledząca promienie światła <strong>od kamery w różnych kierunkach</strong>, aż trafią w źródło światła lub wygasną (<em>decay</em>). Pozwala symulować odbicia (<em>reflection</em>), załamania (<em>refraction</em>) i rozproszenie (<em>scattering</em>).</td><td><strong>Bardzo wysoki koszt obliczeniowy</strong> (nawet na dedykowanych jednostkach GPU), szczególnie w wysokich rozdzielczościach.</td></tr><tr><td><strong>Ray Casting / Tradycyjne oświetlenie rastrowe</strong></td><td>Uproszczona metoda (Slajd 18 i notatki): każdy piksel reprezentuje tylko jeden widoczny trójkąt (zasłonięte obiekty są odrzucane – <em>wybiórczy Ray Tracing tylko dla obiektów objętych przez kamerę</em>). Dla każdego piksela (lub wierzchołka w <strong>cieniowaniu Gourauda – Gouraud shading</strong>) mierzy się odległość do pobliskich źródeł światła, aby obliczyć jasność.</td><td>Bardzo dobra wydajność na słabym sprzęcie (np. gry z ery <em>Doom</em>), ale brak naturalnych cieni i odbić (trzeba je aproksymować innymi metodami).</td></tr><tr><td><strong>Shadow Mapping (Mapowanie cieni)</strong></td><td>Wykorzystuje sprzętowo akcelerowany <strong>bufor głębi (depth buffer)</strong>. Obiekt rzucający cień jest najpierw renderowany do bufora głębi <strong>z perspektywy źródła światła</strong> (tworząc teksturę odległości tzw. <em>shadow map</em>). Następnie mapa głębi jest rzutowana na scenę do osobnej tekstury i łączona z finalnym renderem.</td><td>Generowanie cieni <em>per-object</em> / przez bufor głębi daje ogromne oszczędności wydajności i wysoką jakość cieni.</td></tr><tr><td><strong>Shadow Volume / Stencil Shadows (Cienie szablonowe)</strong></td><td><strong>Wektorowa</strong> metoda symulacji cieni wykorzystująca sprzętowy <strong>bufor szablonowy (stencil buffer)</strong>. Przybliża cień obiektu poprzez <strong>rzutowanie wektorów ze źródła światła przez każdy wierzchołek obiektu</strong> na powierzchnię. Połączone wektory definiują granice bryły cienia (<em>shadow boundaries</em>).</td><td>Dokładne ostre krawędzie cieni, koszt zależy od złożoności geometrii (liczby wierzchołków).</td></tr></tbody></table></div>
+<h3>2.7. Shadery (Jednostki cieniujące)</h3>
+<ul>
+<li><strong>Pixel Shader (Fragment Shader):</strong></li>
+<ul>
+<li>Procedura operująca na <strong>właściwościach obrazu (składowych piksela)</strong> takich jak jasność, barwa (<em>hue</em>) czy przezroczystość.</li>
+<li>Pozwala wykonać zestaw operacji <strong>dla każdego piksela obrazu</strong>.</li>
+<li>Stosowany zwykle do <strong>post-processingu</strong> wygenerowanej sceny lub wybranych jej elementów: umożliwia m.in. <strong>normal mapping</strong>, symulację odbić, półprzezroczystości oraz <strong>oświetlenie per-pixel (Phong shading)</strong> w przeciwieństwie do kanciastego <em>Flat shading</em>.</li>
+</ul>
+<li><strong>Vertex Shader:</strong></li>
+<ul>
+<li>Procedura operująca na <strong>właściwościach wierzchołków obiektu</strong> (położenie, orientacja, kolor, mapowanie tekstur).</li>
+<li>Modyfikując te właściwości w trakcie renderowania, umożliwia np. <strong>dynamiczną i interaktywną animację roślinności (trawy, drzew) oraz wody</strong>.</li>
+</ul>
+<li><strong>Geometry Shader:</strong></li>
+<ul>
+<li><strong>Rozszerzenie Vertex Shadera</strong>, które pozwala na <strong>dynamiczne tworzenie (instancjonowanie) nowych wierzchołków</strong> (a w konsekwencji nowych krawędzi i trójkątów) na powierzchni obiektu.</li>
+<li>Wykorzystywany m.in. do <strong>teselacji (tesselation)</strong> (np. podział Catmull-Clark z 8 wierzchołków sześcianu do dziesiątek tysięcy trójkątów gładkiej kuli) oraz <strong>displacement mappingu</strong>.</li>
+</ul>
+</ul>
+<h3>2.8. Techniki optymalizacji i zaawansowanego renderowania (Rendering techniques)</h3>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">A. Techniki zwiększające wydajność (Optymalizacja geometrii i tekstur)</h4>
+<ol>
+<li><strong>Clipping (Obcinanie):</strong></li>
+<ul>
+<li>Odrzucenie wszystkich wierzchołków i elementów leżących poza bryłą widzenia kamery (<em>Perspective View Volume</em> – ograniczoną przez <strong>Near clipping plane</strong> oraz <strong>Far clipping plane</strong>). Zostawia się niewielki bufor trójkątów na granicy płaszczyzn.</li>
+</ul>
+<li><strong>Z-buffering (Bufor głębi / Depth buffer):</strong></li>
+<ul>
+<li>Przechowuje <strong>hierarchię widoczności obiektów z perspektywy kamery</strong> (odległość pikseli od kamery).</li>
+<li>Pozwala na renderowanie obiektów zawsze we właściwej kolejności (bliższe zasłaniają dalsze) <strong>bez konieczności ich ręcznego sortowania</strong> po każdej zmianie perspektywy.</li>
+</ul>
+<li><strong>Culling (Wycinanie niewidocznych elementów wewnątrz bryły widzenia):</strong></li>
+<ul>
+<li>Proces usuwania elementów sceny, które znajdują się <strong>wewnątrz bryły widzenia (view volume)</strong>, ale i tak nie są widoczne z perspektywy kamery. Dwa główne rodzaje:</li>
+<ul>
+<li><strong>Occlusion culling:</strong> usuwanie obiektów <strong>całkowicie zasłoniętych przez inne obiekty</strong> (np. budynek schowany za większym budynkiem).</li>
+<li><strong>Backface culling:</strong> usuwanie <strong>niewidocznych części (tylnych ścian) samych modeli</strong> (np. tylna ściana kontenera lub budynku zwrócona tyłem do kamery).</li>
+</ul>
+</ul>
+<li><strong>Level-of-Detail (LOD – Poziom szczegółowości):</strong></li>
+<ul>
+<li>Technika polegająca na <strong>zmniejszaniu złożoności (liczby trójkątów) obiektów wraz ze wzrostem ich odległości od kamery</strong>.</li>
+<li>Zwykle wymaga wcześniejszego przygotowania kilku coraz bardziej uproszczonych wersji modelu (np. <em>Original</em>: 16 084 trójkąty $\rightarrow$ <em>LOD1</em>: 8 916 $\rightarrow$ <em>LOD2</em>: 3 304 $\rightarrow$ <em>LOD3</em>: 1 271 $\rightarrow$ <em>Occluder</em>: 56 trójkątów), które są dynamicznie podmieniane podczas renderowania.</li>
+</ul>
+<li><strong>Mip-mapping:</strong></li>
+<ul>
+<li>Technika nakładająca wcześniej wygenerowane, <strong>zminiaturyzowane wersje tej samej tekstury (zazwyczaj do 8 poziomów)</strong> na obiekty znajdujące się dalej od kamery (wraz z efektem rozmycia).</li>
+<li><strong>Dwie korzyści:</strong></li>
+<ol>
+<li><strong>Wzrost wydajności renderowania</strong> poprzez redukcję liczby filtrowanych tekseli dla odległych tekstur.</li>
+<li><strong>Wzrost jakości obrazu</strong> poprzez <strong>redukcję efektu mory (Moiré effects)</strong> na odległych obiektach.</li>
+</ol>
+</ul>
+</ol>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">B. Techniki mapowania szczegółów powierzchni (Bump vs. Normal vs. Displacement)</h4>
+<div class="table-wrap"><table><thead><tr><th>Technika</th><th>Jak działa?</th><th>Czy zwiększa liczbę wierzchołków / poligonów?</th><th>Specyfika i ograniczenia</th></tr></thead><tbody><tr><td><strong>Bump Mapping</strong></td><td>Zwiększa postrzeganą szczegółowość powierzchni przez nałożenie osobnej tekstury w skali szarości opisującej wypukłości i wklęsłości: <strong>odcienie bieli (jasne) = wypukłości (extrusions)</strong>, <strong>odcienie czerni (ciemne) = wklęsłości (depressions)</strong>. Tekstura służy do obliczania wektorów normalnych podczas oświetlania.</td><td><strong>NIE</strong> (<em>does not increase polygon count</em>)</td><td>Ponieważ geometria pozostaje płaska, zbyt duże różnice lub spojrzenie pod ostrym kątem psuje iluzję (krawędź obiektu jest płaska). Wygląda najlepiej w obecności odpowiednio skierowanego reflektora (<em>spotlight</em>).</td></tr><tr><td><strong>Normal Mapping</strong></td><td>Zwiększa postrzeganą złożoność powierzchni przez nałożenie osobnej tekstury przechowującej <strong>znormalizowane współrzędne X, Y oraz Z wektorów normalnych odpowiednio w kanałach R, G oraz B</strong>. Normal mapa jest zazwyczaj generowana z <strong>bardziej szczegółowego modelu (High Poly, np. 1,39 mln wierzchołków)</strong> i nakładana na model <strong>Low Poly (np. 9 tys. wierzchołków)</strong>.</td><td><strong>NIE</strong></td><td>Pozwala wyświetlać bardzo szczegółowe obiekty przy kopiowaniu niewielkiej liczby wierzchołków przez magistralę systemową do pamięci karty graficznej.</td></tr><tr><td><strong>Displacement Mapping</strong></td><td>Kombinacja <strong>bump mappingu oraz teselacji (tesselation)</strong> (realizowana np. przez <em>Geometry Shader</em>). <strong>Tworzy nowe wierzchołki i trójkąty</strong> na powierzchni obiektu i <strong>wyciąga je (extrudes)</strong> zgodnie z dostarczoną bump mapą (zmienia fizyczny obrys i cień modelu).</td><td><strong>TAK</strong> (tworzy nowe wierzchołki i trójkąty)</td><td>Używana rzadko (<em>sparingly</em>) ze względu na <strong>bardzo wysoki koszt obliczeniowy i wymagania sprzętowe</strong>.</td></tr></tbody></table></div>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">C. Zaawansowane efekty oświetlenia i optyki (Global Illumination &amp; Ray/Path Tracing)</h4>
+<ol>
+<li><strong>Ambient Occlusion (AO):</strong></li>
+<ul>
+<li>Technika globalnego oświetlenia (<em>global illumination</em> / cieniowania), która identyfikuje i <strong>przyciemnia elementy sceny, do których (ze względu na ich położenie, np. szczeliny, zagłębienia, kąty) dociera mniej światła</strong>.</li>
+<li>Stosowana jako osobny przebieg (<em>separate pass</em>) po podstawowym oświetleniu i cieniowaniu; stanowi przybliżenie efektu z ray tracingu.</li>
+</ul>
+<li><strong>Depth of Field (DoF – Głębia ostrości / „lens blur”):</strong></li>
+<ul>
+<li>W fotografii efekt rozmycia soczewkowego wynika z użycia obiektywu o określonej średnicy przysłony (opisanej przez <strong>f-number / f-stop</strong>, czyli stosunek ogniskowej do średnicy przysłony).</li>
+<li>**Uwaga na sformułowanie ze slajdu 37 (<code>Computer graphics.pdf</code>):** Na slajdzie napisano: <em>„The larger the f-stop value, the smaller the aperture diameter and more intensive Depth of Field effect”</em> (choć na zdjęciu obok $f/1.4$ ma rozmyte tło, a $f/22$ ostre tło, opis tekstowy autora na slajdzie wiąże mniejszą średnicę przysłony / większą wartość f-stop ze skupianiem promieni pod mniejszymi kątami z małej odległości).</li>
+<li><strong>W grafice komputerowej (CGI):</strong> efekt uzyskuje się zazwyczaj poprzez <strong>rozmywanie pikseli reprezentujących obiekty znajdujące się dalej od kamery</strong> (w notatkach: wierne odtworzenie fizyczne wymaga ray tracingu).</li>
+</ul>
+<li><strong>Subsurface Scattering (SSS) / Subsurface Light Transport (SSLT):</strong></li>
+<ul>
+<li>Technika symulująca <strong>rozpraszanie światła przechodzącego przez częściowo półprzezroczysty obiekt (partially translucent object)</strong> (np. ludzka skóra, wosk, nefryt, marmur).</li>
+<li>W przeciwieństwie do obiektów całkowicie przezroczystych, obiekty te <strong>częściowo pochłaniają przechodzące światło w zależności od ich lokalnej gęstości (local density)</strong>.</li>
+<li><strong>Parametry algorytmu SSS (Slajd 39):</strong> <em>scattering distance</em> (odległość rozpraszania, zwana też <em>depth</em> lub <em>density</em> – <strong>ma największy wpływ na efekt końcowy!</strong>), <em>scattering color</em> oraz <em>Rayleigh scattering factor</em> (pozwalają symulować materiały organiczne i nieorganiczne).</li>
+</ul>
+<li><strong>Path Tracing (Śledzenie ścieżek):</strong></li>
+<ul>
+<li>Zaawansowana implementacja <strong>ray tracingu</strong> zapewniająca kompleksowe globalne oświetlenie (<em>global illumination</em>) sceny.</li>
+<li>Oblicza kolor każdego piksela na podstawie <strong>średniej wartości promieni świetlnych</strong>, które w niego uderzają (śledząc ścieżkę promieni: odbicie, rozszczepienie, przezroczystość z określonym limitem promieni).</li>
+<li><strong>Co Path Tracing potrafi symulować (Slajd 40):</strong> cienie (<em>shadows</em>), odbicia (<em>reflections</em>), załamania (<em>refractions</em>), rozpraszanie światła (<em>light scattering / dispersion</em>), <em>ambient occlusion</em>, kaustykę (<em>caustics</em>), głębię ostrości (<em>depth of field</em>) oraz rozmycie w ruchu (<em>motion blur</em>). Przykłady gier ze slajdów: <em>Control</em>, <em>Metro Exodus Enhanced</em>, <em>Quake 2 RTX</em>, <em>Cyberpunk 2077</em>.</li>
+<li><strong>Optymalizacje Path Tracingu (Slajdy 41–42):</strong></li>
+<ul>
+<li><strong>Mniejsza liczba promieni na piksel + Denoising:</strong> śledzenie np. 1 promienia zamiast 128 drastycznie zmniejsza koszt obliczeniowy kosztem wprowadzenia <strong>szumu (noise)</strong>, który następnie usuwa się poprzez inteligentne odszumianie (<em>intelligent denoising</em>).</li>
+<li><strong>Selektywny Path Tracing w buforze niskiej rozdzielczości:</strong> obliczanie wybranych efektów (odbicia na lustrach/szybach, ambient occlusion, cienie) w osobnym buforze o niskiej rozdzielczości i łączenie go z obrazem wysokiej rozdzielczości wygenerowanym tradycyjnymi metodami (przykład: <em>Marvel's Spider-Man Remastered</em>).</li>
+</ul>
+<li>**Czego klasyczny algorytm Path Tracingu NIE potrafi symulować sam z siebie (Slajd 43 vs. Pytanie z <code>TWDP_pytania.pdf</code>):** &gt; [!WARNING] &gt; <strong>Ważny niuans egzaminacyjny!</strong> &gt; * **Na slajdzie 43 (<code>Computer graphics.pdf</code>)<strong> autor wymienia 3 cechy promieni, których podstawowy Path Tracing </strong>nie symuluje**: &gt;   1. <em>Subsurface Scattering</em> (bo kąt wyjścia promienia nie jest funkcją kąta padania), &gt;   2. <em>Refraction of individual light frequencies</em> (np. aberracja chromatyczna – <em>Chromatic aberration</em>), &gt;   3. <em>Fluorescence</em> (fluorescencja – pochłanianie i emisja na innych częstotliwościach). &gt; * **W pytaniu testowym z <code>TWDP_pytania.pdf</code> (str. 2):<strong> <em>„Path tracing jest implementacją techniki o nazwie Raytracing. Zapewnia realistyczną symulację następujących charakterystyk promieni świetlnych: a) ambient occlusion..., b) subsurface scattering..., c) depth of field...”</em> – zgodnie ze slajdem 40 i 43, Path Tracing zapewnia </strong>ambient occlusion<strong> oraz </strong>depth of field<strong>, natomiast </strong>nie zapewnia subsurface scattering** (choć w niektórych testach wielokrotnego wyboru na platformie e-learningowej zaznaczano a i c lub a/b/c na podstawie ogólnych notatek). Warto znać oba te fakty!</li>
+</ul>
+</ol>
+<h3>2.9. Fotogrametria (Photogrammetry)</h3>
+<ul>
+<li><strong>Definicja (pytanie egzaminacyjne!):</strong> Dziedzina nauki i technika umożliwiająca <strong>odtwarzanie (rekonstrukcję) trójwymiarowych modeli fotografowanych obiektów</strong> poprzez wyznaczenie względnej pozycji każdego elementu fotografowanej sceny w przestrzeni 3D (<em>recovering the relative position of each element of the photographed scene in 3D space</em>).</li>
+<ul>
+<li><em>Uwaga z testu:</em> Fotogrametria <strong>nie jest</strong> „technologią tworzenia zdjęć 3D” ani „techniką obrazowania oddającą wrażenie widzenia przestrzennego” (tym jest stereoskopia!).</li>
+</ul>
+<li><strong>Wymagania:</strong> Duża liczba fotografii obiektu wykonanych (najlepiej) <strong>ze wszystkich stron i pod różnymi kątami (dookoła obiektu)</strong> w odpowiednich warunkach oświetleniowych.</li>
+<li><strong>Automatyzacja:</strong> Zastosowanie algorytmów <strong>ekstrakcji cech (feature extraction)</strong> oraz <strong>dopasowywania cech (feature matching)</strong> (rozpoznawania obrazów) umożliwia automatyzację procesu rekonstrukcji modelu 3D (przykład ze slajdów: gra <em>The Vanishing of Ethan Carter</em> oraz skanowanie twarzy w <em>MGSV</em>).</li>
+<li><strong>Popularne oprogramowanie fotogrametryczne (Slajd 55):</strong></li>
+<ul>
+<li><strong>Agisoft Metashape:</strong> komercyjny, bardzo prosty w użyciu.</li>
+<li><strong>3DF Zephyr Free (3D Flow Free):</strong> komercyjny, prosty w użyciu, darmowy do użytku osobistego <strong>do 50 zdjęć</strong>.</li>
+<li><strong>Regard3D:</strong> darmowy i Open Source, wymaga ręcznego dostrajania parametrów (<em>parameter tweaking</em>).</li>
+<li><strong>COLMAP + OpenMVS + MeshLab:</strong> darmowy zestaw Open Source dla zaawansowanych użytkowników (<em>for hardcore users</em>).</li>
+<li>Produkt końcowy zazwyczaj wymaga obróbki końcowej (<strong>post-processingu</strong>), np. w programie <strong>Blender</strong>.</li>
+</ul>
+<li><strong>Przykładowy potok przetwarzania zdjęć w COLMAP + OpenMVS (Slajd 56):</strong></li>
+<ol>
+<li><code>COLMAP</code>: wygenerowanie <strong>rzadkiej chmury punktów (sparse cloud)</strong> – ekstrakcja cech (<em>feature extraction</em>), dopasowanie cech (<em>feature matching</em>), start rekonstrukcji, usunięcie dystorsji (<em>undistortion</em>).</li>
+<li><code>OpenMVS InterfaceCOLMAP -i &lt;undistortion_directory&gt;</code>: konwersja projektu (oraz skopiowanie katalogu <code>images</code> poziom wyżej).</li>
+<li><code>OpenMVS DensifyPointCloud -i scene.mvs</code>: zagęszczenie chmury punktów (<strong>gęsta chmura punktów – dense point cloud</strong>).</li>
+<li><code>OpenMVS ReconstructMesh.exe scene_dense.mvs</code>: rekonstrukcja siatki trójkątów (<strong>mesh</strong>).</li>
+<li><code>OpenMVS RefineMesh.exe ...</code>: opcjonalne ulepszenie/uproszczenie siatki (<code>--resolution-level 1</code> zmniejsza zużycie pamięci, <code>2</code> zmniejsza jeszcze bardziej; <code>--mesh-file &lt;filename&gt;</code> ogranicza operacje do danego obszaru).</li>
+<li><code>OpenMVS TextureMesh.exe ...</code>: nałożenie tekstury na siatkę $\rightarrow$ wynikowy plik <code>.obj</code>.</li>
+</ol>
+</ul>
+<hr class="my-5 border-[var(--border)]" />
+<h2 id="part-3">Część 3: Formaty Danych 3D (<code>3D Data Formats.pdf</code>)</h2>
+<h3>3.1. Klasyfikacja formatów danych przestrzennych 3D</h3>
+<pre class="bg-[var(--secondary)] border border-[var(--border)] rounded-lg p-3 overflow-x-auto text-xs my-3"><code>flowchart TD
+    A["Formaty danych 3D"] --&gt; B["Formaty binarne (Binary)&lt;br/&gt;Wymagają dedykowanego oprogramowania"]
+    A --&gt; C["Formaty tekstowe (Text-based)&lt;br/&gt;Edytowalne w dowolnym edytorze tekstu"]
+    B --&gt; B1["LAS (chmury punktów LiDAR)"]
+    B --&gt; B2["glTF / .bin (Khronos)"]
+    B --&gt; B3["3D Tiles (b3dm, pnts...)"]
+    B --&gt; B4["3ds, COLLADA*"]
+    C --&gt; C1["Lokalny układ współrzędnych&lt;br/&gt;(Local coordinate system)"]
+    C --&gt; C2["Globalny układ współrzędnych&lt;br/&gt;(Global coordinate system)"]
+    C1 --&gt; C1a["Wavefront OBJ (.obj + .mtl)"]
+    C2 --&gt; C2a["GML (Geography Markup Language)"]
+    C2 --&gt; C2b["KML (Keyhole Markup Language)"]</code></pre>
+<p>*(Uwaga: Na slajdzie 2 autor zalicza <strong>collada, 3ds, gltf oraz las</strong> do grupy formatów binarnych, choć sam opis struktury <code>.gltf</code> jest w JSON, a geometria w <code>.bin</code>).*</p>
+<ul>
+<li><strong>Struktura formatu glTF (Slajd 2):</strong></li>
+<ul>
+<li><code>.gltf</code> (JSON) – opisuje hierarchię węzłów (<em>node hierarchy</em>), materiały, kamery.</li>
+<li><code>.bin</code> – binarna geometria (wierzchołki i indeksy), animacje (klatki kluczowe – <em>key-frames</em>), skórki (<em>skins: inverse-bind matrices</em>).</li>
+<li><code>.glsl</code> – shadery.</li>
+<li><code>.png</code> / <code>.jpg</code> – tekstury.</li>
+</ul>
+</ul>
+<h3>3.2. Format LAS (Chmury punktów / Point Clouds)</h3>
+<ul>
+<li><strong>Chmury punktów (Point clouds):</strong> zazwyczaj produkt <strong>skanowania laserowego (LiDAR)</strong> lub <strong>fotogrametrii</strong>; mogą zawierać miliony punktów w przestrzeni 3D. Posiadają zwykle <strong>lokalny układ współrzędnych</strong> oraz <strong>metadane geolokalizacyjne</strong>, które pozwalają przeliczyć każdy punkt na geograficzny układ współrzędnych.</li>
+<li><strong>Zawartość pliku LAS (natywny format dla pomiarów LiDAR – Slajd 4):</strong></li>
+<ol>
+<li>Współrzędne <strong>X, Y oraz Z</strong> punktu,</li>
+<li>Wielkość (siła) odbicia impulsu (<strong>Intensity</strong> – <em>pulse return magnitude</em>),</li>
+<li>Liczba odbić dla danego impulsu (<em>number of returns for a given pulse</em>),</li>
+<li>Kierunek lustra skanera (<em>direction of the scanner mirror</em>),</li>
+<li>Informacja o <strong>klasyfikacji punktu</strong> (<em>point classification</em>, jeśli istnieje – np. grunt, budynek, roślinność),</li>
+<li>Kąt wyjścia wiązki lasera (wliczając przechylenie samolotu – <em>aircraft roll</em>),</li>
+<li>Czas akwizycji pomiaru (<strong>z GPS</strong> – <em>time of acquisition</em>),</li>
+<li>Wartości kanałów <strong>Red, Green i Blue (RGB)</strong> punktu.</li>
+</ol>
+<li><strong>Główna wada formatu LAS (Slajd 5):</strong></li>
+<ul>
+<li>Choć pliki LAS świetnie przechowują pojedyncze skany, <strong>nie oferują żadnych mechanizmów wzajemnego powiązania danych (no mechanisms of cross-referencing data)</strong>.</li>
+<li>W efekcie przechowywanie skanów LiDAR dla większych obszarów wymaga ich <strong>ręcznego układania w siatkę (manual arrangement)</strong> (przykład ze slajdu: siatka CODGiK – <em>Polish Centre of Geodesic and Cartographic Documentation</em>, gdzie pojedynczy kafelek pokrywa obszar ok. <strong>$0{,}29\text{ km}^2$</strong>).</li>
+</ul>
+</ul>
+<h3>3.3. Format 3D Tiles</h3>
+<ul>
+<li><strong>Charakterystyka ogólna (Slajdy 6–9):</strong></li>
+<ul>
+<li>Otwarty standard przechowywania, integracji i <strong>webowego rozpowszechniania danych 3D</strong>, stworzony przez społeczność wspieraną przez firmę <strong>AGI (twórców biblioteki Cesium)</strong>.</li>
+<li>Bazuje na istniejących otwartych standardach, takich jak <strong>glTF</strong> (standard Khronos do transmisji danych 3D).</li>
+<li>Organizuje trójwymiarowe dane geoprzestrzenne w <strong>hierarchiczną strukturę drzewiastą (tree-like structure)</strong> składającą się z kafelków (<em>tiles</em>), które pokrywają całą powierzchnię Ziemi.</li>
+<li>Każdy kafelek posiada <strong>bryłę ograniczającą (bounding volume)</strong>, która całkowicie zamyka jego zawartość, oraz może zawierać kafelki potomne (<em>child tiles</em>).</li>
+</ul>
+<li><strong>Metody podziału kafelków (Tile subdivision methods – Slajd 8):</strong></li>
+<ul>
+<li><strong>Równomierne (Uniform – A):</strong> <strong>quadtree</strong> (drzewo czwórkowe – podział kafelka na 4 równe części).</li>
+<li><strong>Nierównomierne (Non-uniform – B):</strong> <strong>k-d tree</strong> (drzewo k-d – podział wzdłuż wybranych osi w zależności od zagęszczenia danych).</li>
+</ul>
+<li><strong>Obsługiwane typy danych w 3D Tiles (Slajd 9):</strong></li>
+<ul>
+<li><strong>Obecnie wspierane 2 główne typy:</strong></li>
+<ol>
+<li>**Point Clouds (<code>pnts</code>)** – tablice punktów 3D,</li>
+<li>**Batched 3D Models (<code>b3dm</code>)** – bryłowe kształty 3D oparte na formacie glTF (np. budynki).</li>
+</ol>
+<li><strong>Dodatkowe typy w pełnej specyfikacji:</strong></li>
+<ol>
+<li>**Instanced 3D Model tiles (<code>i3dm</code>)** – wiele instancji pojedynczego modelu (np. drzewa, latarnie),</li>
+<li>**Composite tiles (<code>cmpt</code>)** – kombinacja wszystkich powyższych typów kafelków.</li>
+</ol>
+</ul>
+<li><strong>Przykładowa implementacja LiDAR w 3D Tiles / Cesium (Slajdy 11–12):</strong></li>
+<ul>
+<li>Skan LiDAR o oryginalnej rozdzielczości <strong>19 punktów/$\text{m}^2$</strong> serwowany jako kafelki Point Cloud o powierzchni <strong>$400\text{ m}^2$</strong> (średni rozmiar kafelka: <strong>250 KB</strong>). Po konwersji zachowywane są: współrzędne <strong>X, Y, Z</strong>, <strong>klasa punktu (class)</strong> oraz wartości <strong>RGB</strong>.</li>
+<li><strong>System podwójnej prezentacji (Dual data presentation system):</strong> ponieważ chmury punktów wymagają dużo zasobów, system początkowo wyświetla tylko warstwę zrekonstruowanych budynków 3D serwowanych jako kafelki **Batched 3D Model (<code>b3dm</code>)<strong> o powierzchni </strong>$2500\text{ m}^2$**, a dopiero po przybliżeniu doczytuje chmurę punktów.</li>
+</ul>
+</ul>
+<h3>3.4. Format Wavefront OBJ (<code>.obj</code> + <code>.mtl</code>)</h3>
+<ul>
+<li><strong>Charakterystyka:</strong> Tekstowy format opisu modeli 3D w <strong>lokalnym układzie współrzędnych</strong>, stworzony w latach 90. przez firmę <em>Wavefront Technologies</em> (twórców oprogramowania do animacji 3D dla Hollywood).</li>
+<li><strong>Na model składa się zestaw plików:</strong></li>
+<ol>
+<li><code>.obj</code> – zawiera wierzchołki i geometrię modelu,</li>
+<li><code>.mtl</code> – opisuje materiały i właściwości oświetlenia,</li>
+<li><code>.jpg</code> / <code>.png</code> / <code>.dds</code> / <code>.tga</code> – pliki graficzne z teksturami.</li>
+</ol>
+</ul>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">A. Składnia pliku <code>.obj</code> (Slajdy 15–17 i notatki)</h4>
+<p>Plik <code>.obj</code> składa się z kolejnych list:</p>
+<ol>
+<li><strong>Definicje wierzchołków i wektorów:</strong></li>
+<ul>
+<li><code>v x y z [w]</code> – <strong>lista wierzchołków modelu (model vertices)</strong>; parametr <code>w</code> jest opcjonalny i domyślnie wynosi <code>1.0</code> (np. <code>v 0.123 -0.234 0.500</code>).</li>
+<li><code>vt u [v w]</code> – <strong>lista wierzchołków tekstury (texture vertices)</strong>; parametry <code>v</code> i <code>w</code> są opcjonalne i domyślnie wynoszą <code>0</code> (np. <code>vt 0.500 1.000 0.000</code>).</li>
+<li><code>vn x y z</code> – <strong>lista wektorów normalnych (normal vectors)</strong> wierzchołków (np. <code>vn 1.000 0.000 0.700</code>).</li>
+<li><code>vp u [v] [w]</code> – <strong>lista wierzchołków przestrzeni parametrycznej (parametric space vertices)</strong> definiujących krzywe i powierzchnie 2D/3D (np. <code>vp 0.310 0.220</code>).</li>
+</ul>
+<li><strong>Definicje elementów budowanych z wierzchołków (po listach wierzchołków):</strong></li>
+<ul>
+<li><code>p</code> – <strong>punkt (point)</strong>, podajemy tylko indeksy wierzchołków, np. <code>p 1</code>.</li>
+<li><code>l</code> – <strong>linia łamana (polyline)</strong>, lista indeksów wierzchołków <code>v</code> lub <code>v/vt</code> (z nałożoną teksturą), np.:</li>
+<ul>
+<li><code>l 2 5 4 1 6</code> (sama linia)</li>
+<li><code>l 2/2 5/5 4/4 1/1 6/6</code> (linia z nałożoną teksturą).</li>
+</ul>
+<li><code>f</code> – <strong>wielokąt / poligon (polygon / face)</strong>, lista składników w postaci **<code>index_v/index_vt/index_vn</code>**. Wszystkie 4 warianty ze slajdu 16:</li>
+<ul>
+<li><code>f 1 2 3</code> – sam trójkąt z wierzchołków 1, 2 i 3,</li>
+<li><code>f 1/1 2/2 3/3</code> – trójkąt z nałożoną teksturą (<code>v/vt</code>),</li>
+<li><code>f 1//1 2//2 3//3</code> – trójkąt z mapą wektorów normalnych, bez tekstury (<code>v//vn</code> – <strong>zwróć uwagę na podwójny ukośnik!</strong>),</li>
+<li><code>f 1/1/1 2/2/2 3/3/3</code> – trójkąt z teksturą oraz mapą wektorów normalnych (<code>v/vt/vn</code>).</li>
+</ul>
+<li><code>curv</code>, <code>curv2</code>, <code>surf</code> – krzywa 3D, krzywa 2D, powierzchnia.</li>
+</ul>
+<li>**Grupowanie i atrybuty w pliku <code>.obj</code> (Slajd 17 i notatki):**</li>
+<ul>
+<li><code>g</code> – przypisanie wierzchołków/elementów do <strong>grupy</strong> (nadanie nazwy grupy),</li>
+<li><code>o</code> – identyfikator obiektu w pliku (z notatek),</li>
+<li><code>s</code> / <code>sw</code> (smoothing group) – w ramach grupy wartości wektorów normalnych mają być interpolowane,</li>
+<li><code>mg</code> (merging group) – łączone/wyświetlane jako całość,</li>
+<li><code>mtllib &lt;nazwa_pliku.mtl&gt;</code> – nazwa pliku zawierającego definicje materiałów (np. <code>mtllib textures.mtl</code>),</li>
+<li><code>usemtl &lt;nazwa_materialu&gt;</code> – nazwa użytego materiału z pliku <code>.mtl</code> (np. <code>usemtl texture1</code>),</li>
+<li><code>c_interp</code> – interpolacja kolorów między wierzchołkami grupy,</li>
+<li><code>d_interp</code> – interpolacja wartości przezroczystości (<em>dissolve</em>) między materiałami grupy,</li>
+<li><code>bevel</code> – interpolacja wektorów normalnych dla kształtów z otworami,</li>
+<li>Specyficzne dla dedykowanych aplikacji Wavefront: <code>lod</code> (level of detail), <code>shadow_obj</code> (rzucanie cieni), <code>trace_obj</code> (ray tracing), <code>ctech</code> (technika aproksymacji krzywych), <code>stech</code> (technika aproksymacji powierzchni).</li>
+</ul>
+</ol>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">B. Składnia pliku <code>.mtl</code> (Slajd 18 i notatki)</h4>
+<ul>
+<li><code>newmtl &lt;nazwa&gt;</code> – rozpoczęcie definicji nowego materiału (np. <code>newmtl Texture1</code>).</li>
+<li><code>Ka r g b</code> – składowa <strong>Ambient</strong> (jasność/kolor otoczenia, np. <code>Ka 1.000 1.000 1.000</code>).</li>
+<li><code>Kd r g b</code> – składowa <strong>Diffuse</strong> (kolor rozproszony).</li>
+<li><code>Ks r g b</code> – składowa <strong>Specular</strong> (odblaskowość).</li>
+<li><code>d &lt;wartość&gt;</code> (lub <code>D</code> w notatkach) – <strong>poziom nieprzezroczystości (dissolve)</strong>: **<code>d 1.0</code> oznacza materiał całkowicie nieprzezroczysty (opaque)**, natomiast <code>d 0.5</code> oznacza 50% przezroczystości.</li>
+<li><code>illum &lt;0|1|2&gt;</code> – model oświetlenia określający, z których składowych ma korzystać oświetlenie:</li>
+<ul>
+<li><code>illum 0</code> – tylko składowa <strong>Diffuse</strong>,</li>
+<li><code>illum 1</code> – tylko składowe <strong>Diffuse oraz Ambient</strong>,</li>
+<li><code>illum 2</code> – <strong>wszystkie składowe</strong> (Ambient, Diffuse oraz Specular).</li>
+</ul>
+<li>**Mapy tekstur w <code>.mtl</code>:**</li>
+<ul>
+<li><code>map_Ka</code> – plik tekstury Ambient,</li>
+<li><code>map_Kd</code> – plik tekstury Diffuse (zazwyczaj ten sam co Ambient),</li>
+<li><code>map_Ks</code> – plik tekstury Specular,</li>
+<li><code>map_d</code> – plik tekstury przezroczystości (kanał alfa),</li>
+<li><code>bump</code> – plik tekstury <strong>bump mapy</strong> (chropowatości),</li>
+<li><code>disp</code> – plik tekstury <strong>displacement mapy</strong>.</li>
+</ul>
+</ul>
+<h3>3.5. Format GML (Geography Markup Language)</h3>
+<ul>
+<li><strong>Charakterystyka ogólna (Slajdy 19–25):</strong></li>
+<ul>
+<li>Otwarty, <strong>tekstowy standard oparty na XML</strong>, służący do opisu obiektów przestrzennych w <strong>globalnym układzie współrzędnych</strong>.</li>
+<li>Ustanowiony przez <strong>Open Geospatial Consortium (OGC)</strong> jako oficjalny <strong>standard ISO 19136:2007</strong>.</li>
+<li>Powszechnie używany w środowisku webowym oraz przez inne standardy OGC (np. <strong>Web Feature Server – WFS</strong> używa GML do kodowania danych). Stanowi bazę (pierwowzór!) dla innych formatów, takich jak <strong>KML</strong>.</li>
+</ul>
+<li><strong>11 zdefiniowanych typów węzłów w GML (Slajd 20 i notatki):</strong></li>
+<ol>
+<li><strong>Feature</strong> – typ obiektu rzeczywistego (np. punkt, linia, poligon, budynek),</li>
+<li><strong>Geometry</strong> – geometria tego obiektu (zbiór wierzchołków),</li>
+<li><strong>Coordinate Reference System (CRS)</strong> – układ współrzędnych (lokalny, globalny, np. <code>EPSG/4326</code>),</li>
+<li><strong>Topology</strong> – relacje topologiczne między elementami zbioru,</li>
+<li><strong>Time</strong> – charakterystyka czasowa, data,</li>
+<li><strong>Dynamic feature</strong> – dane z atrybutem „historii” / zmienności w czasie (w notatkach skojarzone też z wieloma wersjami modelu),</li>
+<li><strong>Coverage</strong> – pokrycie rastrowe / przypisanie tekstur (np. zdjęcia satelitarne),</li>
+<li><strong>Unit of measure</strong> – jednostka miary, w jakiej zdefiniowano model,</li>
+<li><strong>Directions</strong> – kierunki / wskazówki nawigacyjne,</li>
+<li><strong>Observations</strong> – metadane opisujące pochodzenie zbioru danych / pomiary z punktu pomiarowego,</li>
+<li><strong>Styles</strong> – styl modelu, kolorystyka, jasność.</li>
+</ol>
+<li><strong>Definiowanie geometrii w GML (Slajd 21):</strong></li>
+<ul>
+<li>Współrzędne podaje się w sub-węźle <code>&lt;gml:posList&gt;</code> (lub <code>&lt;gml:pos&gt;</code> dla pojedynczego punktu w profilu):</li>
+<ul>
+<li>Punkt: <code>&lt;gml:Point&gt;&lt;gml:posList&gt;100,200&lt;/gml:posList&gt;&lt;/gml:Point&gt;</code></li>
+<li>Linia: <code>&lt;gml:LineString&gt;&lt;gml:posList&gt;100,200 150,300&lt;/gml:posList&gt;&lt;/gml:LineString&gt;</code></li>
+<li>Poligon: <code>&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;0,0 100,0 100,100 0,100 0,0&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;</code> (poligony mogą mieć obrys zewnętrzny <code>exterior</code> i wewnętrzny <code>interior</code>).</li>
+</ul>
+</ul>
+<li><strong>4 przykłady zapisu współrzędnych w GML (Slajd 22 – Pewniak egzaminacyjny!):</strong> &gt; [!CAUTION] &gt; **Pytanie z <code>TWDP_pytania.pdf</code>:<strong> <em>„W GML pozycja (18.25, 54.10, 28) oznacza punkt w Gdańsku opisany na współrzędnych w: </strong>a) stopniach (x,y) i metrach (z)**”</em>.</li>
+<ol>
+<li><strong>Układ Mercatora (Mercator coordinates – metry na powierzchni od punktu 0,0):</strong> <code>&lt;gml:posList&gt;4128203.226 4878426.667&lt;/gml:posList&gt;</code></li>
+<li><strong>Stopnie, minuty, sekundy (Degrees minutes seconds):</strong> <code>&lt;gml:posList&gt;43,57,6.61798 66,7,55.34897&lt;/gml:posList&gt;</code></li>
+<li><strong>Stopnie dziesiętne + wysokość w metrach (Decimal degrees + height in metres):</strong> <code>&lt;gml:posList&gt;18.57 54.41 10.2679&lt;/gml:posList&gt;</code> (gdzie X=18.57° długości geogr., Y=54.41° szerokości geogr. – okolice Gdańska, Z=10.2679 m n.p.m.!).</li>
+<li><strong>Układ kartezjański (Cartesian system):</strong> <code>&lt;gml:posList&gt;1860.1021 -4205.3654 4404.0988&lt;/gml:posList&gt;</code></li>
+</ol>
+<li><strong>Profile w GML (Slajdy 23–24):</strong></li>
+<ul>
+<li>GML udostępnia <strong>predefiniowane profile (predefined profiles)</strong> zawierające opisy najważniejszych typów danych (podzbiory funkcjonalności).</li>
+<li>Użycie profili <strong>znacząco upraszcza zawartość plików GML</strong>, ale profil <strong>musi zostać zaimportowany</strong> w nagłówku tworzonego pliku XML (poprzez <code>xmlns:gml</code> i <code>xsi:schemaLocation</code>).</li>
+</ul>
+</ul>
+<h3>3.6. Format KML (Keyhole Markup Language)</h3>
+<ul>
+<li><strong>Historia i relacja z GML (Slajdy 26–28 – Pewniak egzaminacyjny!):</strong></li>
+<ul>
+<li><strong>KML powstał jako propozycja uproszczenia formuły GML</strong> – stanowi <strong>podzbiór gramatyki GML 1.0 oraz 2.1.2</strong> (<em>subset of GML grammar</em>). Pierwowzorem jest <strong>GML</strong>!</li>
+<li><em>Uwaga na fałszywe zdanie z testu:</em> Zdanie <em>„KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany”</em> jest <strong>NIEPRAWDZIWE</strong>!</li>
+<li><strong>Główna zaleta KML:</strong> integruje wszystkie istotne definicje w <strong>jednej przestrzeni nazw (single namespace)</strong>, minimalizując ilość importowanego kodu (pełni to rolę analogiczną do profili w GML 3.X).</li>
+<li>W <strong>2006 r.</strong> Google rozpoczął proces czynienia KML otwartym standardem, a w <strong>2008 r.</strong> specyfikacja <strong>KML 2.2 stała się oficjalnym standardem OGC</strong>.</li>
+<li>Produkty firmy Google (Google Earth, Maps API, Earth API) czasami stosują <strong>nieoficjalne rozszerzenia standardu KML</strong> (<em>unofficial extensions</em>).</li>
+<li>Ponieważ KML jest podzbiorem GML, obiekty opisane w KML można <strong>łatwo przetłumaczyć na obiekty GML</strong>, z wyłączeniem elementów specyficznych dla KML (takich jak <strong>obsługa modeli 3D</strong> czy animowane prezentacje <strong>tours</strong>).</li>
+<li>Podobnie jak GML, KML umożliwia <strong>czterowymiarowy (czasowy – temporal) opis danych</strong> (<code>&lt;TimeSpan&gt;</code>, <code>&lt;TimeStamp&gt;</code>).</li>
+<li><strong>KMZ:</strong> skompresowana (ZIP) wersja pliku KML wraz z zasobami (teksturami, ikonami, modelami).</li>
+</ul>
+</ul>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">Najważniejsze węzły i parametry w KML (Slajdy 29–51):</h4>
+<ol>
+<li>**Współrzędne (<code>&lt;coordinates&gt;</code>):**</li>
+<ul>
+<li>Zapisywane w kolejności <code>longitude,latitude,altitude</code>: <strong>X, Y w stopniach dziesiętnych</strong>, a <strong>Z (wysokość) w metrach</strong>.</li>
+</ul>
+<li>**<code>&lt;Placemark&gt;</code> (Znacznik miejsca):**</li>
+<ul>
+<li>Podstawowy obiekt na mapie; zawiera <code>&lt;name&gt;</code>, <code>&lt;description&gt;</code>, <code>&lt;visibility&gt;</code>, <code>&lt;styleUrl&gt;</code>, opcjonalnie kamerę <code>&lt;LookAt&gt;</code> oraz geometrię (np. <code>&lt;Point&gt;</code>, <code>&lt;LineString&gt;</code>, <code>&lt;Polygon&gt;</code>).</li>
+</ul>
+<li>**<code>&lt;LookAt&gt;</code> (Definicja punktu widzenia / kamery dla obiektu – Slajd 30):**</li>
+<ul>
+<li><code>&lt;longitude&gt;</code>, <code>&lt;latitude&gt;</code>, <code>&lt;altitude&gt;</code> – współrzędne punktu, na który patrzy kamera,</li>
+<li><code>&lt;heading&gt;</code> – kąt obrotu względem północy (azymut),</li>
+<li><code>&lt;tilt&gt;</code> – kąt nachylenia w pionie (od pionu/poziomu – <em>przesunięcie w płaszczyźnie góra/dół</em>),</li>
+<li><code>&lt;range&gt;</code> – odległość kamery od obserwowanego punktu (w notatkach skojarzone z polem widzenia).</li>
+</ul>
+<li>**Tryb wysokości (<code>&lt;altitudeMode&gt;</code>) oraz wyciągnięcie (<code>&lt;extrude&gt;</code>) i teselacja (<code>&lt;tessellate&gt;</code>):**</li>
+<ul>
+<li><code>&lt;altitudeMode&gt;</code>:</li>
+<ul>
+<li>Domyślnie (brak lub <code>clampToGround</code>) – obiekt leży na powierzchni ziemi,</li>
+<li><code>relativeToGround</code> – wysokość mierzona <strong>względem poziomu gruntu (terenu)</strong> pod obiektem (ścieżka lub poligon podąża za rzeźbą terenu na zadanej wysokości nad nim),</li>
+<li><code>absolute</code> – wysokość bezwzględna mierzona <strong>względem poziomu morza / elipsoidy</strong>.</li>
+</ul>
+<li><code>&lt;extrude&gt;1&lt;/extrude&gt;</code>: „pociągnięcie” (wyciągnięcie) obiektu w dół do powierzchni ziemi/elipsoidy:</li>
+<ul>
+<li><strong>Punkt</strong> z <code>extrude=1</code> tworzy pionową linię – „ogon”/„łupek” (<em>tethered to the ground by a tail</em>),</li>
+<li>**Linia (<code>&lt;LineString&gt;</code>)** z <code>extrude=1</code> tworzy pionową <strong>ścianę (wall)</strong>,</li>
+<li>**Poligon (<code>&lt;Polygon&gt;</code>)** z <code>extrude=1</code> tworzy <strong>bryłę 3D (budynek)</strong>.</li>
+</ul>
+<li><code>&lt;tessellate&gt;1&lt;/tessellate&gt;</code>: sprawia, że linia/ścieżka (<code>&lt;LineString&gt;</code>) leżąca na ziemi (<code>altitude=0</code>) <strong>dopasowuje się do krzywizny i rzeźby podłoża (will contour to the underlying terrain)</strong> zamiast przebiegać w linii prostej pod ziemią.</li>
+</ul>
+<li>**<code>&lt;Polygon&gt;</code> (Wielokąt – Slajd 40):**</li>
+<ul>
+<li>Może posiadać obrys zewnętrzny **<code>&lt;outerBoundaryIs&gt;</code><strong> oraz obrys wewnętrzny </strong><code>&lt;innerBoundaryIs&gt;</code>** (otwór w środku, np. dziedziniec Pentagonu na slajdzie 41), z których każdy zawiera <code>&lt;LinearRing&gt;&lt;coordinates&gt;...&lt;/coordinates&gt;&lt;/LinearRing&gt;</code>.</li>
+</ul>
+<li>**Zapis kolorów w <code>&lt;Style&gt;</code> (<code>&lt;LineStyle&gt;</code>, <code>&lt;PolyStyle&gt;</code>) – Pewniak egzaminacyjny!** &gt; [!CAUTION] &gt; W KML atrybut <code>&lt;color&gt;</code> zapisuje się szesnastkowo w formacie **<code>aabbggrr</code> (ABGR)<strong> – czyli </strong>odwrotnie niż w klasycznym RGBA**! &gt; * <code>aa</code> – przezroczystość (<strong>Alpha</strong> / transparency), &gt; * <code>bb</code> – składowa niebieska (<strong>Blue</strong>), &gt; * <code>gg</code> – składowa zielona (<strong>Green</strong>), &gt; * <code>rr</code> – składowa czerwona (<strong>Red</strong>). &gt; *(Przykład ze slajdu 42: <code>&lt;color&gt;7d00ffff&lt;/color&gt;</code> to półprzezroczysty żółty, bo <code>bb=00</code>, <code>gg=ff</code>, <code>rr=ff</code>).*</li>
+<li><strong>Nakładki (Overlays) w KML:</strong></li>
+<ul>
+<li>**<code>&lt;GroundOverlay&gt;</code> (Slajd 33):** nakłada dodatkową warstwę obrazu (<code>&lt;Icon&gt;&lt;href&gt;...&lt;/href&gt;&lt;/Icon&gt;</code>) bezpośrednio <strong>na powierzchnię terenu/mapy</strong> (np. zdjęcie erupcji Etny), pozycjonowaną za pomocą <code>&lt;LatLonBox&gt;</code> (<code>&lt;north&gt;</code>, <code>&lt;south&gt;</code>, <code>&lt;east&gt;</code>, <code>&lt;west&gt;</code>, <code>&lt;rotation&gt;</code>).</li>
+<li>**<code>&lt;ScreenOverlay&gt;</code> (Slajdy 44–45):<strong> wyświetla elementy płaskie </strong>w przestrzeni ekranu (screen-space)**, np. legendę, logo, kompas.</li>
+<ul>
+<li>Pozycja obrazu jest kontrolowana przez mapowanie współrzędnych punktu na obrazku zdefiniowanych w **<code>&lt;overlayXY&gt;</code><strong> na współrzędne ekranu podane w </strong><code>&lt;screenXY&gt;</code>** (jednostki np. <code>fraction</code> od 0 do 1).</li>
+<li>Rozmiar kontroluje element **<code>&lt;size&gt;</code>**.</li>
+<li><em>Przykład ze slajdu 45:</em> <code>&lt;overlayXY x="1" y="1" /&gt;</code>, <code>&lt;screenXY x="1" y="1" /&gt;</code>, <code>&lt;size x="0" y="1" /&gt;</code> umieści obrazek w <strong>prawym górnym rogu ekranu</strong> i automatycznie przeskaluje go do <strong>pełnej wysokości ekranu</strong>.</li>
+</ul>
+<li>**<code>&lt;PhotoOverlay&gt;</code> (Slajdy 46–47 – Pewniak egzaminacyjny!):**</li>
+<ul>
+<li>Pozwala na <strong>nakładanie (draping) fotografii o bardzo dużej objętości i szczegółowości (gigapikselowych) na kształty 3D</strong> w scenie oraz zastosowanie na nich <strong>dynamicznego Level-of-Detail (LoD)</strong>!</li>
+<li>*Uwaga z testu (<code>TWDP_pytania.pdf</code>):<em> Na pytanie </em>„PhotoOverlays w KML pozwala na: a) tworzenie wirtualnych panoram, b) wszystkie z wymienionych, c) zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach, d) wykorzystanie danych o bardzo dużej objętości i stopniu szczegółowości”<em> – w kluczu studenckim zaznaczono <strong>c)</strong> (ponieważ dosłownie odpowiada pierwszemu zdaniu ze slajdu 46: </em>„Those photographs may also use dynamic Level-of-Detail”*), choć dzięki <code>&lt;ImagePyramid&gt;</code> i <code>&lt;shape&gt;cylinder/sphere&lt;/shape&gt;</code> umożliwia także d) i a) (dlatego warto pamiętać zarówno o dosłownym c), jak i o <code>&lt;ImagePyramid&gt;</code>).</li>
+<li>Podwęzły <code>&lt;PhotoOverlay&gt;</code>:</li>
+<ul>
+<li><code>&lt;ViewVolume&gt;</code> – mapuje stożek widzenia kamery na kształt (<code>leftFov</code> od -180 do 180, <code>rightFov</code>, <code>bottomFov</code> od -90 do 90, <code>topFov</code>, oraz <code>near</code> – odległość od kamery do kształtu w metrach).</li>
+<li><code>&lt;ImagePyramid&gt;</code> – definiuje rozdzielczość oryginalnego obrazu przesyłanego w formie kafelków (<code>maxWidth</code>, <code>maxHeight</code>; kafelki są zawsze kwadratowe, domyślnie <strong>256 px</strong>).</li>
+<li><code>&lt;shape&gt;</code> – kształt, na który nakładane jest zdjęcie: **<code>rectangle</code><strong> (prostokąt), </strong><code>cylinder</code><strong> (walec) lub </strong><code>sphere</code>** (sfera).</li>
+</ul>
+</ul>
+</ul>
+<li>**<code>&lt;Region&gt;</code> i <code>&lt;Lod&gt;</code> (Slajdy 48–49 – Pewniak egzaminacyjny!):**</li>
+<ul>
+<li>Regiony KML zapewniają <strong>dynamiczny Level-of-Detail (LoD)</strong> dla każdego kształtu (modelu 3D lub fotografii) zdefiniowanego niżej w hierarchii pliku. Regiony mogą być zagnieżdżane jeden w drugim (<em>embedded in one another</em>).</li>
+<li>Każdy <code>&lt;Region&gt;</code> definiuje granice widoczności za pomocą <strong>pary elementów</strong>:</li>
+<ol>
+<li>**<code>&lt;LatLonAltBox&gt;</code>** – określa obszar geograficzny (<code>north</code>, <code>south</code>, <code>east</code>, <code>west</code>) oraz wysokość kamery (<code>minAltitude</code>, <code>maxAltitude</code>),</li>
+<li>**<code>&lt;Lod&gt;</code>** – określa kryteria rozdzielczości ekranowej (np. <code>&lt;minLodPixels&gt;128&lt;/minLodPixels&gt;</code>, <code>&lt;maxLodPixels&gt;</code>), przy których region staje się aktywny.</li>
+</ol>
+<li><em>Wniosek do pytania z testu:</em> Element <code>&lt;Lod&gt;</code> w KML: **a) musi być stosowany w parze z elementem <code>&lt;LatLonAltBox&gt;</code>, b) powinien być zdefiniowany wewnątrz elementu <code>&lt;Region&gt;</code>, d) pozwala na definiowanie dynamicznego Level-of-Detail $\rightarrow$ c) wszystkie odpowiedzi są poprawne!**</li>
+</ul>
+<li><strong>Własne dane i czas w KML (Slajdy 50–51):</strong></li>
+<ul>
+<li>**<code>&lt;ExtendedData&gt;</code>:** pozwala definiować własne typy danych (<em>custom data types</em>) wewnątrz <code>&lt;Placemark&gt;</code> (za pomocą <code>&lt;Data name="..."&gt;&lt;value&gt;...&lt;/value&gt;&lt;/Data&gt;</code>), które można wyświetlać w dymkach (<code>&lt;BalloonStyle&gt;</code> przez <code>$[nazwa Pola]</code>).</li>
+<li>**<code>&lt;TimeStamp&gt;</code> vs. <code>&lt;TimeSpan&gt;</code>:<strong> obiekt KML może mieć czas życia chwilowy (</strong>Stamp<strong> – punkt w czasie) lub dłuższy przedział czasu (</strong>Span** – od-do), obsługiwany przez suwak czasu (<em>time bar</em>) w Google Earth.</li>
+</ul>
+</ol>
+<hr class="my-5 border-[var(--border)]" />
+<h2 id="part-4">Część 4: Systemy prezentacji danych przestrzennych 3D (<code>3D GIS.pdf</code>)</h2>
+<h3>4.1. Zastosowania i podział technologii 3D GIS</h3>
+<ul>
+<li><strong>Trzy główne obszary zastosowań (Slajd 2):</strong></li>
+<ol>
+<li><strong>Environment monitoring (Monitorowanie środowiska):</strong> ekologia (<em>Ecology</em>), oceanografia (<em>Oceanography</em>), bioróżnorodność i mapowanie zasobów naturalnych (<em>Biodiversity / Natural resource mapping</em>).</li>
+<li><strong>Environment mapping (Mapowanie środowiska):</strong> nawigacja (<em>Navigation</em>).</li>
+<li><strong>Environment engineering (Inżynieria środowiska):</strong> planowanie krajobrazu (<em>Landscape planning</em>), usługi środowiskowe (<em>Environmental services</em>).</li>
+</ol>
+<li><strong>Podział technologii na Desktop i Web (Slajd 3):</strong></li>
+<ul>
+<li>**Desktop (<code>C++ / Java / .NET</code> + <code>DirectX / OpenGL</code>):**</li>
+<ul>
+<li><strong>ArcGIS Engine SDK</strong> (ESRI)</li>
+<li><strong>GRASS</strong> (Geographic Resources Analysis and Support System)</li>
+<li><strong>NASA WorldWind</strong> (wariant Java + OpenGL)</li>
+<li><strong>Google Earth</strong> (Desktop)</li>
+</ul>
+<li>**Web (<code>JavaScript</code> + <code>WebGL</code>):**</li>
+<ul>
+<li><strong>Cesium</strong> (CesiumJS)</li>
+<li><strong>NASA WorldWind</strong> (WebWorldWind – JS + WebGL)</li>
+<li><strong>Microsoft Virtual Earth / Bing Maps 3D</strong></li>
+<li><em>(Historycznie również Google Earth Plugin, który został wycofany – deprecated)</em>.</li>
+</ul>
+</ul>
+</ul>
+<h3>4.2. Przegląd systemów: ArcGIS Engine, Google Earth, GRASS, NASA WorldWind</h3>
+<div class="table-wrap"><table><thead><tr><th>System</th><th>Kluczowe cechy ze slajdów (<code>3D GIS.pdf</code>)</th></tr></thead><tbody><tr><td><strong>ESRI ArcGIS Engine SDK</strong></td><td>• Komercyjny zestaw narzędzi i bibliotek do budowy własnych systemów informacji przestrzennej w <strong>.NET (C#, VB, VC)</strong> lub <strong>Java, C++ (Win/Linux/Solaris)</strong>.&lt;br/&gt;• <strong>Architektura (5 warstw od dołu):</strong> <code>Base Services</code> (rdzeń ArcObjects: geometria i wyświetlanie) $\rightarrow$ <code>Data Access</code> (dostęp do rastrów, wektorów i geobazy) $\rightarrow$ <code>Map Presentation</code> (tworzenie map, symbologia, etykiety) $\rightarrow$ <code>Developer Components</code> (kontrolki GUI i pomoc) $\rightarrow$ <code>Extensions</code> (rozszerzenia zaawansowane).&lt;br/&gt;• <strong>Rozszerzenia (Extensions):</strong> <em>Geodatabase Update, Spatial, 3D, Network, Maplex, Tracking, Schematics, Data Interoperability</em>.&lt;br/&gt;• <strong>Licencjonowanie (ważne!):</strong> Wymaga dwóch licencji: <strong>Developer Kit</strong> (przypisana do komputera dewelopera) oraz <strong>Engine Runtime</strong> (przypisana do komputera każdego użytkownika końcowego) – oznacza to, że każda kopia naszego programu musi uwzględniać cenę licencji <em>Engine Runtime</em> oraz wymaganych rozszerzeń!&lt;br/&gt;• <strong>Główne kontrolki SDK:</strong> <code>GlobeControl</code>, <code>SceneControl</code>, <code>TOCControl</code>, <code>MapControl</code>, <code>Toolbars</code>, <code>LicenseControl</code>.</td></tr><tr><td><strong>Google Earth &amp; Google Earth Plugin</strong></td><td>• Oprogramowanie do tworzenia, przetwarzania i wizualizacji wybranych typów danych wektorowych (KML/KMZ), dostępne na <strong>Windows, Linux, Mac, iOS oraz Android</strong> (jako aplikacja Desktop oraz Web).&lt;br/&gt;• Operuje na zdalnych źródłach danych dostarczanych przez Google Inc. Udostępnia trójwymiarowe warstwy reprezentujące <strong>ląd, ocean, niebo (Sky), Marsa, Księżyc (Moon)</strong> oraz wybrane elementy galaktyki.&lt;br/&gt;• <strong>Google Earth Plugin:</strong> wtyczka do przeglądarki, która pozwalała modyfikować funkcjonalność programu przez JavaScript (powstały np. symulatory lotu, statków, paralotni), ale aplikacje te przestały istnieć z powodu <strong>wycofania (deprecation)</strong> wtyczki.</td></tr><tr><td><strong>GRASS GIS</strong></td><td>• <strong>Geographic Resources Analysis and Support System</strong> – darmowe oprogramowanie <strong>Open Source</strong> dostępne na <strong>Windows, Linux i Mac</strong>.&lt;br/&gt;• Umożliwia manipulację, analizę i wizualizację danych przestrzennych w <strong>2D oraz 3D</strong> (łatwo rozszerzalny np. o moduł renderowania 3D).&lt;br/&gt;• Wbudowane moduły analizy przestrzennej (<em>Spatial Analysis</em>) pozwalają badać m.in. <strong>infrastrukturę sieciową (drogi, rurociągi)</strong>.&lt;br/&gt;• <strong>Dzięki obsłudze skryptów (support for scripts) umożliwia zaawansowane operacje na danych (Slajdy 14–17):</strong>&lt;br/&gt;  1. <strong>Wyciąganie płaskich kształtów do obiektów 3D</strong> (<em>Extrusion of flat shapes into 3D objects</em>, np. budynków z obrysów 2D),&lt;br/&gt;  2. <strong>Symulacja ryzyka powodziowego</strong> na podstawie Numerycznego Modelu Terenu (<em>Simulation of flood risk based on Digital Terrain Model – DTM</em>),&lt;br/&gt;  3. <strong>Rektyfikacja (uzupełnianie) niekompletnych danych przestrzennych</strong> (<em>Rectification of incomplete spatial data</em> – łatanie białych dziur w modelu terenu),&lt;br/&gt;  4. <strong>Generowanie obrazów stereoskopowych (anaglifów)</strong> z wizualizacji 3D (<em>Producing stereoscopic images from 3D visualizations</em>).</td></tr><tr><td><strong>NASA WorldWind</strong></td><td>• Aplikacja wirtualnego globu 3D występująca w wariancie <strong>Desktop (Java + OpenGL)</strong> oraz <strong>Web (JavaScript + WebGL)</strong>.&lt;br/&gt;• Wizualizuje <strong>elipsoidę WGS84</strong> pokrytą teksturami map w odwzorowaniu <strong>Web Mercator</strong> z serwisów <strong>Bing</strong> lub <strong>WMS/WMTS</strong>, a także obsługuje pliki <strong>Shapefile</strong> i obrazy.&lt;br/&gt;• Wspiera ładowanie własnych modeli 3D (<em>custom models</em>).</td></tr></tbody></table></div>
+<h3>4.3. Biblioteka Cesium (CesiumJS) – Szczegółowe omówienie (Slajdy 19–51)</h3>
+<div class="callout">[!IMPORTANT]<br/>Biblioteka <strong>Cesium</strong> jest bardzo szczegółowo omawiana na wykładzie i stanowi główny temat pytań testowych oraz otwartych w [TWDP_pytania.pdf](file:///c:/Users/miloo/Downloads/trojwymairowy/TWDP_pytania.pdf).</div>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">A. Charakterystyka i możliwości Cesium (Slajdy 19–20)</h4>
+<ul>
+<li><strong>Czym jest Cesium?</strong> Otwartoźródłowa (<em>Open Source</em>) <strong>biblioteka JavaScript oparta na standardzie WebGL</strong>, służąca do budowy trójwymiarowych webowych systemów GIS (3D Web GIS). <strong>Działa bezpośrednio w każdej nowoczesnej przeglądarce i NIE wymaga instalacji żadnej dedykowanej wtyczki (pluginu)!</strong></li>
+<li><strong>Główne możliwości Cesium:</strong></li>
+<ol>
+<li><strong>Czterowymiarowa (4D – z uwzględnieniem czasu) wizualizacja danych przestrzennych</strong> (suwak czasu, animacja satelitów, samolotów, oświetlenia słonecznego).</li>
+<li><strong>Integracja warstw danych z różnych źródeł</strong> z możliwością indywidualnej modyfikacji: **przezroczystości (<code>alpha</code>), jasności (<code>brightness</code>), kontrastu (<code>contrast</code>), koloru, nasycenia (<code>saturation</code>) oraz korekcji gamma (<code>gamma</code>)**.</li>
+<li><strong>Wsparcie dla modeli 3D w formatach COLLADA oraz glTF</strong> (<code>.gltf</code> / <code>.glb</code>), wliczając tekstury i animacje.</li>
+<li><strong>Rysowanie i personalizacja standardowych obiektów 3D (prymitywów i encji):</strong> polilinie (<em>polylines</em>), <strong>billboardy</strong> (płaskie prymitywne obiekty/ikony, które są <strong>zawsze zwrócone przodem w kierunku obserwatora/kamery</strong>!), etykiety (<em>labels</em>), poligony (<em>polygons</em>), elipsy (<em>ellipses</em>), prostopadłościany (<em>boxes</em>), walce (<em>cylinders</em>).</li>
+<li><strong>Rysowanie atmosfery ziemskiej, wody, Słońca, Księżyca, gwiazd oraz dynamicznego oświetlenia</strong> i cieniowania.</li>
+<li><strong>Nawigacja sceną</strong> za pomocą <strong>klawiatury, myszy oraz dotyku (touch)</strong>.</li>
+<li><strong>Grupowanie obiektów oraz wycinanie elementów niewidocznych (culling)</strong> w celu optymalizacji wydajności.</li>
+<li><strong>Wysokiej precyzji bufor głębi (High precision Z-buffer)</strong> – umożliwia wyświetlanie ogromnych środowisk (w skali całej planety) <strong>bez artefaktów migotania nakładających się powierzchni (z-fighting)</strong>.</li>
+<li>Istnieje również wtyczka <strong>Cesium for Unreal</strong> łącząca globalne dane Cesium z silnikiem Unreal Engine.</li>
+</ol>
+</ul>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">B. <code>CesiumWidget</code> vs. <code>CesiumViewer</code> (Slajdy 21–24 i notatki)</h4>
+<div class="table-wrap"><table><thead><tr><th>Cecha</th><th><code>Cesium.CesiumWidget</code></th><th><code>Cesium.Viewer</code> (<code>CesiumViewer</code>)</th></tr></thead><tbody><tr><td><strong>Przeznaczenie</strong></td><td>Uproszczona, lekka wersja (sam glob 3D bez dodatkowych kontrolek interfejsu), szybko się ładuje.</td><td>Pełna wersja z gotowymi kontrolkami GUI (zegar, oś czasu, wybór warstw, wyszukiwarka).</td></tr><tr><td>**Wymagane elementy HTML (<code>&lt;div&gt;</code>)**</td><td><strong>1 div:</strong> <code>&lt;div id="cesiumContainer"&gt;&lt;/div&gt;</code> przekazywany do konstruktora <code>new Cesium.CesiumWidget('cesiumContainer')</code>.</td><td><strong>3 divy w szablonie:</strong>&lt;br/&gt;1. <code>cesiumContainer</code> (główny kontener funkcjonalny z klasą <code>fullSize</code>),&lt;br/&gt;2. <code>loadingOverlay</code> (wyświetlany w trakcie ładowania biblioteki),&lt;br/&gt;3. <code>toolbar</code> (pasek narzędzi, domyślnie w lewym górnym rogu ekranu).</td></tr><tr><td><strong>Styl CSS</strong></td><td>Musimy ręcznie skonfigurować styl CSS dla <code>#cesiumContainer</code>, <code>html</code> i <code>body</code> (<code>height: 100%; width: 100%; margin: 0; overflow: hidden;</code>) oraz zaimportować <code>Cesium/Widgets/widgets.css</code>.</td><td>Wystarczy zaimportować gotowy arkusz szablonu <code>@import url(../templates/bucket.css);</code> – nie trzeba ręcznie pisać stylów rozmiaru.</td></tr></tbody></table></div>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">C. Obsługa warstw rastrowych (Imagery Layers) i zewnętrznych źródeł danych (Slajdy 25–34)</h4>
+<ul>
+<li>Kolekcja widocznych warstw tekstur w scenie znajduje się w: **<code>viewer.scene.imageryLayers</code>**.</li>
+<li>Dodawanie nowej warstwy: <code>layers.add(nowaWarstwa);</code></li>
+<li>Modyfikacja parametrów warstwy:</li>
+<ul>
+<li><code>layer.alpha = 0.5;</code> (<code>0.0</code> = całkowicie przezroczysta, <code>1.0</code> = nieprzezroczysta),</li>
+<li><code>layer.brightness = 2.0;</code> (<code>&gt; 1.0</code> zwiększa jasność, <code>&lt; 1.0</code> zmniejsza jasność).</li>
+</ul>
+<li><strong>Zewnętrzne źródła danych przestrzennych i odpowiadające im klasy Providerów w Cesium (Slajd 33):</strong></li>
+<ol>
+<li><strong>Web Map Service (WMS)</strong> – serwis webowy i standard OGC $\rightarrow$ <code>WebMapServiceImageryProvider</code></li>
+<li><strong>Tile Map Service (TMS)</strong> – serwis REST $\rightarrow$ <code>TileMapServiceImageryProvider</code></li>
+<li><strong>OpenGIS Web Map Tile Service (WMTS)</strong> – serwis webowy i standard OGC do dostarczania prerenderowanych kafelków $\rightarrow$ <code>WebMapTileServiceImageryProvider</code> *(na slajdzie 33 wpisano <code>WebMapServiceImageryProvider</code>)*</li>
+<li><strong>OpenStreetMap (OSM)</strong> – serwis kafelkowy OSM $\rightarrow$ <code>OpenStreetMapImageryProvider</code></li>
+<li><strong>Bing Maps</strong> – serwis REST wymagający klucza API Bing Maps $\rightarrow$ <code>BingMapsImageryProvider</code></li>
+<li><strong>Esri ArcGIS MapServer</strong> – serwis REST MapServer $\rightarrow$ <code>ArcGisMapServerImageryProvider</code></li>
+<li><strong>Google Earth Enterprise</strong> – serwer Google Earth Enterprise $\rightarrow$ <code>GoogleEarthImageryProvider</code></li>
+<li><strong>Standardowe pliki graficzne (pojedynczy obrazek na mapie)</strong> $\rightarrow$ <code>SingleTileImageryProvider</code> (z określeniem prostokąta <code>Cesium.Rectangle.fromDegrees(west, south, east, north)</code>).</li>
+<li><strong>Cesium Ion</strong> $\rightarrow$ <code>IonImageryProvider({ assetId: ... })</code>.</li>
+</ol>
+</ul>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">D. Numeryczny Model Terenu (Digital Terrain Model – DTM) w Cesium (Slajdy 35–37)</h4>
+<ul>
+<li>Cesium przyjmuje dane wysokościowe w postaci kafelków zawierających wysokość terenu ponad poziomem morza / elipsoidy (w prezentacji zaznaczono brak natywnego wsparcia dla batymetrii w standardowym modelu).</li>
+<li>Kafelki terenu mogą zawierać **maskę wody (<code>requestWaterMask: true</code>)<strong> oraz wektory normalne do cieniowania (</strong><code>requestVertexNormals: true</code>**).</li>
+<li>Zastosowanie odpowiedniego modelu terenu (np. <code>Cesium.Terrain.fromWorldTerrain</code> z Cesium Ion) pozwala <strong>odróżnić obszary lądowe od wodnych</strong> i automatycznie włącza <strong>animację fal oraz cieniowanie obszarów wodnych</strong>.</li>
+<li>Można też używać własnych źródeł danych wysokościowych (<code>VRTheWorldTerrainProvider</code>), np. mniejszych danych <strong>GTOPO30 (rozdzielczość 1 km)</strong> zamiast dużych danych <strong>SRTM (rozdzielczość 30 m)</strong>.</li>
+</ul>
+<h4 class="text-sm font-bold mt-3 mb-1 text-[var(--primary)]">E. Rysowanie obiektów wektorowych, kolory, modele 3D, cienie i cząsteczki (Slajdy 38–49)</h4>
+<ul>
+<li><strong>Zapis kolorów w Cesium (Pewniak egzaminacyjny!):</strong></li>
+<ul>
+<li>W przeciwieństwie do KML (gdzie jest ABGR), w Cesium kolory zapisujemy <strong>normalnie w formacie RGBA</strong>:</li>
+<ul>
+<li>Za pomocą wartości zmiennoprzecinkowych <code>0.0 – 1.0</code>: <code>new Cesium.Color(1.0, 0.0, 0.0, 0.8)</code> (czerwony z alfa 0.8),</li>
+<li>Za pomocą wartości szesnastkowej: <code>Cesium.Color.fromRgba(0xFF005060)</code>,</li>
+<li>Za pomocą stałych: np. <code>Cesium.Color.YELLOW</code>.</li>
+</ul>
+</ul>
+<li><strong>Krzywizna Ziemi a obiekty wektorowe (Polilinie – Slajdy 38–43):</strong></li>
+<ul>
+<li>**Domyślnie obiekty wektorowe (np. <code>PolylineGeometry</code>) w Cesium podążają po powierzchni elipsoidy** (uwzględniają krzywiznę Ziemi).</li>
+<li>Aby narysować linię prostą w przestrzeni 3D, która <strong>NIE podąża za krzywizną Ziemi</strong> (<em>does not follow Earth's curvature</em>), należy ustawić parametr: **<code>arcType : Cesium.ArcType.NONE</code>** (oraz podać wysokości punktów np. przez <code>Cesium.Cartesian3.fromDegreesArrayHeights([...])</code>).</li>
+</ul>
+<li>**Wyświetlanie własnych modeli 3D (<code>.gltf</code> / <code>.glb</code> – Slajd 44):**</li>
+<ul>
+<li>Ładowane przez <code>Cesium.Model.fromGltfAsync({ url: '...', modelMatrix: modelMatrix })</code> i dodawane do <code>viewer.scene.primitives.add(model)</code> (lub przez <code>viewer.entities.add</code>).</li>
+<li><strong>Ważna uwaga ze slajdu 44:</strong> Macierz transformacji modelu (<code>modelMatrix</code>, np. z <code>Cesium.Transforms.eastNorthUpToFixedFrame</code>) jest obliczana <strong>względem elipsoidy WGS84</strong>! W przypadku używania Numerycznego Modelu Terenu (DTM), położenie modelu nad powierzchnią Ziemi może wymagać korekty wysokości.</li>
+</ul>
+<li><strong>Naturalne cieniowanie (Natural shading – Slajd 46):</strong></li>
+<ul>
+<li>Włączane w konstruktorze <code>Viewer</code>: <code>shadows: true</code>, <code>terrainShadows: Cesium.ShadowMode.ENABLED</code> oraz konfigurację <code>viewer.shadowMap</code> (<code>maximumDistance</code>, <code>softShadows = true</code>).</li>
+<li>Uwzględnia aktualny czas zegara (<code>viewer.clock.currentTime = new Cesium.JulianDate(...)</code>), dzięki czemu cień np. lecącego samolotu pada realistycznie na zbocza gór zgodnie z pozycją Słońca.</li>
+</ul>
+<li><strong>Emitery cząsteczek (Particle emitters – Slajd 48):</strong></li>
+<ul>
+<li>Klasa <code>new Cesium.ParticleSystem({ image: '../SampleData/fire.png', imageSize: ..., startScale: 1.0, endScale: 4.0, lifetime: 16, modelMatrix: ..., emitterModelMatrix: ... })</code> pozwala symulować np. ogień, dym lub spaliny wydobywające się z lecącego samolotu.</li>
+</ul>
+</ul>
+<hr class="my-5 border-[var(--border)]" />
+<h2 id="part-5">Część 5: Opracowanie wszystkich pytań z pliku <code>TWDP_pytania.pdf</code></h2>
+<ol>
+<li>**W GML pozycja <code>(18.25, 54.10, 28)</code> oznacza punkt w Gdańsku opisany na współrzędnych w:**</li>
+<ul>
+<li><strong>Odpowiedź:</strong> <strong>a) stopniach (x,y) i metrach (z)</strong> <em>(18.25° E długości geogr., 54.10° N szerokości geogr., 28 m wysokości)</em>.</li>
+</ul>
+<li>**Element <code>&lt;Lod&gt;</code> występujący w formacie KML:**</li>
+<ul>
+<li>a) musi być stosowany w parze z elementem <code>&lt;LatLonAltBox&gt;</code></li>
+<li>b) powinien być zdefiniowany wewnątrz elementu <code>&lt;Region&gt;</code></li>
+<li>c) <strong>wszystkie odpowiedzi są poprawne</strong></li>
+<li>d) pozwala na definiowanie dynamicznego Level-of-Detail</li>
+<li><strong>Odpowiedź:</strong> <strong>c) wszystkie odpowiedzi są poprawne</strong>.</li>
+</ul>
+<li><strong>Kolejne etapy potoku graficznego to (już po uszeregowaniu):</strong></li>
+<ul>
+<li><strong>Odpowiedź:</strong> <strong>1. Ustawienie wierzchołków $\rightarrow$ 2. Transformacja sceny $\rightarrow$ 3. Projekcja widoku $\rightarrow$ 4. Rasteryzacja $\rightarrow$ 5. Teksturowanie $\rightarrow$ 6. Oświetlenie i cieniowanie</strong>.</li>
+</ul>
+<li><strong>Wskaż zdanie nieprawdziwe (dot. KML i GML):</strong></li>
+<ul>
+<li>a) KML jest jednym z oficjalnych standardów OGC <em>(Prawda – od 2008 r., wersja 2.2)</em></li>
+<li>b) KML został stworzony jako uproszczenie języka GML <em>(Prawda)</em></li>
+<li>c) Produkty firmy Google czasami stosują nieoficjalne rozszerzenia standardu KML <em>(Prawda)</em></li>
+<li>d) <strong>KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany</strong> <em>(FAŁSZ – poprawna odpowiedź do zaznaczenia)</em>.</li>
+</ul>
+<li><strong>PhotoOverlays w KML pozwala na:</strong></li>
+<ul>
+<li><strong>Odpowiedź z klucza:</strong> <strong>c) zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach</strong> *(dosłowne zdanie ze slajdu 46: „KML allows for draping photographs over 3D objects. Those photographs may also use dynamic Level-of-Detail”; pamiętaj też, że wykorzystuje <code>&lt;ImagePyramid&gt;</code> dla zdjęć gigapikselowych oraz kształty rectangle/cylinder/sphere)*.</li>
+</ul>
+<li><strong>Fotogrametria jest:</strong></li>
+<ul>
+<li><strong>Odpowiedź:</strong> <strong>b) dziedziną nauki zajmującą się m.in. odtwarzaniem trójwymiarowych modeli fotografowanych obiektów</strong>.</li>
+</ul>
+<li><strong>W KML kolory obiektów podaje się w formacie:</strong></li>
+<ul>
+<li><strong>Odpowiedź:</strong> <strong>d) ABGR</strong> (<code>aabbggrr</code> szesnastkowo: alfa, blue, green, red).</li>
+</ul>
+<li><strong>Wskaż zdanie nieprawdziwe na temat biblioteki Cesium:</strong></li>
+<ul>
+<li>a) jest ona oparta na standardzie WebGL <em>(Prawda)</em></li>
+<li>b) umożliwia ona rysowanie takich obiektów jak polilinie, bilboardy, poligony czy wielokąty <em>(Prawda)</em></li>
+<li>c) <strong>do korzystania z niej wymagana jest instalacja dedykowanej wtyczki do przeglądarki internetowej</strong> <em>(FAŁSZ – poprawna odpowiedź do zaznaczenia; wtyczki wymagał stary Google Earth Plugin, natomiast Cesium działa natywnie w WebGL bez wtyczek)</em>.</li>
+<li>d) pozwala ona na nawigację sceny przy pomocy klawiatury, myszy oraz dotyku <em>(Prawda)</em></li>
+</ul>
+<li><strong>Path tracing jest implementacją techniki o nazwie Raytracing. Zapewnia realistyczną symulację następujących charakterystyk promieni świetlnych:</strong></li>
+<ul>
+<li>a) ambient occlusion pozwalającego na wyliczanie oświetlenia i cieniowania</li>
+<li>b) subsurface scattering pozwalającego na symulację materiałów półprzezroczystych</li>
+<li>c) depth of field pozwalającego na symulację efektu rozproszenia</li>
+<li>**Wyjaśnienie ze slajdów 40 i 43 (<code>Computer graphics.pdf</code>):<strong> Zgodnie ze slajdem 40 Path Tracing symuluje </strong>a) ambient occlusion<strong> oraz </strong>c) depth of field<strong>, natomiast na slajdzie 43 wprost podano, że </strong>nie pozwala<strong> na symulację </strong>b) Subsurface Scattering** (ani aberracji chromatycznej i fluorescencji).</li>
+</ul>
+<li><strong>Czym są Anaglify?</strong></li>
+<ul>
+<li>Obrazy stereoskopowe umożliwiające widzenie w 3D dzięki okularom z filtrami spektralnymi (barwnymi). Efekt osiągany jest przez nałożenie dwóch obrazów o wykluczających się barwach (np. Red-Cyan, Red-Blue, Red-Green, Dark Blue-Amber) z lekkim przesunięciem poziomym, kosztem gamy postrzeganych kolorów.</li>
+</ul>
+<li><strong>Czym jest Cesium?</strong></li>
+<ul>
+<li>Otwartoźródłowa biblioteka JavaScript oparta na WebGL do tworzenia aplikacji 3D Web GIS, niewymagająca instalacji wtyczek. Pozwala na wizualizację 4D (w czasie), integrację warstw (WMS, WMTS, KML, Bing, OSM, GeoJSON, 3D Tiles), dodawanie modeli 3D (glTF, COLLADA), zarządzanie widokiem i cieniowaniem.</li>
+</ul>
+<li><strong>Czym są Billboardy?</strong></li>
+<ul>
+<li>Płaskie, prymitywne obiekty (ikony/sprajty 2D umieszczone w scenie 3D), które są <strong>zawsze zwrócone przodem w kierunku obserwatora (kamery)</strong> niezależnie od obrotu widoku.</li>
+</ul>
+<li><strong>Jak zapisujemy kolory w KML, a jak w Cesium?</strong></li>
+<ul>
+<li><strong>KML:</strong> odwrotnie niż w innych systemach – szesnastkowo <strong>ABGR</strong> (<code>aabbggrr</code>: Alpha, Blue, Green, Red).</li>
+<li><strong>Cesium:</strong> standardowo <strong>RGBA</strong> (np. <code>new Cesium.Color(r, g, b, a)</code> lub <code>Cesium.Color.fromRgba(0xFF005060)</code>).</li>
+</ul>
+<li><strong>KML i GML – różnice, który jest pierwowzorem?</strong></li>
+<ul>
+<li><strong>Pierwowzorem jest GML</strong> (standard ISO 19136:2007 / OGC). <strong>KML</strong> powstał jako propozycja uproszczenia GML (jest podzbiorem gramatyki GML 1.0 i 2.1.2). Główna różnica konstrukcyjna: KML umieszcza wszystkie definicje w <strong>jednej przestrzeni nazw (single namespace)</strong> bez konieczności importowania zewnętrznych profili XML, a dodatkowo wspiera modele 3D i animowane wycieczki (<em>tours</em>). Obiekty KML (poza specyficznymi jak modele 3D) łatwo przetłumaczyć na GML.</li>
+</ul>
+<li><strong>Czym jest LOD (Level-of-Detail) i jak się go używa?</strong></li>
+<ul>
+<li>Technika optymalizacji polegająca na zmniejszaniu złożoności (szczegółowości / liczby trójkątów) obiektów wraz ze wzrostem ich odległości od kamery. Wymaga przygotowania kilku coraz bardziej uproszczonych wersji każdego elementu sceny, które są dynamicznie podmieniane podczas renderowania (lub w KML sterowane przez <code>&lt;Region&gt;</code> z <code>&lt;LatLonAltBox&gt;</code> i <code>&lt;Lod&gt;</code>).</li>
+</ul>
+</ol>
       </div>
     </section>
 
-    <!-- ==================== QUIZ VIEW ==================== -->
     <section id="view-quiz" class="hidden space-y-4">
       <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
@@ -331,89 +975,261 @@
 
   <script>
     const FLASHCARDS = [
-      { id: 1, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 7', q: 'Jakie są 3 podstawowe prawa fizyki widzenia (The physics of vision) wymienione na wykładzie?', a: '1) <b>Obiekty znajdujące się dalej wydają się mniejsze</b> niż obiekty bliższe.<br>2) <b>Ocena głębi (Depth assessment) wymaga co najmniej dwóch punktów obserwacji</b>.<br>3) <b>Krzywizna Ziemi bezpośrednio wpływa na horyzont</b>.' },
-      { id: 2, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Notatki + Stereoscopy.pdf, slajdy 5-6', q: 'Jakim rodzajem perspektywy jest ludzki wzrok (dwoje oczu) i jakie wyróżniamy perspektywy od 1 do 6 punktów?', a: 'Ludzki wzrok to <b>perspektywa dwupunktowa</b> (złożenie dwóch perspektyw liniowych).<br>Rodzaje: 1-punktowa (liniowa), 2-, 3-, 4-punktowa, <b>5-punktowa</b> (półsfera / hemisphere), <b>6-punktowa</b> (pełna sfera 360° / sphere).' },
-      { id: 3, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 8', q: 'W jaki sposób ludzki mózg postrzega głębię i na jakie 2 sposoby można ten mechanizm sztucznie wywołać?', a: 'Mózg ocenia <b>przesunięcie (displacement)</b> obiektów widzianych przez lewe i prawe oko.<br>1) <b>Oszukanie mózgu</b> (autostereogramy).<br>2) <b>Dostarczenie każdemu oku dedykowanego obrazu</b> (stereoskopy, filtry, polaryzacja, migawki, HMD).' },
-      { id: 4, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 9 + Notatki', q: 'Czym są Autostereogramy, jak działają i na jakie 2 sposoby można na nie patrzeć?', a: 'Powtarzanie tych samych wzorów w <b>zmiennych odstępach</b> pozwala mózgowi posortować je w warstwy głębokości.<br>• <b>„Wall-eyed”</b> (wzrok za obrazem – „niewidzialna szyba”),<br>• <b>„Cross-eyed”</b> (wzrok skrzyżowany przed obrazem).' },
-      { id: 5, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 11-12', q: 'Czym jest stereoskop i jakie historyczne przykłady podano na wykładzie?', a: 'Urządzenie optyczne dostarczające każdemu oku osobny obraz.<br>Przykłady: <b>Brewster</b> (1839–1849), <b>Holmes</b> (1861), lorneta nożycowa <b>S.F.14.Z.Gi, H/6400</b> (II WŚ).' },
-      { id: 6, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 13-14 + TWDP_pytania', q: 'Czym są Anaglify, jakie są 4 popularne kombinacje filtrów barwnych i jaka jest ich główna wada?', a: '<b>Anaglify</b> to obrazy stereoskopowe z nałożeniem dwóch obrazów o wykluczających się barwach z lekkim przesunięciem poziomym.<br>Kombinacje: <b>1) Red-Blue, 2) Red-Cyan, 3) Red-Green, 4) Dark Blue-Amber (Color-Code)</b>.<br><b>Wada:</b> degradacja gamy kolorów.' },
-      { id: 7, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 15-16', q: 'Jak działa technologia Dolby 3D Cinema i jakie ma zalety oraz wady?', a: '<b>Dwa zestawy filtrów</b> (projektor + okulary) kodujące obrazy za pomocą <b>różnych częstotliwości RGB</b>.<br>• <b>Zaleta:</b> zachowanie oryginalnych kolorów.<br>• <b>Wada:</b> drogi, opatentowany sprzęt.' },
-      { id: 8, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 17', q: 'Czym różnią się okulary polaryzacyjne liniowe od kołowych?', a: '• <b>Liniowe:</b> filtry ortogonalne; <b>1 filtr na oko</b> (pionowy/poziomy).<br>• <b>Kołowe:</b> polaryzacja kołowa lewo/prawoskrętna; <b>2 filtry na oko</b> (kołowy ćwierćfalówka + liniowy). Zachowują kolory kosztem rozdzielczości.' },
-      { id: 9, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 18', q: 'Jak działają aktywne okulary migawkowe (Active shutter) i jakie mają wymagania odnośnie ekranu?', a: 'Naprzemiennie przysłaniają każde oko w synchronizacji z ekranem. Zachowują <b>kolory i rozdzielczość</b>, ale wymagają odświeżania <b>min. 120 Hz</b> (poniżej: zmęczenie wzroku).' },
-      { id: 10, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 19-20', q: 'Czym charakteryzują się wyświetlacze Glasses-free 3D oraz gogle HMD?', a: '• <b>Glasses-free 3D:</b> wymaga przebywania w jednym punkcie obserwacji.<br>• <b>HMD (VR):</b> jak stereoskop, ale dużo większe pole widzenia (FOV). Soczewki wymagają <b>wstępnie zniekształconego obrazu (warped image)</b>.' },
-      { id: 11, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 21', q: 'Jaki jest koszt obliczeniowy 3D CGI oraz zysk z kodowania różnicowego?', a: '• Koszt jest <b>mniejszy niż dwukrotny</b> (współdzielenie Z-bufora i tekstur). <i>Depth-buffer based stereoscopy</i> zmniejsza narzut do <b>ok. 20%</b>.<br>• <b>Differential encoding</b> zmniejsza rozmiar do <b>ok. 150%</b> wariantu 2D.' },
-      { id: 12, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 22-23', q: 'Co oznaczają „stereo base” (e) i „stereo window distance” (f) oraz jak orientacja kamer wpływa na efekt 3D?', a: '• <b>Stereo base (e):</b> odległość między kamerami.<br>• <b>Stereo window distance (f):</b> odległość do okna stereoskopowego.<br>• Kamery równoległe (NP-camera) nie dają zniekształceń trapezowych (w przeciwieństwie do kamer obróconych do środka).' },
-      { id: 13, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 1', q: 'Podaj poprawną kolejność 6 etapów potoku graficznego (Graphics Pipeline)!', a: '1. <b>Ustawienie wierzchołków</b><br>2. <b>Transformacja sceny</b><br>3. <b>Projekcja widoku</b><br>4. <b>Rasteryzacja</b><br>5. <b>Teksturowanie</b><br>6. <b>Oświetlenie i cieniowanie</b>' },
-      { id: 14, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajd 3', q: 'Czym różni się tradycyjny układ współrzędnych 3D od układu CGI?', a: '• <b>Tradycyjny:</b> oś <b>Z</b> w górę.<br>• <b>CGI:</b> oś <b>Y</b> w górę, X w prawo, Z to głębokość (do obserwatora).' },
-      { id: 15, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 4-5', q: 'Z jakich elementów składa się proces modelowania siatki 3D?', a: '1) <b>Współrzędne wierzchołków</b> (chmura punktów).<br>2) <b>Triangulacja / Elementy modelu</b> (trójki indeksów wierzchołków łączone w trójkąty -> 3D Mesh).' },
-      { id: 16, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 6-8', q: 'Jakie są 3 standardowe transformacje i w jakiej ŚCISŁEJ kolejności należy je wykonywać przed projekcją?', a: 'Transformacje: Translacja, Rotacja, Skalowanie.<br>Ścisła kolejność: <b>1) Scaling &rarr; 2) Rotation &rarr; 3) Translation &rarr; 4) Projection</b>.' },
-      { id: 17, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 9-11', q: 'Jaka jest zależność między ogniskową (focal length), polem widzenia (FOV) a zniekształceniami?', a: '<b>Im krótsza ogniskowa, tym większy FOV</b> oraz większe zniekształcenia obiektów znajdujących się blisko kamery.' },
-      { id: 18, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 12-13', q: 'Czym jest rasteryzacja i kiedy piksel należy do trójkąta?', a: 'Konwersja obrazu wektorowego 2D na raster 2D. Piksel należy do trójkąta, gdy leży całkowicie wewnątrz lub zawiera jego <b>top-left, top lub left edge</b>.' },
-      { id: 19, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 15-16 + Notatki', q: 'Opisz 3 rodzaje oświetlenia w grafice 3D (model ADS).', a: '1) <b>Ambient:</b> bazowa jasność sceny.<br>2) <b>Diffuse:</b> odbite od powierzchni – <b>przyjmuje kolor obiektu</b>!<br>3) <b>Specular:</b> kierunkowy reflektor / lustrzane odbicie.' },
-      { id: 20, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 17-18 + Notatki', q: 'Czym różni się Ray Tracing od Ray Castingu / tradycyjnego oświetlenia rastrowego?', a: '• <b>Ray Tracing:</b> śledzi promienie od kamery do świateł (odbicia, załamania, duży koszt).<br>• <b>Ray Casting / Rastrowe:</b> liczy odległość do świateł tylko dla widocznych pikseli/wierzchołków (Gouraud shading); szybkie, ale cienie trzeba aproksymować.' },
-      { id: 21, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 19-21 + Notatki', q: 'Porównaj Shadow Mapping oraz Shadow Volume (Stencil Shadows).', a: '• <b>Shadow Mapping:</b> renderuje <b>bufor głębi</b> z perspektywy źródła światła do tekstury (<i>shadow map</i>).<br>• <b>Shadow Volume:</b> wektorowa metoda z <b>buforem szablonowym (stencil buffer)</b> – rzutuje wektory przez wierzchołki obiektu.' },
-      { id: 22, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 22-25 + Notatki', q: 'Do czego służą Pixel Shader, Vertex Shader i Geometry Shader?', a: '• <b>Pixel Shader:</b> operuje na pikselach (post-processing, normal mapping, Phong shading).<br>• <b>Vertex Shader:</b> operuje na wierzchołkach (animacja wody, roślinności).<br>• <b>Geometry Shader:</b> tworzy <b>nowe wierzchołki i trójkąty</b> (teselacja, displacement mapping).' },
-      { id: 23, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 26-28 + Notatki', q: 'Wyjaśnij: Clipping, Z-buffering oraz Culling (Occlusion vs Backface).', a: '• <b>Clipping:</b> obcinanie poza bryłą widzenia.<br>• <b>Z-buffering:</b> bufor głębi eliminujący ręczne sortowanie obiektów.<br>• <b>Occlusion culling:</b> usuwanie obiektów zasłoniętych przez inne.<br>• <b>Backface culling:</b> usuwanie tylnych ścian modeli.' },
-      { id: 24, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 29-30 + TWDP_pytania', q: 'Czym są Level-of-Detail (LOD) oraz Mip-mapping?', a: '• <b>LOD:</b> zmniejszanie liczby trójkątów wraz z odległością od kamery.<br>• <b>Mip-mapping:</b> do 8 mniejszych wersji tekstury dla dalszych obiektów (większa wydajność + <b>redukcja efektu mory</b>).' },
-      { id: 25, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 31-35 + Notatki', q: 'Porównaj Bump Mapping, Normal Mapping oraz Displacement Mapping!', a: '• <b>Bump:</b> skala szarości (biały=wypukłe, czarny=wklęsłe), bez nowych poligonów.<br>• <b>Normal:</b> wektory X,Y,Z w kanałach R,G,B (z High Poly na Low Poly), bez nowych wierzchołków.<br>• <b>Displacement:</b> bump + teselacja = <b>tworzy nowe wierzchołki</b> (bardzo kosztowne!).' },
-      { id: 26, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 36-37 + Notatki', q: 'Czym są Ambient Occlusion (AO) oraz Depth of Field (DoF)?', a: '• <b>AO:</b> przyciemnianie zakamarków, do których trafia mniej światła (osobny pass).<br>• <b>DoF:</b> rozmycie soczewkowe pikseli dalszych od kamery.' },
-      { id: 27, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 38-39 + Notatki', q: 'Czym jest Subsurface Scattering (SSS / SSLT) i który jego parametr jest najważniejszy?', a: 'Rozpraszanie i częściowe pochłanianie światła w obiektach półprzezroczystych (skóra, wosk). Najważniejszy parametr: <b>scattering distance (depth / density)</b>.' },
-      { id: 28, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajdy 40-43 + TWDP_pytania', q: 'Czym jest Path Tracing, co symuluje, jak się go optymalizuje i jakich 3 zjawisk NIE symuluje?', a: '• <b>Symuluje:</b> cienie, odbicia, załamania, <b>ambient occlusion</b>, kaustykę, <b>depth of field</b>, motion blur.<br>• <b>NIE symuluje (slajd 43!):</b> 1) <b>Subsurface Scattering</b>, 2) <b>Chromatic aberration</b>, 3) <b>Fluorescencji</b>.<br>• <b>Optymalizacja:</b> mniej promieni + <i>denoising</i> lub bufor niskiej rozdzielczości.' },
-      { id: 29, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajd 48 + TWDP_pytania', q: 'Czym jest Fotogrametria i czego wymaga do automatycznego odtworzenia modelu 3D?', a: 'Dziedzina nauki zajmująca się <b>odtwarzaniem trójwymiarowych modeli fotografowanych obiektów</b> przez wyznaczenie pozycji elementów w 3D. Wymaga wielu zdjęć dookoła obiektu; automatyzacja przez <i>feature extraction &amp; matching</i>.' },
-      { id: 30, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 55', q: 'Wymień 4 narzędzia fotogrametryczne ze slajdów.', a: '1) <b>Agisoft Metashape</b> (komercyjny, łatwy),<br>2) <b>3D Flow Free / 3DF Zephyr Free</b> (darmowy do 50 zdjęć),<br>3) <b>Regard3D</b> (Open Source),<br>4) <b>COLMAP + OpenMVS + MeshLab</b> (Open Source dla zaawansowanych). Post-processing: np. Blender.' },
-      { id: 31, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 56', q: 'Jak przebiega 6-etapowy potok w COLMAP + OpenMVS?', a: '1) COLMAP (sparse cloud) &rarr; 2) InterfaceCOLMAP &rarr; 3) DensifyPointCloud &rarr; 4) ReconstructMesh &rarr; 5) RefineMesh &rarr; 6) TextureMesh (<code>.obj</code>).' },
-      { id: 32, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 2 i 13', q: 'Jak dzielimy formaty danych przestrzennych 3D?', a: '• <b>Binarne:</b> LAS, glTF, 3ds, COLLADA.<br>• <b>Tekstowe:</b> lokalne (<b>Wavefront OBJ</b>) oraz globalne (<b>GML, KML</b>).' },
-      { id: 33, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 2', q: 'Z jakich 4 części składa się model w standardzie glTF?', a: '<code>.gltf</code> (JSON: hierarchia, materiały, kamery), <code>.bin</code> (geometria, animacje, skórki), <code>.glsl</code> (shadery), <code>.png/.jpg</code> (tekstury).' },
-      { id: 34, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 3-5', q: 'Co przechowuje format LAS i jaka jest jego główna wada?', a: 'Przechowuje: X,Y,Z, Intensity, liczbę odbić, kierunek lustra, klasyfikację, kąt wiązki (z roll), czas GPS, RGB.<br><b>Wada:</b> brak cross-referencing (ręczny podział na kafelki, np. w CODGiK 0,29 km²).' },
-      { id: 35, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 6-9', q: 'Czym jest 3D Tiles, jakie drzewa podziału wspiera i jakie ma 4 typy danych?', a: 'Otwarty standard AGI/Cesium oparty na <b>glTF</b>. Podział: <b>quadtree</b> (równomierny) i <b>k-d tree</b> (nierównomierny). Typy: 1) Point Clouds, 2) Batched 3D Models (b3dm), 3) Instanced 3D Models, 4) Composite tiles.' },
-      { id: 36, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 11-12', q: 'Na czym polega Dual data presentation system w przykładowym systemie LiDAR?', a: 'Chmura punktów (400 m², śr. 250 KB, zachowuje X,Y,Z, class, RGB) jest ciężka, więc system najpierw wyświetla lekkie budynki 3D jako kafelki <b>b3dm (2500 m²)</b>.' },
-      { id: 37, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 14-15 + Notatki', q: 'Z jakich plików składa się Wavefront OBJ i jakie 4 listy wierzchołków zawiera .obj?', a: 'Pliki: <code>.obj</code>, <code>.mtl</code>, tekstury.<br>Listy: <code>v x y z [w]</code>, <code>vt u [v w]</code>, <code>vn x y z</code>, <code>vp u [v] [w]</code>.' },
-      { id: 38, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 16 + Notatki', q: 'Jak w .obj zapisuje się punkt, linię i 4 warianty poligonu (f)?', a: '<code>p 1</code> (punkt), <code>l 2/2 5/5</code> (linia), <code>f v/vt/vn</code>: <code>f 1 2 3</code>, <code>f 1/1 2/2 3/3</code>, <code>f 1//1 2//2 3//3</code> (bez tekstury!), <code>f 1/1/1 2/2/2 3/3/3</code>.' },
-      { id: 39, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 17 + Notatki', q: 'Co oznaczają dyrektywy w .obj: g, o, sw, mg, mtllib, usemtl, c_interp, d_interp, bevel?', a: '<code>g</code> (grupa), <code>o</code> (obiekt), <code>sw</code> (interpolacja normalnych), <code>mg</code> (jako całość), <code>mtllib</code> (plik .mtl), <code>usemtl</code> (materiał), <code>c_interp/d_interp</code> (interpolacja koloru/dissolve), <code>bevel</code> (normalne przy otworach).' },
-      { id: 40, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 18 + Notatki', q: 'Co oznaczają parametry w pliku .mtl: Ka, Kd, Ks, d, illum (0, 1, 2) oraz map_*?', a: '<code>Ka/Kd/Ks</code> (ADS), <code>d 1.0</code> (nieprzezroczysty, 0.5 = 50%), <code>illum</code> (<b>0 = Diffuse, 1 = D+A, 2 = ADS</b>), <code>map_Ka/Kd/Ks/d, bump, disp</code> (tekstury).' },
-      { id: 41, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 19-20', q: 'Czym jest GML i jakie 11 typów węzłów definiuje?', a: 'Standard XML (<b>OGC / ISO 19136:2007</b>). 11 węzłów: Feature, Geometry, CRS, Topology, Time, Dynamic feature, Coverage, Unit of measure, Directions, Observations, Styles.' },
-      { id: 42, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajd 22 + TWDP_pytania', q: 'Jakie 4 układy współrzędnych obsługuje <gml:posList> i co oznacza (18.25, 54.10, 28) dla Gdańska?', a: '1) Mercator (metry), 2) Stopnie/min/sek, 3) Stopnie dziesiętne + wysokość w metrach, 4) Kartezjański.<br><b>Test:</b> <code>(18.25, 54.10, 28)</code> = <b>stopnie (x,y) i metry (z)</b>.' },
-      { id: 43, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 23-25', q: 'Czym są profile w GML i jak się z nich korzysta?', a: 'Predefiniowane podzbiory upraszczające pliki GML (trzeba je zaimportować w XML). GML jest używany m.in. w WFS i jest bazą dla KML.' },
-      { id: 44, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 26-27 + TWDP_pytania', q: 'Jaka jest relacja GML i KML? Który jest pierwowzorem i które zdanie z testu jest fałszywe?', a: '<b>Pierwowzorem jest GML.</b> KML to podzbiór GML 1.0/2.1.2 w jednej przestrzeni nazw (od 2008 r. standard OGC).<br><b>Fałszywe zdanie:</b> „KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany”.' },
-      { id: 45, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 29-30 + Notatki', q: 'Co zawiera <LookAt> w KML?', a: '<code>longitude, latitude, altitude, heading</code> (kąt względem północy), <code>tilt</code> (pochylenie góra/dół), <code>range</code> (odległość).' },
-      { id: 46, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 30-43 + Notatki', q: 'Wyjaśnij <altitudeMode>, <extrude> oraz <tessellate> w KML!', a: '<code>altitudeMode</code>: <code>relativeToGround</code> / <code>absolute</code>. <code>extrude=1</code>: punkt&rarr;łupek, linia&rarr;ściana, poligon&rarr;bryła. <code>tessellate=1</code>: linia dopasowuje się do rzeźby terenu.' },
-      { id: 47, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 40-41', q: 'Jak w KML i GML definiuje się poligon z otworem w środku?', a: 'W KML: <code>&lt;outerBoundaryIs&gt;</code> i <code>&lt;innerBoundaryIs&gt;</code>. W GML: <code>&lt;gml:exterior&gt;</code> i <code>&lt;gml:interior&gt;</code>.' },
-      { id: 48, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajd 42 + TWDP_pytania', q: 'W jakim formacie zapisuje się kolory (<color>) w KML?', a: 'Szesnastkowo w formacie <b>ABGR (<code>aabbggrr</code>)</b>: alpha, blue, green, red (odwrotnie niż RGBA!).' },
-      { id: 49, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 33 i 44-45', q: 'Czym różni się <GroundOverlay> od <ScreenOverlay> w KML?', a: '<code>GroundOverlay</code> nakłada obraz na teren (<code>LatLonBox</code>). <code>ScreenOverlay</code> wyświetla element na ekranie (mapuje <code>overlayXY</code> na <code>screenXY</code> + <code>size</code>).' },
-      { id: 50, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 46-47 + TWDP_pytania', q: 'Do czego służy <PhotoOverlay> w KML?', a: 'Nakładanie zdjęć na obiekty 3D (<code>rectangle, cylinder, sphere</code>) oraz <b>zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach</b> (<code>ImagePyramid</code> z kafelkami 256 px).' },
-      { id: 51, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 48-49 + TWDP_pytania', q: 'Jak działają <Region> i <Lod> w KML?', a: 'Wewnątrz <code>&lt;Region&gt;</code> element <code>&lt;Lod&gt;</code> występuje <b>w parze z <code>&lt;LatLonAltBox&gt;</code></b> i definiuje dynamiczny LoD. (W teście: <b>wszystkie odpowiedzi są poprawne</b>).' },
-      { id: 52, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 50-52', q: 'Do czego służą <ExtendedData>, <TimeStamp>, <TimeSpan> i KMZ?', a: '<code>ExtendedData</code> = własne pola danych (do <code>BalloonStyle</code>). <code>TimeStamp/TimeSpan</code> = czas chwilowy/przedziałowy. <code>KMZ</code> = spakowany ZIP z KML i zasobami.' },
-      { id: 53, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 2-3', q: 'Wymień technologie 3D GIS Desktop vs Web.', a: '<b>Desktop (C++/Java/.NET + DirectX/OpenGL):</b> ArcGIS Engine SDK, GRASS, NASA WorldWind, Google Earth.<br><b>Web (JS + WebGL):</b> Cesium, NASA WorldWind, Bing Maps 3D.' },
-      { id: 54, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 4-7', q: 'Czym charakteryzuje się ESRI ArcGIS Engine SDK i jego licencjonowanie?', a: '5 warstw (Base Services..Extensions), .NET/Java/C++. Wymaga licencji <b>Developer Kit</b> oraz płatnej <b>Engine Runtime</b> dla każdego użytkownika końcowego.' },
-      { id: 55, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 9-12', q: 'Czym jest Google Earth i dlaczego Google Earth Plugin nie działa?', a: 'Aplikacja 3D dla Ziemi, oceanów, nieba (Sky), Marsa, Księżyca. Aplikacje oparte na Google Earth Plugin przestały istnieć z powodu <b>wycofania (deprecation)</b> wtyczki.' },
-      { id: 56, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 13-17', q: 'Jakie 4 operacje umożliwia GRASS GIS dzięki skryptom?', a: '1) Extrusion (wyciąganie do 3D), 2) Symulacja ryzyka powodziowego z DTM, 3) Rektyfikacja niekompletnych danych, 4) Generowanie obrazów stereoskopowych.' },
-      { id: 57, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajd 18', q: 'Czym jest NASA WorldWind?', a: 'Wirtualny glob 3D (Desktop Java+OpenGL i Web JS+WebGL) wizualizujący elipsoidę WGS84 z mapami Web Mercator (Bing, WMS/WMTS), Shapefile i modelami 3D.' },
-      { id: 58, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 19-20 + TWDP_pytania', q: 'Czym jest Cesium i które zdanie o nim w teście jest NIEPRAWDZIWE?', a: 'Biblioteka JS oparta na WebGL (<b>NIE wymaga wtyczki!</b> – to fałszywe zdanie w teście). Obsługuje 4D, COLLADA/glTF, polylines, billboardy, nawigację klawiaturą/myszą/dotykiem, wysokiej precyzji Z-buffer (brak z-fighting).' },
-      { id: 59, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 2', q: 'Czym są Billboardy (Billboards)?', a: 'Płaskie, prymitywne obiekty, które są <b>zawsze zwrócone przodem w kierunku obserwatora</b>.' },
-      { id: 60, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 21-24 + Notatki', q: 'Czym różni się CesiumWidget od CesiumViewer?', a: '<code>CesiumWidget</code>: 1 div + własny CSS, szybko się ładuje. <code>CesiumViewer</code>: 3 divy (<code>cesiumContainer, loadingOverlay, toolbar</code>) + <code>bucket.css</code>.' },
-      { id: 61, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 27-33 + Notatki', q: 'Jak w Cesium zarządzamy warstwami i jakich Providerów używamy?', a: '<code>viewer.scene.imageryLayers</code> (<code>alpha, brightness</code>). Providerzy: WMS/WMTS, TMS, OSM, Bing, ArcGIS, GoogleEarth, SingleTile, Ion.' },
-      { id: 62, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 35-37', q: 'Jak dodaje się DTM w Cesium i co daje requestWaterMask?', a: '<code>Cesium.Terrain.fromWorldTerrain({ requestWaterMask: true, requestVertexNormals: true })</code> – odróżnia ląd od wody i włącza animację/cieniowanie wody (np. SRTM 30 m vs GTOPO30 1 km).' },
-      { id: 63, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 40-43 + TWDP_pytania', q: 'Jak zapisujemy kolory w Cesium i jak wyłączyć podążanie polilinii za krzywizną Ziemi?', a: 'Kolory w <b>RGBA</b> (<code>Cesium.Color.fromRgba(...)</code>). Wyłączenie krzywizny Ziemi: <b><code>arcType : Cesium.ArcType.NONE</code></b>.' },
-      { id: 64, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 44-49', q: 'O czym pamiętać przy modelach 3D (.glb) oraz cieniach i cząsteczkach w Cesium?', a: '<code>modelMatrix</code> liczona jest względem elipsoidy WGS84 (przy DTM może wymagać korekty wysokości). Cienie: <code>shadows: true</code>. Cząsteczki: <code>Cesium.ParticleSystem</code>.' }
+      // === 1. STEREOSKOPIA I WIDZENIE PRZESTRZENNE ===
+      { id: 1, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 7', q: 'Jakie są 3 podstawowe prawa fizyki widzenia (The physics of vision) wymienione na wykładzie?', a: '1) <b>Obiekty znajdujące się dalej wydają się mniejsze</b> niż obiekty bliższe.<br>2) <b>Ocena głębi (Depth assessment) wymaga co najmniej dwóch punktów obserwacji</b>.<br>3) <b>Krzywizna Ziemi bezpośrednio wpływa na horyzont</b> (Earth curvature directly influences the horizon).' },
+      { id: 2, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Notatki + Stereoscopy.pdf, slajdy 5-6', q: 'Jakim rodzajem perspektywy jest ludzki wzrok (dwoje oczu) i jakie wyróżniamy perspektywy od 1 do 6 punktów?', a: 'Ludzki wzrok to w praktyce <b>perspektywa dwupunktowa</b>, będąca złożeniem dwóch perspektyw liniowych (jednopunktowych).<br>Rodzaje perspektyw:<br>• <b>1-punktowa</b> (liniowa, np. Ostatnia Wieczerza),<br>• <b>2-, 3-, 4-punktowa</b>,<br>• <b>5-punktowa</b> (półsfera / hemisphere),<br>• <b>6-punktowa</b> (pełna sfera 360° / sphere).' },
+      { id: 3, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 8', q: 'W jaki sposób ludzki mózg postrzega głębię i na jakie 2 sposoby można ten mechanizm sztucznie wywołać?', a: 'Mózg postrzega głębię oceniając <b>przesunięcie (displacement)</b> obiektów widzianych przez lewe i prawe oko.<br>Sztuczna stymulacja:<br>1) <b>Oszukanie mózgu (Deceiving the brain)</b> – np. autostereogramy.<br>2) <b>Dostarczenie każdemu oku dedykowanego (osobnego) obrazu</b> – np. stereoskopy, anaglify, polaryzacja, migawki, HMD.' },
+      { id: 4, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 9 + Notatki', q: 'Czym są Autostereogramy, jak działają i na jakie 2 sposoby można na nie patrzeć?', a: 'To pojedyncze obrazy, w których <b>powtarzanie tych samych wzorów w zmiennych odstępach (varying intervals)</b> pozwala mózgowi posortować je w warstwy głębokości.<br>Sposoby patrzenia:<br>• <b>„Wall-eyed”</b> (wzrok zogniskowany za obrazem, jakbyśmy patrzyli przez „niewidzialną szybę”),<br>• <b>„Cross-eyed”</b> (wzrok skrzyżowany przed obrazem – „na zeza”).' },
+      { id: 5, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 11-12', q: 'Czym jest stereoskop i jakie historyczne przykłady podano na wykładzie?', a: 'Urządzenie optyczne dostarczające każdemu oku osobny obraz z pary stereoskopowej.<br>Przykłady ze slajdów:<br>• <b>Stereoskop Brewstera</b> (1839–1849),<br>• <b>Stereoskop Holmesa</b> (1861),<br>• Wojskowa lorneta nożycowa <b>S.F.14.Z.Gi, H/6400</b> z II wojny światowej.' },
+      { id: 6, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 13-14 + TWDP_pytania', q: 'Czym są Anaglify, jakie są 4 popularne kombinacje filtrów barwnych i jaka jest ich główna wada?', a: '<b>Anaglify</b> to obrazy stereoskopowe, w których separacja obrazu dla lewego i prawego oka odbywa się przez <b>filtrowanie widma elektromagnetycznego</b> (nałożenie dwóch obrazów o wykluczających się barwach z lekkim przesunięciem poziomym).<br>Kombinacje: <b>1) Red-Blue, 2) Red-Cyan, 3) Red-Green, 4) Dark Blue-Amber (Color-Code)</b>.<br><b>Wada:</b> utrata/degradacja postrzeganych kolorów (sacrifice of perceivable color gamut).' },
+      { id: 7, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 15-16', q: 'Jak działa technologia Dolby 3D Cinema i jakie ma zalety oraz wady?', a: 'Opatentowana technologia wykorzystująca <b>dwa zestawy filtrów spektralnych</b>: jeden na projektorze, drugi w okularach. Obrazy dla lewego i prawego oka są kodowane przy użyciu <b>różnych częstotliwości RGB</b>.<br>• <b>Zaleta:</b> bardzo dobra głębia i <b>zachowanie oryginalnych kolorów</b>.<br>• <b>Wada:</b> wymaga drogiego, opatentowanego sprzętu.' },
+      { id: 8, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 17', q: 'Czym różnią się okulary polaryzacyjne liniowe (Linearly polarized) od kołowych (Circularly polarized)?', a: '• <b>Liniowe:</b> obrazy kodowane za pomocą filtrów ortogonalnych (prostopadłych). Każde oko wymaga <b>1 filtra</b> (pionowego lub poziomego). Zachowują kolory kosztem rozdzielczości, ale są wrażliwe na przechylenie głowy.<br>• <b>Kołowe:</b> obrazy kodowane polaryzacją kołową lewo- i prawoskrętną. Każde oko wymaga <b>2 filtrów: kołowego (ćwierćfalówki - Quarter Wave Plate) oraz liniowego (Linear Polarizer)</b>.' },
+      { id: 9, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 18', q: 'Jak działają aktywne okulary migawkowe (Active shutter 3D glasses) i jakie mają wymagania odnośnie ekranu?', a: 'Zsynchronizowane z monitorem/TV <b>naprzemiennie przysłaniają (wygaszają) każde oko</b>.<br>• <b>Zaleta:</b> w pełni zachowują zarówno <b>kolory, jak i rozdzielczość</b> obrazu.<br>• <b>Wymaganie/Wada:</b> wymagają odświeżania ekranu <b>co najmniej 120 Hz</b> (przy niższych częstotliwościach powodują zmęczenie oczu – eye strain). Przykłady: Famicom 3D System (1987), Elsa 3D Revelator (1999), Nvidia 3D Vision (2008).' },
+      { id: 10, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 19-20', q: 'Czym charakteryzują się wyświetlacze Glasses-free 3D oraz gogle HMD (Head Mounted Display)?', a: '• <b>Glasses-free 3D:</b> kierują osobne wiązki z pikseli ekranu do lewego i prawego oka bez okularów, ale wymagają przebywania w ściśle określonym punkcie obserwacji (single point).<br>• <b>HMD (gogle VR):</b> działają jak stereoskop, ale zapewniają <b>dużo wyższe pole widzenia (FOV)</b>. Z powodu soczewek szerokokątnych <b>wymagają wyświetlania wstępnie zniekształconego obrazu (warped image)</b>.' },
+      { id: 11, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 21', q: 'Jaki jest koszt obliczeniowy generowania stereoskopowego 3D CGI oraz o ile rośnie rozmiar plików przy kodowaniu różnicowym?', a: '• <b>Koszt obliczeniowy:</b> wymaga 2 kamer (2 obrazów), ale koszt jest <b>mniejszy niż dwukrotność (less than double)</b> obrazu 2D, bo część operacji (np. <i>depth buffering, texturing</i>) można użyć ponownie. Użycie <b>depth-buffer based stereoscopy</b> zmniejsza narzut do <b>ok. 20%</b> (kosztem jakości głębi).<br>• <b>Rozmiar plików:</b> dzięki <b>kodowaniu różnicowemu (differential encoding)</b> obrazy/filmy 3D zajmują ok. <b>150%</b> rozmiaru wersji 2D.' },
+      { id: 12, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 22-23', q: 'Co oznaczają pojęcia „stereo base” (e) i „stereo window distance” (f) oraz jak orientacja kamer wpływa na efekt 3D?', a: '• <b>Stereo base (e):</b> odległość między lewą a prawą kamerą.<br>• <b>Stereo window distance (f):</b> odległość od kamer do płaszczyzny okna stereoskopowego.<br>• <b>Orientacja kamer:</b> kamery równoległe (NP-camera) mają wspólną płaszczyznę obrazu (odrzuca się boki <i>cut off</i>). Kamery obrócone do środka (rotated cameras) mają nachylone płaszczyzny obrazu, co powoduje trapezowe zniekształcenia obiektów.' },
+
+      // === 2. GRAFIKA KOMPUTEROWA 3D, OŚWIETLENIE, CIENIOWANIE, OPTYMALIZACJA ===
+      { id: 13, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 1', q: 'Podaj poprawną kolejność 6 etapów potoku graficznego (Graphics Pipeline)!', a: '1. <b>Ustawienie wierzchołków</b> (Vertex setup / processing)<br>2. <b>Transformacja sceny</b> (Scene transformation)<br>3. <b>Projekcja widoku</b> (View projection)<br>4. <b>Rasteryzacja</b> (Rasterization)<br>5. <b>Teksturowanie</b> (Texturing)<br>6. <b>Oświetlenie i cieniowanie</b> (Lighting and shading)' },
+      { id: 14, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajd 3', q: 'Czym różni się tradycyjny układ współrzędnych 3D (Traditional coordinates) od układu w grafice komputerowej (CGI coordinates)?', a: '• <b>Tradycyjny układ:</b> oś <b>Z</b> jest skierowana pionowo w górę (wysokość), a X i Y tworzą płaszczyznę poziomą.<br>• <b>Układ CGI:</b> oś <b>Y</b> jest skierowana pionowo w górę, oś <b>X</b> w prawo, a oś <b>Z</b> odpowiada za głębokość (w stronę obserwatora).' },
+      { id: 15, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 4-5', q: 'Z jakich elementów składa się proces modelowania siatki 3D (3D modelling)?', a: '1) <b>Współrzędne wierzchołków (Vertex Coordinates)</b> tworzące <b>chmurę punktów (Cloud of points)</b>.<br>2) <b>Triangulacja (Triangulation) / Elementy modelu (Model Elements)</b> – trójki indeksów wierzchołków (np. {1,2,3}) łączące punkty w trójkąty tworzące <b>Model 3D (3D mesh)</b>.' },
+      { id: 16, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 6-8', q: 'Jakie są 3 standardowe transformacje geometryczne i w jakiej ŚCISŁEJ kolejności należy je wykonywać przed projekcją?', a: 'Podstawowe transformacje macierzowe 4x4 to: <b>Translacja, Rotacja (wokół X, Y, Z) i Skalowanie</b>.<br>Ścisła kolejność wykonywania transformacji (paramount sequence):<br><b>1) Scaling (Skalowanie) &rarr; 2) Rotation (Rotacja) &rarr; 3) Translation (Translacja) &rarr; 4) Projection (Projekcja)</b>.<br>W skali sceny wyróżniamy: <i>Model transformation &rarr; View transformation (kamera) &rarr; Projection transformation (3D na 2D ekranu)</i>.' },
+      { id: 17, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 9-11', q: 'Jaka jest zależność między ogniskową (focal length), polem widzenia (FOV) a zniekształceniami obrazu?', a: '• <b>Im krótsza ogniskowa (shorter focal length), tym wyższe pole widzenia (higher FOV)</b>.<br>• Im bliżej kamery znajduje się obiekt, tym <b>większe zniekształcenia (distortion) wprowadzają mniejsze ogniskowe</b> (np. 24 mm vs 135 mm w portrecie).<br>• W macierzy projekcji perspektywicznej używa się współczynnika <code>S = 1 / tan((fov/2) * (π/180))</code> oraz płaszczyzn obcinania <code>n</code> (near) i <code>f</code> (far).' },
+      { id: 18, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 12-13', q: 'Czym jest rasteryzacja (Rasterisation) i kiedy piksel należy do trójkąta?', a: '<b>Rasteryzacja</b> to proces konwersji obrazu wektorowego 2D na obraz rastrowy 2D (piksele o rozdzielczości ekranu).<br><b>Reguła (Top-left rule):</b> Piksel reprezentuje dany trójkąt, jeśli znajduje się <b>całkowicie wewnątrz trójkąta</b> LUB zawiera jego <b>górny-lewy wierzchołek, górną krawędź lub lewą krawędź (top-left, top or left edge)</b>. Po rasteryzacji operacje wykonywane są <i>per-pixel</i>.' },
+      { id: 19, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 15-16 + Notatki', q: 'Wymień i opisz 3 podstawowe rodzaje oświetlenia w grafice 3D (model ADS).', a: '1) <b>Ambient:</b> naturalne oświetlenie otoczenia, określa <b>bazowy poziom jasności sceny</b>, niezależnie od konkretnego źródła światła.<br>2) <b>Diffuse:</b> światło rozproszone, odbite od powierzchni sceny (np. ścian). Ponieważ ulega częściowemu pochłonięciu przy odbiciu, <b>zazwyczaj nie jest czysto białe – przyjmuje kolor obiektu</b>!<br>3) <b>Specular:</b> oświetlenie kierunkowe / reflektor (directed spotlight), podkreśla wybrany obiekt lub symuluje odbicie lustrzane (można przy nim stracić głębię / spłaszczyć obiekt).' },
+      { id: 20, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 17-18 + Notatki', q: 'Czym różni się Ray Tracing od Ray Castingu / tradycyjnego oświetlenia w renderingu rastrowym?', a: '• <b>Ray Tracing:</b> „poprawna fizycznie” metoda śledząca promienie od kamery w różnych kierunkach aż trafią w źródło światła lub wygasną. Symuluje odbicia, załamania i rozproszenie, ale ma <b>bardzo wysoki koszt obliczeniowy</b>.<br>• <b>Ray Casting / Uproszczona metoda rastrowa:</b> każdy piksel reprezentuje tylko jeden widoczny trójkąt (zasłonięte są odrzucane); śledzimy tylko odległość od widocznych pikseli (lub wierzchołków w <b>Gouraud shading</b>) do pobliskich źródeł światła. Działa bardzo szybko na słabym sprzęcie, ale cienie i odbicia trzeba aproksymować.' },
+      { id: 21, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 19-21 + Notatki', q: 'Porównaj dwie techniki generowania cieni: Shadow Mapping oraz Shadow Volume (Stencil Shadows).', a: '• <b>Shadow Mapping:</b> wykorzystuje sprzętowy <b>bufor głębi (depth buffer)</b>. Obiekt rzucający cień jest renderowany do bufora głębi <b>z perspektywy źródła światła</b> (tworząc teksturę <i>shadow map</i>), która jest potem rzutowana na scenę i łączona z finalnym obrazem.<br>• <b>Shadow Volume (Stencil Shadows):</b> metoda <b>wektorowa</b> wykorzystująca sprzętowy <b>bufor szablonowy (stencil buffer)</b>. Oblicza cień poprzez <b>rzutowanie wektorów ze źródła światła przez każdy wierzchołek obiektu</b> na powierzchnię, wyznaczając granice cienia.' },
+      { id: 22, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 22-25 + Notatki', q: 'Czym różnią się i do czego służą: Pixel Shader, Vertex Shader oraz Geometry Shader?', a: '• <b>Pixel Shader:</b> operuje na właściwościach każdego piksela obrazu (jasność, barwa, przezroczystość). Używany do post-processingu, normal mappingu, odbić i oświetlenia per-pixel (Phong shading).<br>• <b>Vertex Shader:</b> operuje na właściwościach wierzchołków (położenie, orientacja, kolor, mapowanie tekstur). Służy np. do <b>dynamicznej animacji wody i roślinności</b>.<br>• <b>Geometry Shader:</b> rozszerzenie Vertex Shadera pozwalające na <b>dynamiczne tworzenie nowych wierzchołków (i trójkątów)</b> na powierzchni obiektu. Służy do <b>teselacji i displacement mappingu</b>.' },
+      { id: 23, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 26-28 + Notatki', q: 'Wyjaśnij techniki optymalizacji: Clipping, Z-buffering oraz Culling (Occlusion vs Backface).', a: '• <b>Clipping:</b> odcinanie wierzchołków poza bryłą widzenia kamery (między Near i Far clipping plane).<br>• <b>Z-buffering (bufor głębi):</b> przechowuje hierarchię widoczności obiektów z perspektywy kamery – obiekty renderują się we właściwej kolejności bez ręcznego sortowania.<br>• <b>Culling:</b> usuwanie niewidocznych elementów wewnątrz bryły widzenia:<br>  – <b>Occlusion culling:</b> usuwanie obiektów całkowicie zasłoniętych przez inne obiekty.<br>  – <b>Backface culling:</b> usuwanie tylnych, niewidocznych ścian modeli (np. tylna ściana budynku).' },
+      { id: 24, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 29-30 + TWDP_pytania', q: 'Czym są techniki Level-of-Detail (LOD) oraz Mip-mapping i jakie dają korzyści?', a: '• <b>Level-of-Detail (LOD):</b> zmniejszanie złożoności geometrycznej (liczby trójkątów) obiektu wraz ze wzrostem odległości od kamery poprzez dynamiczną podmianę kilku wcześniej uproszczonych wersji modelu.<br>• <b>Mip-mapping:</b> nakładanie wcześniej wygenerowanych, pomniejszonych wersji tekstury (zwykle do 8) na odległe obiekty. <b>Zwiększa wydajność</b> (mniej filtrowanych tekseli) oraz <b>poprawia jakość obrazu redukując efekt mory (Moiré effect)</b>.' },
+      { id: 25, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 31-35 + Notatki', q: 'Porównaj Bump Mapping, Normal Mapping oraz Displacement Mapping!', a: '• <b>Bump Mapping:</b> osobna tekstura w skali szarości (<b>biały = wypukłości, czarny = wklęsłości</b>) do obliczania normalnych przy oświetleniu. <b>Nie zwiększa liczby poligonów</b>; psuje się pod ostrym kątem; wymaga dobrego oświetlenia (spotlight).<br>• <b>Normal Mapping:</b> tekstura przechowująca znormalizowane wektory normalne <b>X, Y, Z w kanałach R, G, B</b> (generowana z modelu High Poly dla modelu Low Poly). <b>Nie zwiększa liczby wierzchołków</b>.<br>• <b>Displacement Mapping:</b> kombinacja <b>bump mapy i teselacji</b> – <b>tworzy nowe wierzchołki i trójkąty</b> i wyciąga je (extrude). Bardzo wysoki koszt obliczeniowy!' },
+      { id: 26, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 36-37 + Notatki', q: 'Czym są Ambient Occlusion (AO) oraz Depth of Field (DoF)?', a: '• <b>Ambient Occlusion:</b> technika globalnego oświetlenia/cieniowania, która identyfikuje i <b>przyciemnia miejsca, do których dociera mniej światła</b> (zagłębienia, szczeliny). Wykonywana jako osobny przebieg (pass).<br>• <b>Depth of Field (rozmycie soczewkowe / lens blur):</b> w CGI uzyskiwane przez rozmywanie pikseli obiektów dalszych od kamery. Na slajdzie: im większa wartość <i>f-stop</i> (mniejsza średnica przysłony), tym silniejszy efekt skupienia promieni z małych kątów.' },
+      { id: 27, cat: 'CGI', catName: '2. Grafika 3D i Cieniowanie', source: 'Computer graphics.pdf, slajdy 38-39 + Notatki', q: 'Czym jest Subsurface Scattering (SSS / SSLT) i który jego parametr ma największy wpływ na efekt?', a: '<b>Subsurface Scattering (Subsurface Light Transport – SSLT)</b> symuluje rozpraszanie światła przechodzącego przez <b>częściowo półprzezroczysty obiekt</b> (np. skóra, wosk, nefryt), który częściowo pochłania światło zależnie od lokalnej gęstości.<br>Używa parametrów: <i>scattering distance, scattering color, Rayleigh scattering factor</i>.<br>Największy wpływ na efekt końcowy ma <b>scattering distance (odległość rozpraszania, zwana też depth lub density)</b>.' },
+      { id: 28, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajdy 40-43 + TWDP_pytania', q: 'Czym jest Path Tracing, co symuluje, jak się go optymalizuje i jakich 3 zjawisk NIE potrafi symulować sam algorytm?', a: '<b>Path Tracing</b> to implementacja ray tracingu obliczająca kolor piksela ze średniej promieni świetlnych.<br>• <b>Symuluje:</b> cienie, odbicia, załamania, rozproszenie, <b>ambient occlusion</b>, kaustykę, <b>depth of field</b>, motion blur.<br>• <b>NIE symuluje (slajd 43!):</b> 1) <b>Subsurface Scattering</b>, 2) załamania poszczególnych częstotliwości (<b>Chromatic aberration</b>), 3) <b>Fluorescencji</b>.<br>• <b>Optymalizacja:</b> 1) mniej promieni na piksel + <b>intelligent denoising</b> (odszumianie), 2) selektywny Path Tracing w <b>osobnym buforze niskiej rozdzielczości</b> łączonym z obrazem wysokiej rozdzielczości (odbicia, AO, cienie).' },
+
+      // === 3. FOTOGRAMETRIA ===
+      { id: 29, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajd 48 + TWDP_pytania', q: 'Czym jest Fotogrametria i czego wymaga do automatycznego odtworzenia modelu 3D?', a: '<b>Fotogrametria</b> to dziedzina nauki i technika umożliwiająca <b>odtwarzanie (rekonstrukcję) trójwymiarowych modeli fotografowanych obiektów</b> poprzez wyznaczenie względnej pozycji każdego elementu sceny w przestrzeni 3D.<br>• Wymaga <b>dużej liczby fotografii</b> wykonanych najlepiej <b>ze wszystkich stron i kątów (dookoła obiektu)</b> w dobrym oświetleniu.<br>• Automatyzację zapewniają algorytmy <b>ekstrakcji cech (feature extraction) i dopasowywania cech (feature matching)</b>.' },
+      { id: 30, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 55', q: 'Wymień 4 narzędzia/zestawy oprogramowania do fotogrametrii podane na wykładzie i ich cechy.', a: '1) <b>Agisoft Metashape</b> – komercyjny, bardzo prosty w użyciu.<br>2) <b>3D Flow Free (3DF Zephyr Free)</b> – komercyjny, prosty, darmowy do użytku osobistego <b>do 50 zdjęć</b>.<br>3) <b>Regard3D</b> – darmowy i Open Source, wymaga dostrajania parametrów (parameter tweaking).<br>4) <b>COLMAP + OpenMVS + MeshLab</b> – darmowy i Open Source, dla zaawansowanych (for hardcore users).<br>Wynik zwykle wymaga post-processingu np. w <b>Blenderze</b>.' },
+      { id: 31, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 56', q: 'Jak przebiega 6-etapowy proces rekonstrukcji modelu 3D w COLMAP + OpenMVS?', a: '1) <b>COLMAP:</b> generowanie rzadkiej chmury punktów (<i>sparse cloud</i>: feature extraction, matching, undistortion).<br>2) <b>OpenMVS InterfaceCOLMAP:</b> import projektu (+ skopiowanie katalogu <i>images</i> wyżej).<br>3) <b>OpenMVS DensifyPointCloud:</b> zagęszczenie chmury punktów (<i>dense cloud</i>).<br>4) <b>OpenMVS ReconstructMesh:</b> budowa siatki trójkątów (<i>mesh</i>).<br>5) <b>OpenMVS RefineMesh:</b> opcjonalne uproszczenie/poprawa siatki (<code>--resolution-level 1/2</code> zmniejsza zużycie RAM).<br>6) <b>OpenMVS TextureMesh:</b> nałożenie tekstury i eksport do <code>.obj</code>.' },
+
+      // === 4. FORMATY DANYCH 3D: LAS, glTF, 3D TILES, WAVEFRONT OBJ/MTL ===
+      { id: 32, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajdy 2 i 13', q: 'Jak dzielimy formaty danych przestrzennych 3D i jakie przykłady należą do poszczególnych grup?', a: '1) <b>Formaty binarne (Binary)</b> – wymagają dedykowanego oprogramowania: m.in. <b>LAS, glTF (.bin), 3ds, COLLADA</b>.<br>2) <b>Formaty tekstowe (Text-based)</b> – edytowalne w dowolnym edytorze tekstu; dzielą się na:<br>  • opisujące obiekty w <b>lokalnym układzie współrzędnych</b>: <b>Wavefront OBJ (.obj + .mtl)</b>,<br>  • opisujące obiekty bezpośrednio w <b>globalnym układzie współrzędnych</b>: <b>GML, KML</b>.' },
+      { id: 33, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajd 2', q: 'Z jakich 4 części/plików składa się model w standardzie glTF?', a: '• <b>.gltf (JSON)</b> – opisuje hierarchię węzłów (node hierarchy), materiały i kamery,<br>• <b>.bin</b> – binarna geometria (wierzchołki i indeksy), animacje (key-frames), skórki (skins: inverse-bind matrices),<br>• <b>.glsl</b> – shadery,<br>• <b>.png / .jpg</b> – tekstury.' },
+      { id: 34, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajdy 3-5', q: 'Czym jest format LAS, jakie 8 informacji przechowuje dla pomiarów LiDAR i jaka jest jego główna wada?', a: '<b>LAS</b> to natywny binarny format przechowywania chmur punktów LiDAR.<br><b>Przechowuje:</b> 1) współrzędne X, Y, Z, 2) siłę odbicia impulsu (Intensity), 3) liczbę odbić impulsu, 4) kierunek lustra skanera, 5) klasyfikację punktu (classification), 6) kąt wyjścia wiązki lasera (z przechyleniem samolotu), 7) czas akwizycji z GPS, 8) kolory RGB.<br><b>Główna wada:</b> brak mechanizmów wzajemnego powiązania danych (<i>no cross-referencing</i>) – większe obszary trzeba ręcznie układać w siatkę (np. w CODGiK kafelki po ok. <b>0,29 km²</b>).' },
+      { id: 35, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajdy 6-9', q: 'Czym jest format 3D Tiles, na czym bazuje, jakie drzewa podziału wspiera i jakie 4 typy kafelków definiuje?', a: '<b>3D Tiles</b> to otwarty standard webowej dystrybucji danych 3D wspierany przez <b>AGI (twórców Cesium)</b>, bazujący na <b>glTF</b>.<br>• Organizuje dane w hierarchiczną strukturę drzewiastą pokrywającą Ziemię (każdy kafelek ma <i>bounding volume</i>).<br>• <b>Podział kafelków:</b> równomierny (<b>quadtree</b>) oraz nierównomierny (<b>k-d tree</b>).<br>• <b>Typy danych:</b> 1) <b>Point Clouds</b>, 2) <b>Batched 3D Models (b3dm)</b>, oraz w pełnej specyfikacji: 3) <b>Instanced 3D Model tiles</b>, 4) <b>Composite tiles</b>.' },
+      { id: 36, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajdy 11-12', q: 'Jakie informacje zachowuje chmura punktów LiDAR po konwersji do 3D Tiles w przykładowym systemie i na czym polega Dual data presentation system?', a: 'Po konwersji do kafelków Point Cloud (400 m², śr. 250 KB, 19 pkt/m²) zachowywane są <b>3 informacje: współrzędne X, Y, Z, klasa punktu („class”) oraz wartość RGB</b>.<br><b>Dual data presentation system:</b> ponieważ chmury punktów wymagają dużo zasobów, system najpierw wyświetla lekką warstwę zrekonstruowanych budynków 3D jako kafelki <b>Batched 3D Model (b3dm) o pow. 2500 m²</b>, a chmurę punktów doczytuje w razie potrzeby.' },
+      { id: 37, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajdy 14-15 + Notatki', q: 'Z jakich plików składa się model Wavefront OBJ i jakie 4 listy wierzchołków mogą występować na początku pliku .obj?', a: 'Zestaw plików: <b>.obj</b> (geometria), <b>.mtl</b> (materiały), <b>.jpg/.png/.dds</b> (tekstury).<br>4 listy wierzchołków w <code>.obj</code>:<br>1) <code>v x y z [w]</code> – wierzchołki modelu (<i>w</i> opcjonalne, domyślnie 1.0),<br>2) <code>vt u [v w]</code> – wierzchołki tekstury (<i>v, w</i> opcjonalne, domyślnie 0),<br>3) <code>vn x y z</code> – wektory normalne,<br>4) <code>vp u [v] [w]</code> – wierzchołki przestrzeni parametrycznej (krzywe i powierzchnie).' },
+      { id: 38, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajd 16 + Notatki', q: 'Jak w pliku .obj definiuje się punkty (p), linie (l) oraz wszystkie 4 warianty poligonów/trójkątów (f)?', a: '• Punkt: <code>p 1</code> (indeks wierzchołka)<br>• Linia: <code>l 2 5 4</code> (sama linia) lub <code>l 2/2 5/5 4/4</code> (linia z teksturą <code>v/vt</code>)<br>• Poligon (<code>f index_v/index_vt/index_vn</code>):<br>  1) <code>f 1 2 3</code> – sam trójkąt z wierzchołków 1, 2, 3,<br>  2) <code>f 1/1 2/2 3/3</code> – trójkąt z teksturą (<code>v/vt</code>),<br>  3) <code>f 1//1 2//2 3//3</code> – trójkąt z mapą wektorów normalnych bez tekstury (<code>v//vn</code>),<br>  4) <code>f 1/1/1 2/2/2 3/3/3</code> – trójkąt z teksturą i mapą normalnych (<code>v/vt/vn</code>).' },
+      { id: 39, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajd 17 + Notatki', q: 'Co oznaczają dyrektywy grup i atrybutów w pliku .obj: g, o, sw, mg, mtllib, usemtl, c_interp, d_interp, bevel?', a: '• <code>g</code> – nazwa grupy wierzchołków/elementów,<br>• <code>o</code> – identyfikator obiektu w pliku,<br>• <code>sw</code> (s) – interpolacja wektorów normalnych w grupie,<br>• <code>mg</code> – wyświetlanie grupy jako całości,<br>• <code>mtllib</code> – dołączenie pliku <code>.mtl</code> z definicjami materiałów,<br>• <code>usemtl</code> – użycie wskazanego materiału z pliku <code>.mtl</code>,<br>• <code>c_interp</code> / <code>d_interp</code> – interpolacja koloru / przezroczystości (dissolve),<br>• <code>bevel</code> – interpolacja normalnych dla kształtów z otworami.' },
+      { id: 40, cat: 'FORMATS', catName: '4. LAS, 3D Tiles, OBJ/MTL', source: '3D Data Formats.pdf, slajd 18 + Notatki', q: 'Co oznaczają parametry w pliku .mtl: newmtl, Ka, Kd, Ks, d, illum (0, 1, 2) oraz map_Ka, map_Kd, map_Ks, map_d, bump, disp?', a: '• <code>newmtl Nazwa</code> – definicja nowego materiału,<br>• <code>Ka, Kd, Ks</code> – składowe koloru Ambient, Diffuse, Specular (R G B od 0 do 1),<br>• <code>d</code> – nieprzezroczystość (dissolve): <b><code>d 1.0</code> = całkowicie nieprzezroczysty (opaque)</b>, <code>d 0.5</code> = 50% przezroczysty,<br>• <code>illum</code> – model oświetlenia: <b><code>0</code> = tylko Diffuse, <code>1</code> = Diffuse + Ambient, <code>2</code> = wszystkie składowe (ADS)</b>,<br>• <code>map_Ka, map_Kd, map_Ks, map_d, bump, disp</code> – ścieżki do plików tekstur (Ambient, Diffuse, Specular, Alpha, Bump map, Displacement map).' },
+
+      // === 5. FORMATY GML I KML ===
+      { id: 41, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 19-20 + Notatki', q: 'Czym jest standard GML i jakie 11 typów węzłów (nodes) definiuje?', a: '<b>Geography Markup Language (GML)</b> to otwarty, tekstowy standard XML opisu obiektów przestrzennych w <b>globalnym układzie współrzędnych</b>, ustanowiony przez <b>OGC jako standard ISO 19136:2007</b>.<br><b>11 typów węzłów:</b> 1) <i>Feature</i> (typ obiektu), 2) <i>Geometry</i> (zbiór wierzchołków), 3) <i>CRS</i> (układ współrzędnych), 4) <i>Topology</i> (relacje), 5) <i>Time</i> (czas/data), 6) <i>Dynamic feature</i> (historia/zmienność), 7) <i>Coverage</i> (tekstury/zdjęcia satelitarne), 8) <i>Unit of measure</i> (jednostka), 9) <i>Directions</i> (wskazówki), 10) <i>Observations</i> (metadane pomiarowe), 11) <i>Styles</i> (styl).' },
+      { id: 42, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 21-22 + TWDP_pytania', q: 'Jakie 4 układy współrzędnych (koordynatów) można zapisać w <gml:posList> i co oznacza zapis (18.25, 54.10, 28) dla Gdańska?', a: '4 rodzaje zapisu w <code>&lt;gml:posList&gt;</code>:<br>1) <b>Układ Mercatora</b> (metry na powierzchni od 0,0): np. <code>4128203.226 4878426.667</code><br>2) <b>Stopnie, minuty, sekundy:</b> np. <code>43,57,6.61 66,7,55.34</code><br>3) <b>Stopnie dziesiętne + wysokość w metrach:</b> np. <code>18.57 54.41 10.26</code><br>4) <b>Układ kartezjański:</b> np. <code>1860.10 -4205.36 4404.09</code><br><b>Pytanie z testu:</b> Pozycja <code>(18.25, 54.10, 28)</code> w Gdańsku oznacza współrzędne w <b>stopniach (x,y) i metrach (z)</b>!' },
+      { id: 43, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 23-25', q: 'Czym są profile w GML (predefined profiles) i jakie inne standardy korzystają z GML?', a: '• <b>Profile GML</b> to predefiniowane podzbiory funkcjonalności opisujące najważniejsze typy danych. Znacząco upraszczają zawartość plików GML, ale <b>muszą zostać zaimportowane w pliku XML</b> (np. użycie <code>&lt;gml:Point srsDimension="2" srsName="...EPSG/0/4326"&gt;&lt;gml:pos&gt;...</code>).<br>• GML jest używany m.in. przez <b>Web Feature Server (WFS)</b> do kodowania danych oraz stanowi <b>bazę (pierwowzór) dla formatu KML</b>.' },
+      { id: 44, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 26-27 + TWDP_pytania', q: 'Jaka jest relacja między GML a KML? Który jest pierwowzorem i które zdanie w teście o KML/GML jest fałszywe?', a: '• <b>Pierwowzorem jest GML!</b> KML powstał jako propozycja uproszczenia GML (jest podzbiorem gramatyki GML 1.0 i 2.1.2).<br>• <b>Silna strona KML:</b> integruje wszystkie definicje w <b>jednej przestrzeni nazw (single namespace)</b>, minimalizując ilość importowanego kodu.<br>• W 2006 r. Google rozpoczął standaryzację, a w <b>2008 r. KML 2.2 stał się oficjalnym standardem OGC</b>. Produkty Google czasem używają nieoficjalnych rozszerzeń KML.<br>• <b>Fałszywe zdanie z testu:</b> „KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany”.' },
+      { id: 45, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 27-30 + Notatki', q: 'Co oznaczają elementy <Placemark> oraz <LookAt> (i jego 6 pod-elementów) w formacie KML?', a: '• <code>&lt;Placemark&gt;</code> – podstawowy znacznik obiektu w KML.<br>• <code>&lt;LookAt&gt;</code> – definicja punktu widzenia (kamery) skierowanej na obiekt:<br>  1-3) <code>&lt;longitude&gt;</code>, <code>&lt;latitude&gt;</code>, <code>&lt;altitude&gt;</code> – współrzędne punktu obserwacji,<br>  4) <code>&lt;heading&gt;</code> – kąt obrotu względem północy (azymut),<br>  5) <code>&lt;tilt&gt;</code> – kąt nachylenia w pionie (góra/dół),<br>  6) <code>&lt;range&gt;</code> – odległość kamery od obserwowanego punktu.' },
+      { id: 46, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 30-43 + Notatki', q: 'Wyjaśnij działanie znaczników <altitudeMode>, <extrude> oraz <tessellate> w KML!', a: '• <code>&lt;altitudeMode&gt;</code> – sposób pomiaru wysokości:<br>  – <code>relativeToGround</code>: względem poziomu gruntu/terenu,<br>  – <code>absolute</code>: bezwzględnie względem poziomu morza / elipsoidy.<br>• <code>&lt;extrude&gt;1&lt;/extrude&gt;</code> – „pociągnięcie” obiektu w dół do powierzchni gruntu: punkt tworzy pionowy „ogon” (łupek), linia tworzy <b>ścianę</b>, a poligon tworzy <b>bryłę 3D (budynek)</b>.<br>• <code>&lt;tessellate&gt;1&lt;/tessellate&gt;</code> – sprawia, że ścieżka (<code>&lt;LineString&gt;</code>) podąża po rzeźbie terenu (<i>contours to the underlying terrain</i>).' },
+      { id: 47, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 40-41', q: 'Jak w KML (oraz GML) definiuje się poligon z otworem w środku (np. budynek Pentagonu)?', a: 'Za pomocą dwóch grup obrysów wewnątrz <code>&lt;Polygon&gt;</code>:<br>• <b>W KML:</b> <code>&lt;outerBoundaryIs&gt;&lt;LinearRing&gt;&lt;coordinates&gt;...</code> (obrys zewnętrzny) oraz <code>&lt;innerBoundaryIs&gt;&lt;LinearRing&gt;&lt;coordinates&gt;...</code> (obrys wewnętrzny – otwór).<br>• <b>W GML:</b> odpowiednio <code>&lt;gml:exterior&gt;</code> oraz <code>&lt;gml:interior&gt;</code>.' },
+      { id: 48, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajd 42 + TWDP_pytania', q: 'W jakim formacie zapisuje się kolory obiektów (<color>) w plikach KML?', a: 'W KML kolory zapisuje się szesnastkowo w formacie <b>ABGR (<code>aabbggrr</code>)</b> – czyli odwrotnie niż w klasycznym RGBA!<br>• <code>aa</code> – alpha (przezroczystość),<br>• <code>bb</code> – blue (niebieski),<br>• <code>gg</code> – green (zielony),<br>• <code>rr</code> – red (czerwony).' },
+      { id: 49, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 33 i 44-45', q: 'Czym różni się <GroundOverlay> od <ScreenOverlay> w KML i jak pozycjonuje się <ScreenOverlay>?', a: '• <code>&lt;GroundOverlay&gt;</code> – nakłada obraz (np. zdjęcie satelitarne) bezpośrednio <b>na powierzchnię terenu</b> w granicach określonych przez <code>&lt;LatLonBox&gt;</code> (north, south, east, west, rotation).<br>• <code>&lt;ScreenOverlay&gt;</code> – wyświetla płaski obraz <b>w przestrzeni ekranu (screen-space)</b>, np. legendę lub logo. Pozycję ustala się mapując punkt obrazka <code>&lt;overlayXY&gt;</code> na punkt ekranu <code>&lt;screenXY&gt;</code>, a rozmiar przez <code>&lt;size&gt;</code>.' },
+      { id: 50, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 46-47 + TWDP_pytania', q: 'Do czego służy element <PhotoOverlay> w KML i jakie pod-elementy zawiera?', a: '<code>&lt;PhotoOverlay&gt;</code> pozwala na <b>nakładanie (draping) fotografii na obiekty/kształty 3D</b> oraz <b>zastosowanie dynamicznego Level-of-Detail (LoD) na osadzonych zdjęciach</b> (również gigapikselowych).<br>Zawiera:<br>• <code>&lt;ViewVolume&gt;</code> – mapuje stożek kamery na kształt (<code>leftFov, rightFov, bottomFov, topFov, near</code>),<br>• <code>&lt;ImagePyramid&gt;</code> – dzieli wielki obraz na kwadratowe kafelki (domyślnie <b>256 px</b>; <code>maxWidth, maxHeight</code>),<br>• <code>&lt;shape&gt;</code> – kształt: <b><code>rectangle</code>, <code>cylinder</code> lub <code>sphere</code></b>.' },
+      { id: 51, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 48-49 + TWDP_pytania', q: 'Jak działają elementy <Region> i <Lod> w formacie KML? (Pytanie z testu!)', a: '• <code>&lt;Region&gt;</code> zapewnia <b>dynamiczny Level-of-Detail (LoD)</b> dla obiektów zdefiniowanych niżej w hierarchii pliku i pozwala na zagnieżdżanie regionów.<br>• Wewnątrz <code>&lt;Region&gt;</code> element <b><code>&lt;Lod&gt;</code> (np. <code>&lt;minLodPixels&gt;</code>) jest stosowany w parze z elementem <code>&lt;LatLonAltBox&gt;</code></b> (określającym granice N, S, E, W oraz min/maxAltitude).<br><b>W teście:</b> Dla pytania o <code>&lt;Lod&gt;</code> poprawne jest <b>c) wszystkie odpowiedzi są poprawne</b> (w parze z LatLonAltBox + wewnątrz Region + definiuje dynamiczny LoD).' },
+      { id: 52, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 50-52', q: 'Do czego służą elementy <ExtendedData>, <TimeStamp>, <TimeSpan> oraz format KMZ w KML?', a: '• <code>&lt;ExtendedData&gt;</code> – pozwala definiować własne typy danych (custom data types: <code>&lt;Data name="..."&gt;&lt;value&gt;</code>) i wyświetlać je np. w szablonach dymków <code>&lt;BalloonStyle&gt;</code>.<br>• <code>&lt;TimeStamp&gt;</code> vs <code>&lt;TimeSpan&gt;</code> – określają chwilowy (Stamp) lub przedziałowy (Span) czas życia obiektu na osi czasu (time bar).<br>• <b>KMZ</b> – skompresowane (ZIP) archiwum zawierające plik KML wraz z modelami i teksturami.' },
+
+      // === 6. SYSTEMY 3D GIS ORAZ BIBLIOTEKA CESIUM ===
+      { id: 53, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 2-3', q: 'Jakie są 3 główne obszary zastosowań prezentacji danych przestrzennych i jak dzielą się technologie Desktop vs Web?', a: '<b>Zastosowania:</b> 1) <i>Environment monitoring</i> (ekologia, oceanografia, bioróżnorodność), 2) <i>Environment mapping</i> (nawigacja), 3) <i>Environment engineering</i> (planowanie krajobrazu, usługi środowiskowe).<br><b>Technologie:</b><br>• <b>Desktop (C++/Java/.NET + DirectX/OpenGL):</b> ArcGIS Engine SDK, GRASS, NASA WorldWind, Google Earth.<br>• <b>Web (JavaScript + WebGL):</b> Cesium, NASA WorldWind, Microsoft Virtual Earth / Bing Maps 3D.' },
+      { id: 54, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 4-7', q: 'Czym charakteryzuje się ESRI ArcGIS Engine SDK (architektura, języki, kontrolki i licencjonowanie)?', a: '• <b>Języki:</b> .NET (C#, VB, VC) oraz Java, C++ (Win/Linux/Solaris).<br>• <b>5 warstw:</b> Base Services &rarr; Data Access &rarr; Map Presentation &rarr; Developer Components &rarr; Extensions (m.in. 3D, Spatial, Network, Maplex, Tracking).<br>• <b>Kontrolki:</b> <code>GlobeControl, SceneControl, TOCControl, MapControl, Toolbars, LicenseControl</code>.<br>• <b>Licencje (ważne!):</b> wymaga licencji <b>Developer Kit</b> (na PC programisty) ORAZ płatnej licencji <b>Engine Runtime</b> (wraz z rozszerzeniami) dla <b>każdej kopii programu u użytkownika końcowego</b>!' },
+      { id: 55, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 9-12', q: 'Czym charakteryzuje się Google Earth i dlaczego aplikacje oparte na Google Earth Plugin przestały istnieć?', a: '• <b>Google Earth:</b> aplikacja Desktop/Web (Windows, Linux, Mac, iOS, Android) do wizualizacji danych wektorowych i warstw 3D (Ziemia, ocean, niebo/Sky, Księżyc/Moon, Mars) ze zdalnych serwerów Google.<br>• <b>Google Earth Plugin:</b> wtyczka przeglądarkowa pozwalająca sterować globem przez JavaScript; stworzone na niej aplikacje (np. symulatory statków/lotu) przestały działać z powodu <b>wycofania (deprecation) wtyczki</b> przez przeglądarki i Google.' },
+      { id: 56, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 13-17', q: 'Czym jest system GRASS GIS i jakie 4 zaawansowane operacje 3D umożliwia dzięki obsłudze skryptów?', a: '<b>GRASS (Geographic Resources Analysis and Support System)</b> to darmowy system Open Source (Win/Linux/Mac) do analizy i wizualizacji danych 2D i 3D (m.in. sieci drogowych i rurociągów).<br><b>4 operacje ze slajdów:</b><br>1) Wyciąganie płaskich kształtów do obiektów 3D (<i>Extrusion of flat shapes into 3D objects</i>),<br>2) Symulacja ryzyka powodziowego na bazie DTM (<i>Simulation of flood risk</i>),<br>3) Rektyfikacja (łatanie/uzupełnianie) niekompletnych danych przestrzennych (<i>Rectification of incomplete spatial data</i>),<br>4) Generowanie obrazów stereoskopowych (anaglifów) z wizualizacji 3D.' },
+      { id: 57, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajd 18', q: 'Czym jest NASA WorldWind?', a: 'Aplikacja wirtualnego globu 3D występująca w wariancie <b>Desktop (Java + OpenGL)</b> oraz <b>Web (JavaScript + WebGL)</b>.<br>Wizualizuje <b>elipsoidę WGS84</b> pokrytą teksturami map <b>Web Mercator</b> z serwisów Bing lub WMS/WMTS, obsługuje pliki <b>Shapefile</b>, obrazy oraz ładowanie własnych modeli 3D.' },
+      { id: 58, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 19-20 + TWDP_pytania', q: 'Czym jest biblioteka Cesium, jakie ma główne możliwości i które zdanie o niej w teście jest NIEPRAWDZIWE?', a: '<b>Cesium</b> to otwartoźródłowa biblioteka <b>JavaScript oparta na standardzie WebGL</b> do tworzenia aplikacji 3D Web GIS.<br>• <b>NIE WYMAGA instalacji żadnej wtyczki do przeglądarki!</b> (zdanie o wymaganej wtyczce w teście jest <b>NIEPRAWDZIWE</b>).<br>• <b>Możliwości:</b> wizualizacja 4D (w czasie), integracja warstw (modyfikacja alpha, brightness, contrast, saturation, gamma), obsługa modeli <b>COLLADA i glTF</b>, rysowanie obiektów (polylines, billboards, polygons, boxes, cylinders), atmosfera/woda/Słońce/Księżyc, nawigacja klawiaturą/myszą/dotykiem, culling, oraz <b>wysokiej precyzji Z-buffer (brak efektu z-fighting)</b>.' },
+      { id: 59, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 2', q: 'Czym są Billboardy (Billboards) w grafice 3D i bibliotece Cesium?', a: '<b>Billboardy</b> to płaskie, prymitywne obiekty (np. ikony, sprajty), które są <b>zawsze zwrócone przodem w kierunku obserwatora (kamery)</b>, niezależnie od obrotu sceny.' },
+      { id: 60, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 21-24 + Notatki', q: 'Czym różni się CesiumWidget od CesiumViewer (Cesium.Viewer) w kodzie HTML/CSS?', a: '• <b><code>CesiumWidget</code>:</b> uproszczona wersja (sam glob bez GUI), szybko się ładuje; wymaga <b>1 diva</b> (<code>cesiumContainer</code>), któremu musimy ręcznie nadać styl CSS (100% width/height).<br>• <b><code>CesiumViewer</code> (<code>Cesium.Viewer</code>):</b> pełna wersja z interfejsem; nie wymaga ręcznej zmiany stylów (importuje <code>bucket.css</code>), ale w szablonie wykorzystuje <b>3 divy</b>:<br>  1) <code>cesiumContainer</code> (główny kontener),<br>  2) <code>loadingOverlay</code> (ekran ładowania),<br>  3) <code>toolbar</code> (pasek narzędzi w lewym górnym rogu).' },
+      { id: 61, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 27-33 + Notatki', q: 'Jak w Cesium odwołujemy się do warstw tekstur, jak zmieniamy ich przezroczystość/jasność i jakich Providerów używamy?', a: '• Kolekcja warstw: <b><code>viewer.scene.imageryLayers</code></b> (dodawanie: <code>layers.add(...)</code>).<br>• Przezroczystość: <code>layer.alpha = 0.5;</code> (0.0 = przezroczysta, 1.0 = nieprzezroczysta).<br>• Jasność: <code>layer.brightness = 2.0;</code> (&gt;1.0 rozjaśnia, &lt;1.0 przyciemnia).<br>• <b>Providerzy:</b> <code>WebMapServiceImageryProvider</code> (WMS/WMTS), <code>TileMapServiceImageryProvider</code> (TMS), <code>OpenStreetMapImageryProvider</code> (OSM), <code>BingMapsImageryProvider</code>, <code>ArcGisMapServerImageryProvider</code>, <code>GoogleEarthImageryProvider</code>, <code>SingleTileImageryProvider</code> (pojedynczy obrazek).' },
+      { id: 62, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 35-37', q: 'Jak w Cesium dodaje się Numeryczny Model Terenu (DTM) i co dają opcje requestWaterMask oraz requestVertexNormals?', a: 'Używa się np. <code>Cesium.Terrain.fromWorldTerrain({ requestWaterMask: true, requestVertexNormals: true })</code> oraz <code>viewer.scene.setTerrain(terrainProvider)</code>.<br>• <code>requestWaterMask: true</code> oraz odpowiedni model terenu (np. Cesium Ion) pozwalają <b>odróżnić ląd od wody</b> i włączają <b>animację oraz cieniowanie wody</b>.<br>• Alternatywne źródła terenu: np. dokładne dane <b>SRTM (30 m)</b> lub mniejsze <b>GTOPO30 (1 km)</b> przez <code>VRTheWorldTerrainProvider</code>.' },
+      { id: 63, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 40-43 + Notatki + TWDP_pytania', q: 'Jak zapisujemy kolory w Cesium i jak zachowują się obiekty wektorowe (np. polilinie) względem krzywizny Ziemi?', a: '• <b>Kolory w Cesium:</b> zapisujemy <b>normalnie w formacie RGBA</b>! Np. <code>new Cesium.Color(1.0, 0.0, 0.0, 0.8)</code> lub <code>Cesium.Color.fromRgba(0xFF005060)</code>.<br>• <b>Krzywizna Ziemi:</b> domyślnie obiekty wektorowe w Cesium <b>podążają po powierzchni elipsoidy</b>.<br>• Aby narysować polilinię, która <b>NIE podąża za krzywizną Ziemi</b> (idzie prosto w przestrzeni), ustawiamy: <b><code>arcType : Cesium.ArcType.NONE</code></b>.' },
+      { id: 64, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 44-49', q: 'O czym trzeba pamiętać pozycjonując własny model 3D (.glb/.gltf) w Cesium i jak działają cienie oraz emitery cząsteczek?', a: '• <b>Uwaga przy modelach 3D:</b> macierz transformacji modelu (<code>modelMatrix</code>) jest obliczana <b>względem elipsoidy WGS84</b>! Jeśli używamy modelu terenu (DTM), wysokość modelu nad gruntem może wymagać korekty.<br>• <b>Naturalne cieniowanie:</b> włączane przez <code>shadows: true</code> i <code>terrainShadows: Cesium.ShadowMode.ENABLED</code> (korzysta z <code>viewer.shadowMap</code> oraz czasu zegara <code>Cesium.JulianDate</code>).<br>• <b>Particle emitters:</b> klasa <code>Cesium.ParticleSystem</code> pozwala generować efekty cząsteczkowe (np. ogień/dym na samolocie).' }
     ];
 
     const QUIZ_QUESTIONS = [
-      { q: 'W GML pozycja (18.25, 54.10, 28) oznacza punkt w Gdańsku opisany na współrzędnych w:', options: ['stopniach (x,y) i metrach (z)', 'radianach (y,x) i metrach (z)', 'stopniach (y,x) i metrach (z)', 'stopniach (x,y) i kilometrach (z)', 'w układzie Mercatora'], correct: 0, explanation: 'Decimal degrees + height in metres: X=18.25°, Y=54.10°, Z=28 m.' },
-      { q: 'Element <Lod> występujący w formacie KML:', options: ['musi być stosowany w parze z elementem <LatLonAltBox>', 'powinien być zdefiniowany wewnątrz elementu <Region>', 'pozwala na definiowanie dynamicznego Level-of-Detail', 'wszystkie odpowiedzi są poprawne'], correct: 3, explanation: 'Wszystkie trzy cechy dotyczą elementu <Lod> wewnątrz <Region>.' },
-      { q: 'Wskaż poprawną kolejność etapów potoku graficznego:', options: ['Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Rasteryzacja → Teksturowanie → Oświetlenie i cieniowanie', 'Transformacja sceny → Ustawienie wierzchołków → Rasteryzacja → Projekcja widoku → Teksturowanie → Oświetlenie i cieniowanie', 'Ustawienie wierzchołków → Projekcja widoku → Transformacja sceny → Teksturowanie → Rasteryzacja → Oświetlenie i cieniowanie', 'Rasteryzacja → Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Oświetlenie i cieniowanie → Teksturowanie'], correct: 0, explanation: 'Zgodnie z kluczem w TWDP_pytania.pdf.' },
-      { q: 'Wskaż zdanie NIEPRAWDZIWE dotyczące KML i GML:', options: ['KML jest jednym z oficjalnych standardów OGC', 'KML został stworzony jako uproszczenie języka GML', 'Produkty firmy Google czasami stosują nieoficjalne rozszerzenia standardu KML', 'KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany'], correct: 3, explanation: 'GML jest pierwowzorem i nadal oficjalnym standardem ISO/OGC.' },
-      { q: 'PhotoOverlays w KML pozwala na (klucz testowy):', options: ['zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach', 'konwersję chmur punktów LAS do GML', 'generowanie cieni szablonowych', 'kodowanie kolorów w RGBA'], correct: 0, explanation: 'Slajd 46: zdjęcia osadzone w PhotoOverlay mogą używać dynamicznego Level-of-Detail.' },
-      { q: 'Fotogrametria jest:', options: ['dziedziną nauki zajmującą się m.in. odtwarzaniem trójwymiarowych modeli fotografowanych obiektów', 'technologią tworzenia zdjęć 3D za pomocą filtrów polaryzacyjnych', 'techniką obrazowania oddającą wrażenie widzenia przestrzennego bez okularów', 'żadną z powyższych'], correct: 0, explanation: 'Odtwarzanie modeli 3D na podstawie wielu fotografii.' },
-      { q: 'W jakim formacie podaje się kolory obiektów w KML, a w jakim w Cesium?', options: ['W KML: ABGR (aabbggrr), w Cesium: RGBA', 'W KML: RGBA, w Cesium: ABGR', 'W obu: ARGB', 'W obu: RGBA'], correct: 0, explanation: 'KML ma odwrócone ABGR, a Cesium standardowe RGBA.' },
-      { q: 'Wskaż zdanie NIEPRAWDZIWE na temat biblioteki Cesium:', options: ['jest ona oparta na standardzie WebGL', 'umożliwia rysowanie polilinii, bilboardów, poligonów', 'do korzystania z niej wymagana jest instalacja dedykowanej wtyczki do przeglądarki internetowej', 'pozwala na nawigację sceny przy pomocy klawiatury, myszy oraz dotyku'], correct: 2, explanation: 'Cesium działa natywnie w WebGL bez żadnych wtyczek.' },
-      { q: 'Która technika fizycznie tworzy nowe wierzchołki i trójkąty na modelu?', options: ['Displacement mapping (bump + teselacja)', 'Bump mapping', 'Normal mapping', 'Mip-mapping'], correct: 0, explanation: 'Tylko Displacement mapping tworzy nową geometrię.' },
-      { q: 'W jakiej kolejności wykonuje się transformacje geometryczne obiektu?', options: ['1) Scaling → 2) Rotation → 3) Translation → 4) Projection', '1) Translation → 2) Rotation → 3) Scaling → 4) Projection', '1) Projection → 2) Translation → 3) Rotation → 4) Scaling', '1) Rotation → 2) Scaling → 3) Projection → 4) Translation'], correct: 0, explanation: 'Slajd 8 (Computer graphics.pdf): Scaling → Rotation → Translation → Projection.' },
-      { q: 'Czym różni się Occlusion Culling od Backface Culling?', options: ['Occlusion usuwa obiekty zasłonięte przez inne obiekty, Backface usuwa tylne ściany modeli', 'Occlusion przyciemnia szczeliny, Backface usuwa tekstury', 'Occlusion działa poza bryłą widzenia, Backface sortuje Z-bufor', 'To synonimy'], correct: 0, explanation: 'Oba usuwają niewidoczne elementy wewnątrz bryły widzenia.' },
-      { q: 'Co oznacza zapis „f 1//1 2//2 3//3” w pliku .obj?', options: ['Trójkąt z wierzchołków 1, 2, 3 z wektorami normalnymi, ale bez tekstury', 'Trójkąt z teksturą bez normalnych', 'Linię łamaną z teksturą', 'Błąd składniowy'], correct: 0, explanation: 'v//vn oznacza pominięcie indeksu tekstury vt.' },
-      { q: 'W pliku .mtl zapis „d 1.0” oraz „illum 2” oznacza:', options: ['Materiał całkowicie nieprzezroczysty, oświetlenie używa wszystkich składowych (ADS)', 'Materiał 100% przezroczysty, tylko Diffuse', 'Podwójną gęstość', 'Displacement mapping'], correct: 0, explanation: 'd 1.0 = opaque; illum 2 = Ambient + Diffuse + Specular.' },
-      { q: 'Minimalna częstotliwość odświeżania ekranu dla okularów Active shutter to:', options: ['120 Hz', '60 Hz', '30 Hz', 'Nie ma znaczenia'], correct: 0, explanation: 'Minimum 120 Hz (po 60 Hz na oko).' },
-      { q: 'Jak w Cesium narysować polilinię, która NIE podąża za krzywizną Ziemi?', options: ['arcType : Cesium.ArcType.NONE', 'tessellate : 0', 'extrude : true', 'Polilinie nigdy nie podążają za krzywizną'], correct: 0, explanation: 'Domyślnie podążają za elipsoidą; wyłącza się to przez ArcType.NONE.' },
-      { q: 'Jakie dwie metody podziału kafelków wspiera 3D Tiles?', options: ['quadtree (równomierna) i k-d tree (nierównomierna)', 'B-tree i hash', 'Siatka heksagonalna', '1D i 6-point'], correct: 0, explanation: 'Slajd 8 (3D Data Formats.pdf): quadtree oraz k-d tree.' }
+      {
+        q: 'W GML pozycja (18.25, 54.10, 28) oznacza punkt w Gdańsku opisany na współrzędnych w:',
+        options: [
+          'stopniach (x,y) i metrach (z)',
+          'radianach (y,x) i metrach (z)',
+          'stopniach (y,x) i metrach (z)',
+          'stopniach (x,y) i kilometrach (z)',
+          'w układzie Mercatora'
+        ],
+        correct: 0,
+        explanation: 'Zgodnie ze slajdem 22 (3D Data Formats.pdf) zapis ten to „Decimal degrees + height in metres”, gdzie X=18.25° (długość geogr.), Y=54.10° (szerokość geogr.), a Z=28 m (wysokość).'
+      },
+      {
+        q: 'Element <Lod> występujący w formacie KML:',
+        options: [
+          'musi być stosowany w parze z elementem <LatLonAltBox>',
+          'powinien być zdefiniowany wewnątrz elementu <Region>',
+          'pozwala na definiowanie dynamicznego Level-of-Detail',
+          'wszystkie odpowiedzi są poprawne'
+        ],
+        correct: 3,
+        explanation: 'W KML element <Region> definiuje dynamiczny LoD za pomocą pary elementów <LatLonAltBox> oraz <Lod>.'
+      },
+      {
+        q: 'Wskaż poprawną kolejność etapów potoku graficznego (Graphics Pipeline):',
+        options: [
+          'Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Rasteryzacja → Teksturowanie → Oświetlenie i cieniowanie',
+          'Transformacja sceny → Ustawienie wierzchołków → Rasteryzacja → Projekcja widoku → Teksturowanie → Oświetlenie i cieniowanie',
+          'Ustawienie wierzchołków → Projekcja widoku → Transformacja sceny → Teksturowanie → Rasteryzacja → Oświetlenie i cieniowanie',
+          'Rasteryzacja → Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Oświetlenie i cieniowanie → Teksturowanie'
+        ],
+        correct: 0,
+        explanation: 'Kolejność z klucza egzaminacyjnego: 1. Ustawienie wierzchołków → 2. Transformacja sceny → 3. Projekcja widoku → 4. Rasteryzacja → 5. Teksturowanie → 6. Oświetlenie i cieniowanie.'
+      },
+      {
+        q: 'Wskaż zdanie NIEPRAWDZIWE dotyczące formatów KML i GML:',
+        options: [
+          'KML jest jednym z oficjalnych standardów OGC',
+          'KML został stworzony jako uproszczenie języka GML',
+          'Produkty firmy Google czasami stosują nieoficjalne rozszerzenia standardu KML',
+          'KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany'
+        ],
+        correct: 3,
+        explanation: 'GML jest starszym standardem ISO/OGC i stanowi bazę (pierwowzór), na której zbudowano KML jako uproszczony podzbiór. Oba standardy są nadal używane.'
+      },
+      {
+        q: 'PhotoOverlays w KML pozwala na (według klucza testowego i slajdu 46):',
+        options: [
+          'zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach',
+          'automatyczną konwersję chmur punktów LAS do GML',
+          'generowanie cieni szablonowych (Stencil Shadows)',
+          'kodowanie kolorów w formacie RGBA'
+        ],
+        correct: 0,
+        explanation: 'W kluczu testowym zaznaczona jest odpowiedź: „zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach” (slajd 46: „KML allows for draping photographs over 3D objects. Those photographs may also use dynamic Level-of-Detail”).'
+      },
+      {
+        q: 'Fotogrametria jest:',
+        options: [
+          'dziedziną nauki zajmującą się m.in. odtwarzaniem trójwymiarowych modeli fotografowanych obiektów',
+          'technologią tworzenia zdjęć 3D za pomocą filtrów polaryzacyjnych',
+          'techniką obrazowania oddającą wrażenie widzenia przestrzennego bez okularów',
+          'żadną z powyższych'
+        ],
+        correct: 0,
+        explanation: 'Fotogrametria rekonstruuje modele 3D fotografowanych obiektów przez wyznaczenie pozycji elementów sceny w przestrzeni 3D na podstawie wielu zdjęć.'
+      },
+      {
+        q: 'W jakim formacie podaje się kolory obiektów w plikach KML, a w jakim w bibliotece Cesium?',
+        options: [
+          'W KML: ABGR (aabbggrr), natomiast w Cesium: RGBA',
+          'W KML: RGBA, natomiast w Cesium: ABGR',
+          'W obu systemach: ARGB',
+          'W obu systemach: RGBA'
+        ],
+        correct: 0,
+        explanation: 'W KML kolory zapisuje się odwrotnie: szesnastkowo aabbggrr (ABGR). W Cesium używa się standardowego RGBA.'
+      },
+      {
+        q: 'Wskaż zdanie NIEPRAWDZIWE na temat biblioteki Cesium:',
+        options: [
+          'jest ona oparta na standardzie WebGL',
+          'umożliwia ona rysowanie takich obiektów jak polilinie, bilboardy, poligony czy wielokąty',
+          'do korzystania z niej wymagana jest instalacja dedykowanej wtyczki do przeglądarki internetowej',
+          'pozwala ona na nawigację sceny przy pomocy klawiatury, myszy oraz dotyku'
+        ],
+        correct: 2,
+        explanation: 'Cesium działa natywnie w przeglądarce dzięki HTML5/WebGL i NIE wymaga instalacji żadnej wtyczki (wtyczki wymagał dawny Google Earth Plugin).'
+      },
+      {
+        q: 'Która technika mapowania powierzchni FIZYCZNIE tworzy nowe wierzchołki i trójkąty na modelu (zwiększając liczbę poligonów)?',
+        options: [
+          'Displacement mapping (kombinacja bump mappingu i teselacji)',
+          'Bump mapping',
+          'Normal mapping',
+          'Mip-mapping'
+        ],
+        correct: 0,
+        explanation: 'Bump mapping i Normal mapping modyfikują jedynie sposób obliczania oświetlenia (wektory normalne) bez zmiany liczby poligonów. Tylko Displacement mapping (z udziałem teselacji / Geometry Shadera) tworzy nowe wierzchołki.'
+      },
+      {
+        q: 'W jakiej kolejności należy wykonywać transformacje geometryczne modelu (zgodnie ze slajdem 8 w Computer graphics.pdf)?',
+        options: [
+          '1) Scaling → 2) Rotation → 3) Translation → 4) Projection',
+          '1) Translation → 2) Rotation → 3) Scaling → 4) Projection',
+          '1) Projection → 2) Translation → 3) Rotation → 4) Scaling',
+          '1) Rotation → 2) Scaling → 3) Projection → 4) Translation'
+        ],
+        correct: 0,
+        explanation: 'Slajd 8: „It is paramount to maintain the proper sequence of transformations: 1) Scaling, 2) Rotation, 3) Translation, 4) Projection”.'
+      },
+      {
+        q: 'Czym różni się Occlusion Culling od Backface Culling?',
+        options: [
+          'Occlusion culling usuwa obiekty całkowicie zasłonięte przez inne obiekty, a Backface culling usuwa tylne (niewidoczne) ściany samych modeli',
+          'Occlusion culling przyciemnia zagłębienia (jak Ambient Occlusion), a Backface culling usuwa tekstury',
+          'Occlusion culling działa poza bryłą widzenia (jak Clipping), a Backface culling sortuje bufor głębi',
+          'To dwie nazwy tej samej techniki'
+        ],
+        correct: 0,
+        explanation: 'Oba należą do Culling (wewnątrz bryły widzenia): Occlusion usuwa obiekty zasłonięte przez inne, a Backface tylne ścianki obiektów.'
+      },
+      {
+        q: 'Co oznacza zapis „f 1//1 2//2 3//3” w pliku Wavefront .obj?',
+        options: [
+          'Trójkąt zbudowany z wierzchołków 1, 2 i 3 z przypisanymi wektorami normalnymi (bez tekstury)',
+          'Trójkąt z nałożoną teksturą, ale bez wektorów normalnych',
+          'Linię łamaną z nałożoną teksturą',
+          'Błąd składniowy – podwójny ukośnik nie jest dozwolony w .obj'
+        ],
+        correct: 0,
+        explanation: 'Format poligonu to index_v/index_vt/index_vn. Pominięcie środkowej wartości (v//vn) oznacza brak współrzędnych tekstury, ale obecność wektorów normalnych.'
+      },
+      {
+        q: 'W pliku materiałowym .mtl (Wavefront OBJ) zapis „d 1.0” oraz „illum 2” oznacza:',
+        options: [
+          'Materiał całkowicie nieprzezroczysty (opaque), a oświetlenie korzysta ze wszystkich trzech składowych (Ambient, Diffuse, Specular)',
+          'Materiał w 100% przezroczysty, a oświetlenie korzysta tylko ze składowej Diffuse',
+          'Materiał o podwójnej gęstości, oświetlany dwoma źródłami światła',
+          'Materiał używający displacement mappingu o sile 1.0'
+        ],
+        correct: 0,
+        explanation: 'Slajd 18 (3D Data Formats.pdf): d 1.0 oznacza materiał nieprzezroczysty (d 0.5 to 50% przezroczystości), natomiast illum 2 włącza wszystkie składowe oświetlenia (0 = tylko Diffuse, 1 = Diffuse + Ambient).'
+      },
+      {
+        q: 'Jaka jest minimalna częstotliwość odświeżania ekranu wymagana przez aktywne okulary migawkowe (Active shutter 3D glasses), aby uniknąć silnego zmęczenia wzroku?',
+        options: [
+          'Co najmniej 120 Hz',
+          'Co najmniej 60 Hz',
+          'Co najmniej 30 Hz',
+          'Częstotliwość odświeżania nie ma znaczenia dla okularów migawkowych'
+        ],
+        correct: 0,
+        explanation: 'Slajd 18 (Stereoscopy.pdf): Active shutter 3D glasses wymagają ekranu o odświeżaniu co najmniej 120 Hz (po 60 Hz na każde oko).'
+      },
+      {
+        q: 'Jak w bibliotece Cesium narysować polilinię, która NIE podąża za krzywizną Ziemi (biegnie po linii prostej w przestrzeni 3D)?',
+        options: [
+          'Ustawić właściwość arcType : Cesium.ArcType.NONE w PolylineGeometry',
+          'Ustawić właściwość tessellate : 0 w PolylineGeometry',
+          'Ustawić właściwość extrude : true w Cesium.Viewer',
+          'W Cesium polilinie nigdy nie podążają za krzywizną Ziemi'
+        ],
+        correct: 0,
+        explanation: 'Domyślnie obiekty wektorowe w Cesium podążają po powierzchni elipsoidy. Aby to wyłączyć, na slajdzie 42 (3D GIS.pdf) ustawiono arcType : Cesium.ArcType.NONE.'
+      },
+      {
+        q: 'Jakie dwie metody podziału przestrzeni (tile subdivision) wspiera standard 3D Tiles?',
+        options: [
+          'Równomierną (quadtree) oraz nierównomierną (k-d tree)',
+          'Tylko B-drzewa (B-tree) oraz tablice mieszające',
+          'Tylko siatki heksagonalne',
+          'Podział liniowy (1D) oraz sferyczny (6-point)'
+        ],
+        correct: 0,
+        explanation: 'Slajd 8 (3D Data Formats.pdf): 3D Tiles wspiera podział równomierny (A: quadtree) oraz nierównomierny (B: k-d tree).'
+      }
     ];
 
     let currentCategory = 'ALL';
