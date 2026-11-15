@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pl" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>TWDP — Fiszki i Opracowanie 3D</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --fg: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-fg: #ffffff;
+      --secondary: #f1f5f9;
+      --secondary-fg: #1e293b;
+    }
+    html.dark {
+      --bg: #0b1120;
+      --card: #111827;
+      --border: #1f2937;
+      --fg: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-fg: #ffffff;
+      --secondary: #1e293b;
+      --secondary-fg: #e2e8f0;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .perspective { perspective: 1000px; }
+    .preserve-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 { transform: rotateY(180deg); }
+    .flipped { transform: rotateY(180deg); }
+    /* Clean scrollbar for tables on mobile */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .prose-guide h2 { font-size: 1.25rem; font-weight: 800; margin-top: 1.75rem; margin-bottom: 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); color: var(--primary); }
+    .prose-guide h3 { font-size: 1.05rem; font-weight: 700; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    .prose-guide p, .prose-guide li { font-size: 0.9rem; line-height: 1.6; }
+    .prose-guide ul, .prose-guide ol { padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .prose-guide ul { list-style-type: disc; }
+    .prose-guide ol { list-style-type: decimal; }
+    .prose-guide code { background: var(--secondary); padding: 0.1rem 0.35rem; border-radius: 0.25rem; font-size: 0.82em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .prose-guide table { width: 100%; border-collapse: collapse; margin: 0.75rem 0; font-size: 0.82rem; }
+    .prose-guide th, .prose-guide td { border: 1px solid var(--border); padding: 0.5rem 0.6rem; text-align: left; vertical-align: top; }
+    .prose-guide th { background: var(--secondary); font-weight: 700; }
+    .callout { border-left: 4px solid var(--primary); background: var(--secondary); padding: 0.75rem 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 0.75rem 0; font-size: 0.86rem; }
+    .callout-warn { border-left-color: #f59e0b; }
+  </style>
+</head>
+<body class="antialiased min-h-screen pb-10">
+  <!-- Sticky Mobile-Friendly Header -->
+  <header class="sticky top-0 z-30 border-b border-[var(--border)] bg-[var(--card)]/95 backdrop-blur">
+    <div class="max-w-4xl mx-auto px-3 py-2.5 flex items-center justify-between gap-2">
+      <div class="min-w-0">
+        <h1 class="text-sm sm:text-base font-bold truncate">TWDP: Fiszki i Opracowanie 3D</h1>
+        <p class="text-[11px] text-[var(--muted)] truncate">Stereoskopia • Grafika 3D • Formaty • Cesium</p>
+      </div>
+      <button onclick="toggleTheme()" id="theme-btn" class="px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-xs font-medium shrink-0">
+        ☀️ Jasny
+      </button>
+    </div>
+    <!-- Tabs -->
+    <nav class="max-w-4xl mx-auto px-3 pb-2.5 flex gap-1.5 overflow-x-auto">
+      <button id="tab-flashcards" onclick="switchTab('flashcards')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-fg)] shrink-0 transition">
+        🗂️ Fiszki (64)
+      </button>
+      <button id="tab-guide" onclick="switchTab('guide')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-fg)] shrink-0 transition">
+        📖 Pełne Opracowanie
+      </button>
+      <button id="tab-quiz" onclick="switchTab('quiz')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-fg)] shrink-0 transition">
+        📝 Quiz (16)
+      </button>
+      <button id="tab-list" onclick="switchTab('list')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-fg)] shrink-0 transition">
+        🔍 Szukaj / Lista
+      </button>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-3 pt-4">
+    <!-- ==================== FLASHCARDS VIEW ==================== -->
+    <section id="view-flashcards" class="space-y-3.5">
+      <!-- Filters -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 space-y-2.5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <select id="cat-select" onchange="setCategory(this.value)" class="w-full bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2.5 py-2 text-xs font-medium">
+            <option value="ALL">📚 Wszystkie działy (64 fiszki)</option>
+            <option value="EXAM">🔥 Pewniaki z testów (TWDP_pytania)</option>
+            <option value="STEREO">1. Stereoskopia i widzenie 3D</option>
+            <option value="CGI">2. Grafika 3D, Cieniowanie, Optymalizacja</option>
+            <option value="PHOTO">3. Fotogrametria</option>
+            <option value="FORMATS">4. LAS, glTF, 3D Tiles, OBJ/MTL</option>
+            <option value="GML_KML">5. GML i KML</option>
+            <option value="GIS_CESIUM">6. 3D GIS i Cesium</option>
+          </select>
+          <div class="flex gap-2">
+            <select id="status-filter" onchange="applyFilters()" class="flex-1 bg-[var(--bg)] border border-[var(--border)] rounded-lg px-2.5 py-2 text-xs font-medium">
+              <option value="ALL">Status: Wszystkie</option>
+              <option value="UNLEARNED">Do nauki / Powtórki</option>
+              <option value="HARD">Tylko Trudne</option>
+              <option value="KNOWN">Opanowane</option>
+            </select>
+            <button onclick="shuffleDeck()" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-xs font-semibold" title="Wymieszaj">🔀</button>
+            <button onclick="resetProgress()" class="px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--secondary)] text-xs font-semibold text-[var(--muted)]" title="Resetuj postęp">↺</button>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="space-y-1">
+          <div class="flex justify-between text-[11px] text-[var(--muted)]">
+            <span>Umiem: <strong id="stat-known" class="text-emerald-500">0</strong> • Powtórka: <strong id="stat-hard" class="text-amber-500">0</strong> • Nowe: <strong id="stat-remaining">64</strong></span>
+            <span id="card-counter" class="font-mono font-bold text-[var(--fg)]">1 / 64</span>
+          </div>
+          <div class="w-full h-1.5 bg-[var(--bg)] rounded-full overflow-hidden flex">
+            <div id="bar-known" class="bg-emerald-500 h-full transition-all duration-300" style="width: 0%"></div>
+            <div id="bar-hard" class="bg-amber-500 h-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Card -->
+      <div class="perspective w-full">
+        <div id="card-inner" onclick="flipCard()" class="preserve-3d relative w-full min-h-[290px] sm:min-h-[330px] cursor-pointer select-none">
+          <!-- Front -->
+          <div class="backface-hidden absolute inset-0 bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl p-5 flex flex-col justify-between shadow-sm">
+            <div class="flex items-center justify-between gap-2">
+              <span id="card-cat-label" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--secondary)]">Kategoria</span>
+              <span id="card-status-badge" class="text-[11px] font-medium text-[var(--muted)]">Nowa</span>
+            </div>
+            <div class="my-auto py-3 text-center">
+              <p class="text-[11px] uppercase tracking-wider text-[var(--muted)] mb-2">Dotknij karty, aby zobaczyć odpowiedź</p>
+              <h2 id="card-front" class="text-base sm:text-xl font-bold leading-snug"></h2>
+            </div>
+            <div class="flex justify-between items-center text-[11px] text-[var(--muted)] border-t border-[var(--border)] pt-2.5">
+              <span>Możesz też przesuwać palcem ⬅️ ➡️</span>
+              <span class="font-semibold text-[var(--primary)]">Odwróć ↻</span>
+            </div>
+          </div>
+
+          <!-- Back -->
+          <div class="backface-hidden rotate-y-180 absolute inset-0 bg-[var(--card)] border-2 border-[var(--primary)] rounded-2xl p-5 flex flex-col justify-between shadow-md overflow-y-auto">
+            <div class="flex items-center justify-between gap-2">
+              <span id="card-cat-label-back" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--secondary)]">Odpowiedź</span>
+              <span id="card-source-label" class="text-[10px] font-mono text-[var(--muted)]">Źródło</span>
+            </div>
+            <div class="my-auto py-2">
+              <div id="card-back" class="text-xs sm:text-sm leading-relaxed space-y-1.5"></div>
+            </div>
+            <div class="flex justify-between items-center text-[11px] text-[var(--muted)] border-t border-[var(--border)] pt-2.5">
+              <span>Oceń poniżej, czy umiesz</span>
+              <span class="font-medium">Pokaż pytanie ↺</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Touch-Friendly Controls -->
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="markCard('HARD')" class="py-3 px-3 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-500 text-xs sm:text-sm font-bold active:scale-95 transition">
+          🤔 Jeszcze powtórzę
+        </button>
+        <button onclick="markCard('KNOWN')" class="py-3 px-3 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-emerald-500 text-xs sm:text-sm font-bold active:scale-95 transition">
+          ✅ Umiem to!
+        </button>
+        <button onclick="prevCard()" class="py-2.5 px-3 rounded-xl border border-[var(--border)] bg-[var(--card)] text-xs font-semibold active:scale-95 transition">
+          ⬅️ Poprzednia
+        </button>
+        <button onclick="nextCard()" class="py-2.5 px-3 rounded-xl border border-[var(--border)] bg-[var(--card)] text-xs font-semibold active:scale-95 transition">
+          Następna ➡️
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== FULL STUDY GUIDE VIEW ==================== -->
+    <section id="view-guide" class="hidden space-y-4">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 sm:p-6 prose-guide">
+        <div class="flex flex-wrap gap-1.5 pb-3 border-b border-[var(--border)]">
+          <a href="#sec-1" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">1. Stereoskopia</a>
+          <a href="#sec-2" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">2. Grafika 3D</a>
+          <a href="#sec-3" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">3. Fotogrametria</a>
+          <a href="#sec-4" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">4. Formaty 3D</a>
+          <a href="#sec-5" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">5. GML i KML</a>
+          <a href="#sec-6" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">6. 3D GIS i Cesium</a>
+          <a href="#sec-7" class="px-2.5 py-1 rounded-md bg-[var(--secondary)] text-xs font-semibold">🔥 Pytania</a>
+        </div>
+
+        <h2 id="sec-1">1. Widzenie przestrzenne i Stereoskopia (Stereoscopy.pdf)</h2>
+        <h3>1.1. Fizyka widzenia i perspektywa</h3>
+        <ul>
+          <li><strong>3 zasady fizyki widzenia:</strong> (1) Obiekty dalsze wydają się mniejsze niż bliższe; (2) Ocena głębi wymaga co najmniej dwóch punktów obserwacji; (3) Krzywizna Ziemi bezpośrednio wpływa na linię horyzontu.</li>
+          <li><strong>Perspektywa:</strong> Ludzki wzrok (dwoje oczu) to w praktyce <strong>perspektywa dwupunktowa</strong> będąca złożeniem dwóch perspektyw liniowych (jednopunktowych). Wyróżniamy perspektywy od 1-punktowej (np. <em>Ostatnia Wieczerza</em>), przez 2–4-punktową, aż po 5-punktową (półsfera / <em>hemisphere</em>) i 6-punktową (pełna sfera 360° / <em>sphere</em>).</li>
+          <li><strong>Geometria stereoskopowa:</strong> <code>stereo base (e)</code> to odległość między kamerami/oczami; <code>stereo window distance (f)</code> to odległość do okna stereoskopowego.</li>
+        </ul>
+        <h3>1.2. Dwa sposoby stymulacji głębi 3D</h3>
+        <ol>
+          <li><strong>Oszukanie mózgu (Deceiving the brain):</strong> <strong>Autostereogramy</strong> – powtarzanie tych samych wzorów w zmiennych odstępach pozwala mózgowi posortować je w warstwy głębokości. Patrzenie: <em>„wall-eyed”</em> (za obraz, przez „niewidzialną szybę”) lub <em>„cross-eyed”</em> (na zeza przed obraz).</li>
+          <li><strong>Osobny obraz dla każdego oka:</strong></li>
+        </ol>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Technologia</th><th>Zasada działania</th><th>Zalety / Wady</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Stereoskopy</strong></td><td>Soczewki rozdzielające parę zdjęć (Brewster 1839, Holmes 1861, lorneta S.F.14.Z.Gi).</td><td>Pełne kolory; małe pole widzenia (FOV).</td></tr>
+              <tr><td><strong>Anaglify</strong></td><td>Nałożenie 2 obrazów z przesunięciem poziomym w wykluczających się barwach: <em>Red-Blue, Red-Cyan, Red-Green, Dark Blue-Amber</em>.</td><td>Bardzo tanie; <strong>silna degradacja kolorów</strong>.</td></tr>
+              <tr><td><strong>Dolby 3D Cinema</strong></td><td>Dwa zestawy filtrów (projektor + okulary) kodujące różne częstotliwości RGB.</td><td>Świetne kolory i głębia; drogi, opatentowany sprzęt.</td></tr>
+              <tr><td><strong>Polaryzacja liniowa</strong></td><td>Filtry ortogonalne (pion/poziom) – <strong>1 filtr na oko</strong>.</td><td>Zachowuje kolory kosztem rozdzielczości; wrażliwe na przechył głowy.</td></tr>
+              <tr><td><strong>Polaryzacja kołowa</strong></td><td>Polaryzacja lewo/prawoskrętna – <strong>2 filtry na oko</strong> (kołowy ćwierćfalówka + liniowy).</td><td>Odporne na przechył głowy; niższa rozdzielczość.</td></tr>
+              <tr><td><strong>Active Shutter</strong></td><td>Okulary migawkowe naprzemiennie przysłaniają oczy w rytm ekranu.</td><td>Pełny kolor i rozdzielczość; wymaga <strong>min. 120 Hz</strong> (poniżej: zmęczenie wzroku).</td></tr>
+              <tr><td><strong>Glasses-free 3D</strong></td><td>Ekran kieruje wiązki bez okularów.</td><td>Działa tylko z jednego punktu obserwacji.</td></tr>
+              <tr><td><strong>HMD (VR)</strong></td><td>Jak stereoskop, ale z bardzo dużym FOV (np. OSVR HDK2).</td><td>Soczewki wymagają wstępnie zniekształconego obrazu (<em>warped image</em>).</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>1.3. Generowanie 3D CGI</h3>
+        <ul>
+          <li>Wymaga 2 kamer, ale koszt jest <strong>mniejszy niż dwukrotny</strong> (współdzielenie Z-bufora i tekstur). <em>Depth-buffer based stereoscopy</em> redukuje narzut do <strong>ok. 20%</strong> (kosztem jakości głębi).</li>
+          <li><strong>Differential encoding</strong> (kodowanie różnicowe) redukuje rozmiar obrazów/filmów 3D do <strong>ok. 150%</strong> wersji 2D.</li>
+          <li>Kamery równoległe (<em>NP-camera</em>) nie wprowadzają zniekształceń trapezowych (w przeciwieństwie do kamer obróconych do środka – <em>rotated cameras</em>).</li>
+        </ul>
+
+        <h2 id="sec-2">2. Grafika komputerowa 3D (Computer graphics.pdf)</h2>
+        <div class="callout">
+          <strong>Kolejność etapów potoku graficznego (pewniak!):</strong><br>
+          1. Ustawienie wierzchołków &rarr; 2. Transformacja sceny &rarr; 3. Projekcja widoku &rarr; 4. Rasteryzacja &rarr; 5. Teksturowanie &rarr; 6. Oświetlenie i cieniowanie.
+        </div>
+        <ul>
+          <li><strong>Układy współrzędnych:</strong> Tradycyjny ma oś <strong>Z</strong> w górę; CGI ma oś <strong>Y</strong> w górę, a Z to głębokość.</li>
+          <li><strong>Kolejność transformacji obiektu:</strong> <strong>1) Scaling &rarr; 2) Rotation &rarr; 3) Translation &rarr; 4) Projection</strong>.</li>
+          <li><strong>FoV i ogniskowa:</strong> Im krótsza ogniskowa, tym większy FOV i większe zniekształcenia obiektów blisko kamery.</li>
+          <li><strong>Rasteryzacja:</strong> Konwersja wektora 2D na raster 2D. Piksel należy do trójkąta, gdy leży w środku lub zawiera jego <strong>top-left, top lub left edge</strong>.</li>
+          <li><strong>Oświetlenie (ADS):</strong> <em>Ambient</em> (bazowa jasność), <em>Diffuse</em> (światło odbite od powierzchni – przyjmuje kolor obiektu!), <em>Specular</em> (reflektor kierunkowy / odbicie lustrzane).</li>
+          <li><strong>Cienie:</strong> <em>Shadow Mapping</em> (renderowanie bufora głębi ze źródła światła do tekstury); <em>Shadow Volume / Stencil Shadows</em> (wektory przez wierzchołki w buforze szablonowym).</li>
+          <li><strong>Shadery:</strong> <em>Pixel Shader</em> (post-processing, normal mapping, oświetlenie per-pixel), <em>Vertex Shader</em> (animacja wody i roślinności), <em>Geometry Shader</em> (tworzenie nowych wierzchołków, teselacja, displacement mapping).</li>
+          <li><strong>Optymalizacja:</strong> <em>Clipping</em> (obcinanie poza bryłą widzenia), <em>Z-buffering</em> (bufor głębi), <em>Occlusion culling</em> (obiekty zasłonięte przez inne), <em>Backface culling</em> (tylne ściany), <em>LOD</em> (uproszczone wersje modeli dla dalszych obiektów), <em>Mip-mapping</em> (do 8 mniejszych tekstur – wydajność + redukcja efektu mory).</li>
+          <li><strong>Mapowanie powierzchni:</strong> <em>Bump mapping</em> (skala szarości: biały=wypukłe, czarny=wklęsłe; nie zwiększa poligonów), <em>Normal mapping</em> (normalne X,Y,Z w kanałach R,G,B z modelu High Poly; nie zwiększa wierzchołków), <em>Displacement mapping</em> (bump + teselacja = <strong>tworzy nowe wierzchołki</strong>, bardzo kosztowne).</li>
+          <li><strong>Zaawansowane efekty:</strong> <em>Ambient Occlusion</em> (przyciemnianie szczelin), <em>Depth of Field</em> (rozmycie soczewkowe), <em>Subsurface Scattering (SSS/SSLT)</em> (półprzezroczystość skóry/wosku; najważniejszy parametr: <em>scattering distance / depth</em>).</li>
+        </ul>
+        <div class="callout callout-warn">
+          <strong>Path Tracing (Slajdy 40–43):</strong> Implementacja ray tracingu. Symuluje cienie, odbicia, załamania, <strong>ambient occlusion</strong>, kaustykę, <strong>depth of field</strong>, motion blur. <strong>NIE symuluje (slajd 43!):</strong> Subsurface Scattering, aberracji chromatycznej oraz fluorescencji. Optymalizacja: mniej promieni + <em>denoising</em> lub selektywny bufor niskiej rozdzielczości.
+        </div>
+
+        <h2 id="sec-3">3. Fotogrametria</h2>
+        <ul>
+          <li>Dziedzina nauki zajmująca się <strong>odtwarzaniem trójwymiarowych modeli fotografowanych obiektów</strong> poprzez wyznaczenie pozycji elementów w 3D z dużej liczby zdjęć wykonanych dookoła obiektu (automatyzacja: <em>feature extraction &amp; matching</em>).</li>
+          <li><strong>Programy:</strong> Agisoft Metashape (komercyjny), 3DF Zephyr Free (darmowy do 50 zdjęć), Regard3D (Open Source), COLMAP + OpenMVS + MeshLab (Open Source dla zaawansowanych) + post-processing w Blenderze.</li>
+          <li><strong>Potok COLMAP + OpenMVS:</strong> COLMAP (sparse cloud) &rarr; InterfaceCOLMAP &rarr; DensifyPointCloud &rarr; ReconstructMesh &rarr; RefineMesh &rarr; TextureMesh (<code>.obj</code>).</li>
+        </ul>
+
+        <h2 id="sec-4">4. Formaty danych 3D (3D Data Formats.pdf)</h2>
+        <ul>
+          <li><strong>Podział:</strong> Binarne (<code>LAS, glTF, 3ds, COLLADA</code>) vs Tekstowe: lokalne (<code>Wavefront OBJ</code>) i globalne (<code>GML, KML</code>).</li>
+          <li><strong>LAS (chmury punktów LiDAR):</strong> Przechowuje X,Y,Z, Intensity, liczbę odbić, kierunek lustra, klasyfikację, kąt wiązki (z roll), czas GPS, RGB. <strong>Wada:</strong> brak cross-referencing (ręczne układanie w siatkę, w CODGiK kafelki 0,29 km²).</li>
+          <li><strong>3D Tiles:</strong> Otwarty standard AGI/Cesium oparty na <strong>glTF</strong>. Drzewa podziału: <strong>quadtree</strong> (równomierne) i <strong>k-d tree</strong> (nierównomierne). Typy: <em>Point Clouds</em>, <em>Batched 3D Models (b3dm)</em>, <em>Instanced 3D Models</em>, <em>Composite</em>.</li>
+          <li><strong>Wavefront OBJ (.obj + .mtl):</strong>
+            <br><code>.obj</code>: <code>v</code> (wierzchołki), <code>vt</code> (tekstura), <code>vn</code> (normalne), <code>vp</code> (parametryczne); <code>p</code> (punkt), <code>l</code> (linia), <code>f v/vt/vn</code> (poligon, np. <code>f 1//1</code> bez tekstury); <code>g</code>, <code>o</code>, <code>sw</code>, <code>mg</code>, <code>mtllib</code>, <code>usemtl</code>.
+            <br><code>.mtl</code>: <code>newmtl</code>, <code>Ka, Kd, Ks</code>, <code>d 1.0</code> (nieprzezroczysty), <code>illum 0/1/2</code> (0=Diffuse, 1=D+A, 2=ADS), <code>map_Ka/Kd/Ks/d, bump, disp</code>.</li>
+        </ul>
+
+        <h2 id="sec-5">5. GML i KML</h2>
+        <ul>
+          <li><strong>GML (ISO 19136:2007 / OGC):</strong> Pierwowzór dla KML! Ma 11 typów węzłów: <em>Feature, Geometry, CRS, Topology, Time, Dynamic feature, Coverage, Unit of measure, Directions, Observations, Styles</em>. Profile upraszczają XML (trzeba je zaimportować).</li>
+          <li><strong>Współrzędne w GML (<code>&lt;gml:posList&gt;</code>):</strong> (1) Mercator (metry), (2) Stopnie/min/sek, (3) <strong>Stopnie dziesiętne + wysokość w metrach</strong> (np. Gdańsk <code>18.25, 54.10, 28</code>), (4) Układ kartezjański.</li>
+          <li><strong>KML:</strong> Podzbiór GML 1.0/2.1.2 w <strong>jednej przestrzeni nazw</strong> (od 2008 r. standard OGC). Kolory zapisywane odwrotnie: <strong><code>aabbggrr</code> (ABGR)</strong>!</li>
+          <li><strong>Kluczowe elementy KML:</strong> <code>&lt;LookAt&gt;</code> (lon, lat, alt, heading, tilt, range), <code>&lt;altitudeMode&gt;</code> (<code>relativeToGround</code>, <code>absolute</code>), <code>&lt;extrude&gt;1</code> (punkt&rarr;łupek, linia&rarr;ściana, poligon&rarr;bryła), <code>&lt;tessellate&gt;1</code> (linia dopasowana do rzeźby terenu), <code>&lt;Polygon&gt;</code> (<code>outerBoundaryIs</code> + <code>innerBoundaryIs</code>).</li>
+          <li><strong>Overlays i LoD w KML:</strong> <code>&lt;GroundOverlay&gt;</code> (na teren), <code>&lt;ScreenOverlay&gt;</code> (na ekran – <code>overlayXY</code> na <code>screenXY</code> + <code>size</code>), <code>&lt;PhotoOverlay&gt;</code> (zdjęcia na obiekty 3D + <strong>dynamiczny LoD</strong>, <code>ImagePyramid</code> 256 px, kształty: rectangle, cylinder, sphere), <code>&lt;Region&gt;</code> (zawiera parę <strong><code>&lt;LatLonAltBox&gt;</code> + <code>&lt;Lod&gt;</code></strong>).</li>
+        </ul>
+
+        <h2 id="sec-6">6. Systemy 3D GIS i Biblioteka Cesium (3D GIS.pdf)</h2>
+        <ul>
+          <li><strong>Desktop:</strong> ArcGIS Engine SDK, GRASS, NASA WorldWind, Google Earth. <strong>Web:</strong> Cesium, NASA WorldWind, Bing Maps 3D.</li>
+          <li><strong>ArcGIS Engine SDK:</strong> .NET/Java/C++; wymaga licencji <em>Developer Kit</em> oraz płatnej <strong>Engine Runtime</strong> na każdy PC użytkownika końcowego.</li>
+          <li><strong>GRASS GIS:</strong> Open Source; skrypty do wyciągania 3D (<em>extrusion</em>), symulacji powodzi (<em>flood risk</em> z DTM), rektyfikacji braków danych i generowania anaglifów.</li>
+          <li><strong>Cesium (CesiumJS):</strong> Open Source JS + WebGL (<strong>nie wymaga wtyczek!</strong>). Wizualizacja 4D, modele COLLADA/glTF, prymitywy (w tym <strong>Billboardy</strong> – płaskie obiekty zawsze zwrócone do kamery), nawigacja klawiatura/mysz/dotyk, wysokiej precyzji Z-buffer (brak <em>z-fighting</em>).</li>
+          <li><strong>CesiumWidget vs CesiumViewer:</strong> Widget = 1 div + własny CSS. Viewer = 3 divy (<code>cesiumContainer, loadingOverlay, toolbar</code>) + <code>bucket.css</code>.</li>
+          <li><strong>Kod w Cesium:</strong> Warstwy w <code>viewer.scene.imageryLayers</code> (<code>alpha, brightness</code>). Kolory normalnie w <strong>RGBA</strong> (<code>Cesium.Color.fromRgba(...)</code>). Polilinie domyślnie podążają po elipsoidzie; prosta linia bez krzywizny Ziemi: <strong><code>arcType: Cesium.ArcType.NONE</code></strong>. Modele 3D (<code>.glb</code>) liczone są względem elipsoidy WGS84 (przy DTM mogą wymagać korekty wysokości).</li>
+        </ul>
+
+        <h2 id="sec-7">🔥 Szybka ściąga z bazy pytań (TWDP_pytania.pdf)</h2>
+        <ol>
+          <li><code>(18.25, 54.10, 28)</code> w GML = <strong>stopnie (x,y) i metry (z)</strong>.</li>
+          <li><code>&lt;Lod&gt;</code> w KML = <strong>wszystkie poprawne</strong> (w parze z <code>&lt;LatLonAltBox&gt;</code>, wewnątrz <code>&lt;Region&gt;</code>, dynamiczny LoD).</li>
+          <li>Potok graficzny = <strong>Ustawienie wierzchołków &rarr; Transformacja sceny &rarr; Projekcja widoku &rarr; Rasteryzacja &rarr; Teksturowanie &rarr; Oświetlenie i cieniowanie</strong>.</li>
+          <li>Fałszywe zdanie o KML/GML = <strong>„GML przegrał i przestał być rozwijany”</strong>.</li>
+          <li><code>PhotoOverlays</code> w KML = <strong>zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach</strong>.</li>
+          <li>Fotogrametria = <strong>odtwarzanie trójwymiarowych modeli fotografowanych obiektów</strong>.</li>
+          <li>Kolory w KML = <strong>ABGR</strong> (<code>aabbggrr</code>); w Cesium = <strong>RGBA</strong>.</li>
+          <li>Fałszywe zdanie o Cesium = <strong>„wymagana jest instalacja dedykowanej wtyczki do przeglądarki”</strong>.</li>
+          <li>Billboardy = <strong>płaskie, prymitywne obiekty zawsze zwrócone przodem w kierunku obserwatora</strong>.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ==================== QUIZ VIEW ==================== -->
+    <section id="view-quiz" class="hidden space-y-4">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <h2 class="text-sm sm:text-base font-bold">Symulator Testu (16 pytań)</h2>
+            <p class="text-[11px] text-[var(--muted)]">Kliknij odpowiedź, aby zobaczyć wyjaśnienie.</p>
+          </div>
+          <span id="quiz-score-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-[var(--secondary)]">Wynik: 0 / 0</span>
+        </div>
+        <div id="quiz-container" class="space-y-3.5"></div>
+        <button onclick="initQuiz()" class="w-full py-2.5 rounded-xl text-xs font-bold bg-[var(--primary)] text-[var(--primary-fg)]">
+          🔄 Zacznij test od nowa
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== LIST / SEARCH VIEW ==================== -->
+    <section id="view-list" class="hidden space-y-3">
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-3 space-y-3">
+        <input id="search-input" oninput="renderList()" type="text" placeholder="Szukaj pojęcia (np. ABGR, Lod, illum, Shadow, LAS, tessellate)..." class="w-full bg-[var(--bg)] border border-[var(--border)] rounded-lg px-3 py-2 text-xs" />
+        <div id="all-cards-list" class="divide-y divide-[var(--border)]"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const FLASHCARDS = [
+      { id: 1, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 7', q: 'Jakie są 3 podstawowe prawa fizyki widzenia (The physics of vision) wymienione na wykładzie?', a: '1) <b>Obiekty znajdujące się dalej wydają się mniejsze</b> niż obiekty bliższe.<br>2) <b>Ocena głębi (Depth assessment) wymaga co najmniej dwóch punktów obserwacji</b>.<br>3) <b>Krzywizna Ziemi bezpośrednio wpływa na horyzont</b>.' },
+      { id: 2, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Notatki + Stereoscopy.pdf, slajdy 5-6', q: 'Jakim rodzajem perspektywy jest ludzki wzrok (dwoje oczu) i jakie wyróżniamy perspektywy od 1 do 6 punktów?', a: 'Ludzki wzrok to <b>perspektywa dwupunktowa</b> (złożenie dwóch perspektyw liniowych).<br>Rodzaje: 1-punktowa (liniowa), 2-, 3-, 4-punktowa, <b>5-punktowa</b> (półsfera / hemisphere), <b>6-punktowa</b> (pełna sfera 360° / sphere).' },
+      { id: 3, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 8', q: 'W jaki sposób ludzki mózg postrzega głębię i na jakie 2 sposoby można ten mechanizm sztucznie wywołać?', a: 'Mózg ocenia <b>przesunięcie (displacement)</b> obiektów widzianych przez lewe i prawe oko.<br>1) <b>Oszukanie mózgu</b> (autostereogramy).<br>2) <b>Dostarczenie każdemu oku dedykowanego obrazu</b> (stereoskopy, filtry, polaryzacja, migawki, HMD).' },
+      { id: 4, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 9 + Notatki', q: 'Czym są Autostereogramy, jak działają i na jakie 2 sposoby można na nie patrzeć?', a: 'Powtarzanie tych samych wzorów w <b>zmiennych odstępach</b> pozwala mózgowi posortować je w warstwy głębokości.<br>• <b>„Wall-eyed”</b> (wzrok za obrazem – „niewidzialna szyba”),<br>• <b>„Cross-eyed”</b> (wzrok skrzyżowany przed obrazem).' },
+      { id: 5, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 11-12', q: 'Czym jest stereoskop i jakie historyczne przykłady podano na wykładzie?', a: 'Urządzenie optyczne dostarczające każdemu oku osobny obraz.<br>Przykłady: <b>Brewster</b> (1839–1849), <b>Holmes</b> (1861), lorneta nożycowa <b>S.F.14.Z.Gi, H/6400</b> (II WŚ).' },
+      { id: 6, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 13-14 + TWDP_pytania', q: 'Czym są Anaglify, jakie są 4 popularne kombinacje filtrów barwnych i jaka jest ich główna wada?', a: '<b>Anaglify</b> to obrazy stereoskopowe z nałożeniem dwóch obrazów o wykluczających się barwach z lekkim przesunięciem poziomym.<br>Kombinacje: <b>1) Red-Blue, 2) Red-Cyan, 3) Red-Green, 4) Dark Blue-Amber (Color-Code)</b>.<br><b>Wada:</b> degradacja gamy kolorów.' },
+      { id: 7, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 15-16', q: 'Jak działa technologia Dolby 3D Cinema i jakie ma zalety oraz wady?', a: '<b>Dwa zestawy filtrów</b> (projektor + okulary) kodujące obrazy za pomocą <b>różnych częstotliwości RGB</b>.<br>• <b>Zaleta:</b> zachowanie oryginalnych kolorów.<br>• <b>Wada:</b> drogi, opatentowany sprzęt.' },
+      { id: 8, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 17', q: 'Czym różnią się okulary polaryzacyjne liniowe od kołowych?', a: '• <b>Liniowe:</b> filtry ortogonalne; <b>1 filtr na oko</b> (pionowy/poziomy).<br>• <b>Kołowe:</b> polaryzacja kołowa lewo/prawoskrętna; <b>2 filtry na oko</b> (kołowy ćwierćfalówka + liniowy). Zachowują kolory kosztem rozdzielczości.' },
+      { id: 9, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 18', q: 'Jak działają aktywne okulary migawkowe (Active shutter) i jakie mają wymagania odnośnie ekranu?', a: 'Naprzemiennie przysłaniają każde oko w synchronizacji z ekranem. Zachowują <b>kolory i rozdzielczość</b>, ale wymagają odświeżania <b>min. 120 Hz</b> (poniżej: zmęczenie wzroku).' },
+      { id: 10, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 19-20', q: 'Czym charakteryzują się wyświetlacze Glasses-free 3D oraz gogle HMD?', a: '• <b>Glasses-free 3D:</b> wymaga przebywania w jednym punkcie obserwacji.<br>• <b>HMD (VR):</b> jak stereoskop, ale dużo większe pole widzenia (FOV). Soczewki wymagają <b>wstępnie zniekształconego obrazu (warped image)</b>.' },
+      { id: 11, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajd 21', q: 'Jaki jest koszt obliczeniowy 3D CGI oraz zysk z kodowania różnicowego?', a: '• Koszt jest <b>mniejszy niż dwukrotny</b> (współdzielenie Z-bufora i tekstur). <i>Depth-buffer based stereoscopy</i> zmniejsza narzut do <b>ok. 20%</b>.<br>• <b>Differential encoding</b> zmniejsza rozmiar do <b>ok. 150%</b> wariantu 2D.' },
+      { id: 12, cat: 'STEREO', catName: '1. Stereoskopia', source: 'Stereoscopy.pdf, slajdy 22-23', q: 'Co oznaczają „stereo base” (e) i „stereo window distance” (f) oraz jak orientacja kamer wpływa na efekt 3D?', a: '• <b>Stereo base (e):</b> odległość między kamerami.<br>• <b>Stereo window distance (f):</b> odległość do okna stereoskopowego.<br>• Kamery równoległe (NP-camera) nie dają zniekształceń trapezowych (w przeciwieństwie do kamer obróconych do środka).' },
+      { id: 13, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 1', q: 'Podaj poprawną kolejność 6 etapów potoku graficznego (Graphics Pipeline)!', a: '1. <b>Ustawienie wierzchołków</b><br>2. <b>Transformacja sceny</b><br>3. <b>Projekcja widoku</b><br>4. <b>Rasteryzacja</b><br>5. <b>Teksturowanie</b><br>6. <b>Oświetlenie i cieniowanie</b>' },
+      { id: 14, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajd 3', q: 'Czym różni się tradycyjny układ współrzędnych 3D od układu CGI?', a: '• <b>Tradycyjny:</b> oś <b>Z</b> w górę.<br>• <b>CGI:</b> oś <b>Y</b> w górę, X w prawo, Z to głębokość (do obserwatora).' },
+      { id: 15, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 4-5', q: 'Z jakich elementów składa się proces modelowania siatki 3D?', a: '1) <b>Współrzędne wierzchołków</b> (chmura punktów).<br>2) <b>Triangulacja / Elementy modelu</b> (trójki indeksów wierzchołków łączone w trójkąty -> 3D Mesh).' },
+      { id: 16, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 6-8', q: 'Jakie są 3 standardowe transformacje i w jakiej ŚCISŁEJ kolejności należy je wykonywać przed projekcją?', a: 'Transformacje: Translacja, Rotacja, Skalowanie.<br>Ścisła kolejność: <b>1) Scaling &rarr; 2) Rotation &rarr; 3) Translation &rarr; 4) Projection</b>.' },
+      { id: 17, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 9-11', q: 'Jaka jest zależność między ogniskową (focal length), polem widzenia (FOV) a zniekształceniami?', a: '<b>Im krótsza ogniskowa, tym większy FOV</b> oraz większe zniekształcenia obiektów znajdujących się blisko kamery.' },
+      { id: 18, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 12-13', q: 'Czym jest rasteryzacja i kiedy piksel należy do trójkąta?', a: 'Konwersja obrazu wektorowego 2D na raster 2D. Piksel należy do trójkąta, gdy leży całkowicie wewnątrz lub zawiera jego <b>top-left, top lub left edge</b>.' },
+      { id: 19, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 15-16 + Notatki', q: 'Opisz 3 rodzaje oświetlenia w grafice 3D (model ADS).', a: '1) <b>Ambient:</b> bazowa jasność sceny.<br>2) <b>Diffuse:</b> odbite od powierzchni – <b>przyjmuje kolor obiektu</b>!<br>3) <b>Specular:</b> kierunkowy reflektor / lustrzane odbicie.' },
+      { id: 20, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 17-18 + Notatki', q: 'Czym różni się Ray Tracing od Ray Castingu / tradycyjnego oświetlenia rastrowego?', a: '• <b>Ray Tracing:</b> śledzi promienie od kamery do świateł (odbicia, załamania, duży koszt).<br>• <b>Ray Casting / Rastrowe:</b> liczy odległość do świateł tylko dla widocznych pikseli/wierzchołków (Gouraud shading); szybkie, ale cienie trzeba aproksymować.' },
+      { id: 21, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 19-21 + Notatki', q: 'Porównaj Shadow Mapping oraz Shadow Volume (Stencil Shadows).', a: '• <b>Shadow Mapping:</b> renderuje <b>bufor głębi</b> z perspektywy źródła światła do tekstury (<i>shadow map</i>).<br>• <b>Shadow Volume:</b> wektorowa metoda z <b>buforem szablonowym (stencil buffer)</b> – rzutuje wektory przez wierzchołki obiektu.' },
+      { id: 22, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 22-25 + Notatki', q: 'Do czego służą Pixel Shader, Vertex Shader i Geometry Shader?', a: '• <b>Pixel Shader:</b> operuje na pikselach (post-processing, normal mapping, Phong shading).<br>• <b>Vertex Shader:</b> operuje na wierzchołkach (animacja wody, roślinności).<br>• <b>Geometry Shader:</b> tworzy <b>nowe wierzchołki i trójkąty</b> (teselacja, displacement mapping).' },
+      { id: 23, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 26-28 + Notatki', q: 'Wyjaśnij: Clipping, Z-buffering oraz Culling (Occlusion vs Backface).', a: '• <b>Clipping:</b> obcinanie poza bryłą widzenia.<br>• <b>Z-buffering:</b> bufor głębi eliminujący ręczne sortowanie obiektów.<br>• <b>Occlusion culling:</b> usuwanie obiektów zasłoniętych przez inne.<br>• <b>Backface culling:</b> usuwanie tylnych ścian modeli.' },
+      { id: 24, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 29-30 + TWDP_pytania', q: 'Czym są Level-of-Detail (LOD) oraz Mip-mapping?', a: '• <b>LOD:</b> zmniejszanie liczby trójkątów wraz z odległością od kamery.<br>• <b>Mip-mapping:</b> do 8 mniejszych wersji tekstury dla dalszych obiektów (większa wydajność + <b>redukcja efektu mory</b>).' },
+      { id: 25, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 31-35 + Notatki', q: 'Porównaj Bump Mapping, Normal Mapping oraz Displacement Mapping!', a: '• <b>Bump:</b> skala szarości (biały=wypukłe, czarny=wklęsłe), bez nowych poligonów.<br>• <b>Normal:</b> wektory X,Y,Z w kanałach R,G,B (z High Poly na Low Poly), bez nowych wierzchołków.<br>• <b>Displacement:</b> bump + teselacja = <b>tworzy nowe wierzchołki</b> (bardzo kosztowne!).' },
+      { id: 26, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 36-37 + Notatki', q: 'Czym są Ambient Occlusion (AO) oraz Depth of Field (DoF)?', a: '• <b>AO:</b> przyciemnianie zakamarków, do których trafia mniej światła (osobny pass).<br>• <b>DoF:</b> rozmycie soczewkowe pikseli dalszych od kamery.' },
+      { id: 27, cat: 'CGI', catName: '2. Grafika 3D', source: 'Computer graphics.pdf, slajdy 38-39 + Notatki', q: 'Czym jest Subsurface Scattering (SSS / SSLT) i który jego parametr jest najważniejszy?', a: 'Rozpraszanie i częściowe pochłanianie światła w obiektach półprzezroczystych (skóra, wosk). Najważniejszy parametr: <b>scattering distance (depth / density)</b>.' },
+      { id: 28, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajdy 40-43 + TWDP_pytania', q: 'Czym jest Path Tracing, co symuluje, jak się go optymalizuje i jakich 3 zjawisk NIE symuluje?', a: '• <b>Symuluje:</b> cienie, odbicia, załamania, <b>ambient occlusion</b>, kaustykę, <b>depth of field</b>, motion blur.<br>• <b>NIE symuluje (slajd 43!):</b> 1) <b>Subsurface Scattering</b>, 2) <b>Chromatic aberration</b>, 3) <b>Fluorescencji</b>.<br>• <b>Optymalizacja:</b> mniej promieni + <i>denoising</i> lub bufor niskiej rozdzielczości.' },
+      { id: 29, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'Computer graphics.pdf, slajd 48 + TWDP_pytania', q: 'Czym jest Fotogrametria i czego wymaga do automatycznego odtworzenia modelu 3D?', a: 'Dziedzina nauki zajmująca się <b>odtwarzaniem trójwymiarowych modeli fotografowanych obiektów</b> przez wyznaczenie pozycji elementów w 3D. Wymaga wielu zdjęć dookoła obiektu; automatyzacja przez <i>feature extraction &amp; matching</i>.' },
+      { id: 30, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 55', q: 'Wymień 4 narzędzia fotogrametryczne ze slajdów.', a: '1) <b>Agisoft Metashape</b> (komercyjny, łatwy),<br>2) <b>3D Flow Free / 3DF Zephyr Free</b> (darmowy do 50 zdjęć),<br>3) <b>Regard3D</b> (Open Source),<br>4) <b>COLMAP + OpenMVS + MeshLab</b> (Open Source dla zaawansowanych). Post-processing: np. Blender.' },
+      { id: 31, cat: 'PHOTO', catName: '3. Fotogrametria', source: 'Computer graphics.pdf, slajd 56', q: 'Jak przebiega 6-etapowy potok w COLMAP + OpenMVS?', a: '1) COLMAP (sparse cloud) &rarr; 2) InterfaceCOLMAP &rarr; 3) DensifyPointCloud &rarr; 4) ReconstructMesh &rarr; 5) RefineMesh &rarr; 6) TextureMesh (<code>.obj</code>).' },
+      { id: 32, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 2 i 13', q: 'Jak dzielimy formaty danych przestrzennych 3D?', a: '• <b>Binarne:</b> LAS, glTF, 3ds, COLLADA.<br>• <b>Tekstowe:</b> lokalne (<b>Wavefront OBJ</b>) oraz globalne (<b>GML, KML</b>).' },
+      { id: 33, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 2', q: 'Z jakich 4 części składa się model w standardzie glTF?', a: '<code>.gltf</code> (JSON: hierarchia, materiały, kamery), <code>.bin</code> (geometria, animacje, skórki), <code>.glsl</code> (shadery), <code>.png/.jpg</code> (tekstury).' },
+      { id: 34, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 3-5', q: 'Co przechowuje format LAS i jaka jest jego główna wada?', a: 'Przechowuje: X,Y,Z, Intensity, liczbę odbić, kierunek lustra, klasyfikację, kąt wiązki (z roll), czas GPS, RGB.<br><b>Wada:</b> brak cross-referencing (ręczny podział na kafelki, np. w CODGiK 0,29 km²).' },
+      { id: 35, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 6-9', q: 'Czym jest 3D Tiles, jakie drzewa podziału wspiera i jakie ma 4 typy danych?', a: 'Otwarty standard AGI/Cesium oparty na <b>glTF</b>. Podział: <b>quadtree</b> (równomierny) i <b>k-d tree</b> (nierównomierny). Typy: 1) Point Clouds, 2) Batched 3D Models (b3dm), 3) Instanced 3D Models, 4) Composite tiles.' },
+      { id: 36, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 11-12', q: 'Na czym polega Dual data presentation system w przykładowym systemie LiDAR?', a: 'Chmura punktów (400 m², śr. 250 KB, zachowuje X,Y,Z, class, RGB) jest ciężka, więc system najpierw wyświetla lekkie budynki 3D jako kafelki <b>b3dm (2500 m²)</b>.' },
+      { id: 37, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajdy 14-15 + Notatki', q: 'Z jakich plików składa się Wavefront OBJ i jakie 4 listy wierzchołków zawiera .obj?', a: 'Pliki: <code>.obj</code>, <code>.mtl</code>, tekstury.<br>Listy: <code>v x y z [w]</code>, <code>vt u [v w]</code>, <code>vn x y z</code>, <code>vp u [v] [w]</code>.' },
+      { id: 38, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 16 + Notatki', q: 'Jak w .obj zapisuje się punkt, linię i 4 warianty poligonu (f)?', a: '<code>p 1</code> (punkt), <code>l 2/2 5/5</code> (linia), <code>f v/vt/vn</code>: <code>f 1 2 3</code>, <code>f 1/1 2/2 3/3</code>, <code>f 1//1 2//2 3//3</code> (bez tekstury!), <code>f 1/1/1 2/2/2 3/3/3</code>.' },
+      { id: 39, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 17 + Notatki', q: 'Co oznaczają dyrektywy w .obj: g, o, sw, mg, mtllib, usemtl, c_interp, d_interp, bevel?', a: '<code>g</code> (grupa), <code>o</code> (obiekt), <code>sw</code> (interpolacja normalnych), <code>mg</code> (jako całość), <code>mtllib</code> (plik .mtl), <code>usemtl</code> (materiał), <code>c_interp/d_interp</code> (interpolacja koloru/dissolve), <code>bevel</code> (normalne przy otworach).' },
+      { id: 40, cat: 'FORMATS', catName: '4. Formaty 3D', source: '3D Data Formats.pdf, slajd 18 + Notatki', q: 'Co oznaczają parametry w pliku .mtl: Ka, Kd, Ks, d, illum (0, 1, 2) oraz map_*?', a: '<code>Ka/Kd/Ks</code> (ADS), <code>d 1.0</code> (nieprzezroczysty, 0.5 = 50%), <code>illum</code> (<b>0 = Diffuse, 1 = D+A, 2 = ADS</b>), <code>map_Ka/Kd/Ks/d, bump, disp</code> (tekstury).' },
+      { id: 41, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 19-20', q: 'Czym jest GML i jakie 11 typów węzłów definiuje?', a: 'Standard XML (<b>OGC / ISO 19136:2007</b>). 11 węzłów: Feature, Geometry, CRS, Topology, Time, Dynamic feature, Coverage, Unit of measure, Directions, Observations, Styles.' },
+      { id: 42, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajd 22 + TWDP_pytania', q: 'Jakie 4 układy współrzędnych obsługuje <gml:posList> i co oznacza (18.25, 54.10, 28) dla Gdańska?', a: '1) Mercator (metry), 2) Stopnie/min/sek, 3) Stopnie dziesiętne + wysokość w metrach, 4) Kartezjański.<br><b>Test:</b> <code>(18.25, 54.10, 28)</code> = <b>stopnie (x,y) i metry (z)</b>.' },
+      { id: 43, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 23-25', q: 'Czym są profile w GML i jak się z nich korzysta?', a: 'Predefiniowane podzbiory upraszczające pliki GML (trzeba je zaimportować w XML). GML jest używany m.in. w WFS i jest bazą dla KML.' },
+      { id: 44, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 26-27 + TWDP_pytania', q: 'Jaka jest relacja GML i KML? Który jest pierwowzorem i które zdanie z testu jest fałszywe?', a: '<b>Pierwowzorem jest GML.</b> KML to podzbiór GML 1.0/2.1.2 w jednej przestrzeni nazw (od 2008 r. standard OGC).<br><b>Fałszywe zdanie:</b> „KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany”.' },
+      { id: 45, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 29-30 + Notatki', q: 'Co zawiera <LookAt> w KML?', a: '<code>longitude, latitude, altitude, heading</code> (kąt względem północy), <code>tilt</code> (pochylenie góra/dół), <code>range</code> (odległość).' },
+      { id: 46, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 30-43 + Notatki', q: 'Wyjaśnij <altitudeMode>, <extrude> oraz <tessellate> w KML!', a: '<code>altitudeMode</code>: <code>relativeToGround</code> / <code>absolute</code>. <code>extrude=1</code>: punkt&rarr;łupek, linia&rarr;ściana, poligon&rarr;bryła. <code>tessellate=1</code>: linia dopasowuje się do rzeźby terenu.' },
+      { id: 47, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 40-41', q: 'Jak w KML i GML definiuje się poligon z otworem w środku?', a: 'W KML: <code>&lt;outerBoundaryIs&gt;</code> i <code>&lt;innerBoundaryIs&gt;</code>. W GML: <code>&lt;gml:exterior&gt;</code> i <code>&lt;gml:interior&gt;</code>.' },
+      { id: 48, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajd 42 + TWDP_pytania', q: 'W jakim formacie zapisuje się kolory (<color>) w KML?', a: 'Szesnastkowo w formacie <b>ABGR (<code>aabbggrr</code>)</b>: alpha, blue, green, red (odwrotnie niż RGBA!).' },
+      { id: 49, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 33 i 44-45', q: 'Czym różni się <GroundOverlay> od <ScreenOverlay> w KML?', a: '<code>GroundOverlay</code> nakłada obraz na teren (<code>LatLonBox</code>). <code>ScreenOverlay</code> wyświetla element na ekranie (mapuje <code>overlayXY</code> na <code>screenXY</code> + <code>size</code>).' },
+      { id: 50, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 46-47 + TWDP_pytania', q: 'Do czego służy <PhotoOverlay> w KML?', a: 'Nakładanie zdjęć na obiekty 3D (<code>rectangle, cylinder, sphere</code>) oraz <b>zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach</b> (<code>ImagePyramid</code> z kafelkami 256 px).' },
+      { id: 51, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D Data Formats.pdf, slajdy 48-49 + TWDP_pytania', q: 'Jak działają <Region> i <Lod> w KML?', a: 'Wewnątrz <code>&lt;Region&gt;</code> element <code>&lt;Lod&gt;</code> występuje <b>w parze z <code>&lt;LatLonAltBox&gt;</code></b> i definiuje dynamiczny LoD. (W teście: <b>wszystkie odpowiedzi są poprawne</b>).' },
+      { id: 52, cat: 'GML_KML', catName: '5. GML i KML', source: '3D Data Formats.pdf, slajdy 50-52', q: 'Do czego służą <ExtendedData>, <TimeStamp>, <TimeSpan> i KMZ?', a: '<code>ExtendedData</code> = własne pola danych (do <code>BalloonStyle</code>). <code>TimeStamp/TimeSpan</code> = czas chwilowy/przedziałowy. <code>KMZ</code> = spakowany ZIP z KML i zasobami.' },
+      { id: 53, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 2-3', q: 'Wymień technologie 3D GIS Desktop vs Web.', a: '<b>Desktop (C++/Java/.NET + DirectX/OpenGL):</b> ArcGIS Engine SDK, GRASS, NASA WorldWind, Google Earth.<br><b>Web (JS + WebGL):</b> Cesium, NASA WorldWind, Bing Maps 3D.' },
+      { id: 54, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 4-7', q: 'Czym charakteryzuje się ESRI ArcGIS Engine SDK i jego licencjonowanie?', a: '5 warstw (Base Services..Extensions), .NET/Java/C++. Wymaga licencji <b>Developer Kit</b> oraz płatnej <b>Engine Runtime</b> dla każdego użytkownika końcowego.' },
+      { id: 55, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 9-12', q: 'Czym jest Google Earth i dlaczego Google Earth Plugin nie działa?', a: 'Aplikacja 3D dla Ziemi, oceanów, nieba (Sky), Marsa, Księżyca. Aplikacje oparte na Google Earth Plugin przestały istnieć z powodu <b>wycofania (deprecation)</b> wtyczki.' },
+      { id: 56, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 13-17', q: 'Jakie 4 operacje umożliwia GRASS GIS dzięki skryptom?', a: '1) Extrusion (wyciąganie do 3D), 2) Symulacja ryzyka powodziowego z DTM, 3) Rektyfikacja niekompletnych danych, 4) Generowanie obrazów stereoskopowych.' },
+      { id: 57, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajd 18', q: 'Czym jest NASA WorldWind?', a: 'Wirtualny glob 3D (Desktop Java+OpenGL i Web JS+WebGL) wizualizujący elipsoidę WGS84 z mapami Web Mercator (Bing, WMS/WMTS), Shapefile i modelami 3D.' },
+      { id: 58, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 19-20 + TWDP_pytania', q: 'Czym jest Cesium i które zdanie o nim w teście jest NIEPRAWDZIWE?', a: 'Biblioteka JS oparta na WebGL (<b>NIE wymaga wtyczki!</b> – to fałszywe zdanie w teście). Obsługuje 4D, COLLADA/glTF, polylines, billboardy, nawigację klawiaturą/myszą/dotykiem, wysokiej precyzji Z-buffer (brak z-fighting).' },
+      { id: 59, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: 'TWDP_pytania.pdf, str. 2', q: 'Czym są Billboardy (Billboards)?', a: 'Płaskie, prymitywne obiekty, które są <b>zawsze zwrócone przodem w kierunku obserwatora</b>.' },
+      { id: 60, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 21-24 + Notatki', q: 'Czym różni się CesiumWidget od CesiumViewer?', a: '<code>CesiumWidget</code>: 1 div + własny CSS, szybko się ładuje. <code>CesiumViewer</code>: 3 divy (<code>cesiumContainer, loadingOverlay, toolbar</code>) + <code>bucket.css</code>.' },
+      { id: 61, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 27-33 + Notatki', q: 'Jak w Cesium zarządzamy warstwami i jakich Providerów używamy?', a: '<code>viewer.scene.imageryLayers</code> (<code>alpha, brightness</code>). Providerzy: WMS/WMTS, TMS, OSM, Bing, ArcGIS, GoogleEarth, SingleTile, Ion.' },
+      { id: 62, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 35-37', q: 'Jak dodaje się DTM w Cesium i co daje requestWaterMask?', a: '<code>Cesium.Terrain.fromWorldTerrain({ requestWaterMask: true, requestVertexNormals: true })</code> – odróżnia ląd od wody i włącza animację/cieniowanie wody (np. SRTM 30 m vs GTOPO30 1 km).' },
+      { id: 63, cat: 'EXAM', catName: '🔥 Pewniaki z testów', source: '3D GIS.pdf, slajdy 40-43 + TWDP_pytania', q: 'Jak zapisujemy kolory w Cesium i jak wyłączyć podążanie polilinii za krzywizną Ziemi?', a: 'Kolory w <b>RGBA</b> (<code>Cesium.Color.fromRgba(...)</code>). Wyłączenie krzywizny Ziemi: <b><code>arcType : Cesium.ArcType.NONE</code></b>.' },
+      { id: 64, cat: 'GIS_CESIUM', catName: '6. 3D GIS i Cesium', source: '3D GIS.pdf, slajdy 44-49', q: 'O czym pamiętać przy modelach 3D (.glb) oraz cieniach i cząsteczkach w Cesium?', a: '<code>modelMatrix</code> liczona jest względem elipsoidy WGS84 (przy DTM może wymagać korekty wysokości). Cienie: <code>shadows: true</code>. Cząsteczki: <code>Cesium.ParticleSystem</code>.' }
+    ];
+
+    const QUIZ_QUESTIONS = [
+      { q: 'W GML pozycja (18.25, 54.10, 28) oznacza punkt w Gdańsku opisany na współrzędnych w:', options: ['stopniach (x,y) i metrach (z)', 'radianach (y,x) i metrach (z)', 'stopniach (y,x) i metrach (z)', 'stopniach (x,y) i kilometrach (z)', 'w układzie Mercatora'], correct: 0, explanation: 'Decimal degrees + height in metres: X=18.25°, Y=54.10°, Z=28 m.' },
+      { q: 'Element <Lod> występujący w formacie KML:', options: ['musi być stosowany w parze z elementem <LatLonAltBox>', 'powinien być zdefiniowany wewnątrz elementu <Region>', 'pozwala na definiowanie dynamicznego Level-of-Detail', 'wszystkie odpowiedzi są poprawne'], correct: 3, explanation: 'Wszystkie trzy cechy dotyczą elementu <Lod> wewnątrz <Region>.' },
+      { q: 'Wskaż poprawną kolejność etapów potoku graficznego:', options: ['Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Rasteryzacja → Teksturowanie → Oświetlenie i cieniowanie', 'Transformacja sceny → Ustawienie wierzchołków → Rasteryzacja → Projekcja widoku → Teksturowanie → Oświetlenie i cieniowanie', 'Ustawienie wierzchołków → Projekcja widoku → Transformacja sceny → Teksturowanie → Rasteryzacja → Oświetlenie i cieniowanie', 'Rasteryzacja → Ustawienie wierzchołków → Transformacja sceny → Projekcja widoku → Oświetlenie i cieniowanie → Teksturowanie'], correct: 0, explanation: 'Zgodnie z kluczem w TWDP_pytania.pdf.' },
+      { q: 'Wskaż zdanie NIEPRAWDZIWE dotyczące KML i GML:', options: ['KML jest jednym z oficjalnych standardów OGC', 'KML został stworzony jako uproszczenie języka GML', 'Produkty firmy Google czasami stosują nieoficjalne rozszerzenia standardu KML', 'KML i GML były rozwijane równocześnie, ale GML przegrał i przestał być rozwijany'], correct: 3, explanation: 'GML jest pierwowzorem i nadal oficjalnym standardem ISO/OGC.' },
+      { q: 'PhotoOverlays w KML pozwala na (klucz testowy):', options: ['zastosowanie dynamicznego Level-of-Detail na osadzonych zdjęciach', 'konwersję chmur punktów LAS do GML', 'generowanie cieni szablonowych', 'kodowanie kolorów w RGBA'], correct: 0, explanation: 'Slajd 46: zdjęcia osadzone w PhotoOverlay mogą używać dynamicznego Level-of-Detail.' },
+      { q: 'Fotogrametria jest:', options: ['dziedziną nauki zajmującą się m.in. odtwarzaniem trójwymiarowych modeli fotografowanych obiektów', 'technologią tworzenia zdjęć 3D za pomocą filtrów polaryzacyjnych', 'techniką obrazowania oddającą wrażenie widzenia przestrzennego bez okularów', 'żadną z powyższych'], correct: 0, explanation: 'Odtwarzanie modeli 3D na podstawie wielu fotografii.' },
+      { q: 'W jakim formacie podaje się kolory obiektów w KML, a w jakim w Cesium?', options: ['W KML: ABGR (aabbggrr), w Cesium: RGBA', 'W KML: RGBA, w Cesium: ABGR', 'W obu: ARGB', 'W obu: RGBA'], correct: 0, explanation: 'KML ma odwrócone ABGR, a Cesium standardowe RGBA.' },
+      { q: 'Wskaż zdanie NIEPRAWDZIWE na temat biblioteki Cesium:', options: ['jest ona oparta na standardzie WebGL', 'umożliwia rysowanie polilinii, bilboardów, poligonów', 'do korzystania z niej wymagana jest instalacja dedykowanej wtyczki do przeglądarki internetowej', 'pozwala na nawigację sceny przy pomocy klawiatury, myszy oraz dotyku'], correct: 2, explanation: 'Cesium działa natywnie w WebGL bez żadnych wtyczek.' },
+      { q: 'Która technika fizycznie tworzy nowe wierzchołki i trójkąty na modelu?', options: ['Displacement mapping (bump + teselacja)', 'Bump mapping', 'Normal mapping', 'Mip-mapping'], correct: 0, explanation: 'Tylko Displacement mapping tworzy nową geometrię.' },
+      { q: 'W jakiej kolejności wykonuje się transformacje geometryczne obiektu?', options: ['1) Scaling → 2) Rotation → 3) Translation → 4) Projection', '1) Translation → 2) Rotation → 3) Scaling → 4) Projection', '1) Projection → 2) Translation → 3) Rotation → 4) Scaling', '1) Rotation → 2) Scaling → 3) Projection → 4) Translation'], correct: 0, explanation: 'Slajd 8 (Computer graphics.pdf): Scaling → Rotation → Translation → Projection.' },
+      { q: 'Czym różni się Occlusion Culling od Backface Culling?', options: ['Occlusion usuwa obiekty zasłonięte przez inne obiekty, Backface usuwa tylne ściany modeli', 'Occlusion przyciemnia szczeliny, Backface usuwa tekstury', 'Occlusion działa poza bryłą widzenia, Backface sortuje Z-bufor', 'To synonimy'], correct: 0, explanation: 'Oba usuwają niewidoczne elementy wewnątrz bryły widzenia.' },
+      { q: 'Co oznacza zapis „f 1//1 2//2 3//3” w pliku .obj?', options: ['Trójkąt z wierzchołków 1, 2, 3 z wektorami normalnymi, ale bez tekstury', 'Trójkąt z teksturą bez normalnych', 'Linię łamaną z teksturą', 'Błąd składniowy'], correct: 0, explanation: 'v//vn oznacza pominięcie indeksu tekstury vt.' },
+      { q: 'W pliku .mtl zapis „d 1.0” oraz „illum 2” oznacza:', options: ['Materiał całkowicie nieprzezroczysty, oświetlenie używa wszystkich składowych (ADS)', 'Materiał 100% przezroczysty, tylko Diffuse', 'Podwójną gęstość', 'Displacement mapping'], correct: 0, explanation: 'd 1.0 = opaque; illum 2 = Ambient + Diffuse + Specular.' },
+      { q: 'Minimalna częstotliwość odświeżania ekranu dla okularów Active shutter to:', options: ['120 Hz', '60 Hz', '30 Hz', 'Nie ma znaczenia'], correct: 0, explanation: 'Minimum 120 Hz (po 60 Hz na oko).' },
+      { q: 'Jak w Cesium narysować polilinię, która NIE podąża za krzywizną Ziemi?', options: ['arcType : Cesium.ArcType.NONE', 'tessellate : 0', 'extrude : true', 'Polilinie nigdy nie podążają za krzywizną'], correct: 0, explanation: 'Domyślnie podążają za elipsoidą; wyłącza się to przez ArcType.NONE.' },
+      { q: 'Jakie dwie metody podziału kafelków wspiera 3D Tiles?', options: ['quadtree (równomierna) i k-d tree (nierównomierna)', 'B-tree i hash', 'Siatka heksagonalna', '1D i 6-point'], correct: 0, explanation: 'Slajd 8 (3D Data Formats.pdf): quadtree oraz k-d tree.' }
+    ];
+
+    let currentCategory = 'ALL';
+    let currentIndex = 0;
+    let filteredCards = [...FLASHCARDS];
+    let isFlipped = false;
+    let cardStatus = JSON.parse(localStorage.getItem('twdp_mobile_status') || '{}');
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      document.getElementById('theme-btn').textContent = isDark ? '☀️ Jasny' : '🌙 Ciemny';
+    }
+
+    function saveStatus() {
+      localStorage.setItem('twdp_mobile_status', JSON.stringify(cardStatus));
+      updateStats();
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const statusFilter = document.getElementById('status-filter').value;
+      filteredCards = FLASHCARDS.filter(c => {
+        const catMatch = currentCategory === 'ALL' || c.cat === currentCategory;
+        const st = cardStatus[c.id] || 'NEW';
+        let statusMatch = true;
+        if (statusFilter === 'UNLEARNED') statusMatch = (st !== 'KNOWN');
+        else if (statusFilter === 'HARD') statusMatch = (st === 'HARD');
+        else if (statusFilter === 'KNOWN') statusMatch = (st === 'KNOWN');
+        return catMatch && statusMatch;
+      });
+      currentIndex = 0;
+      isFlipped = false;
+      renderCurrentCard();
+      updateStats();
+    }
+
+    function renderCurrentCard() {
+      const inner = document.getElementById('card-inner');
+      inner.classList.remove('flipped');
+      isFlipped = false;
+
+      if (filteredCards.length === 0) {
+        document.getElementById('card-front').innerHTML = 'Brak fiszek dla wybranego filtra 🎉';
+        document.getElementById('card-back').innerHTML = 'Zmień filtr powyżej.';
+        document.getElementById('card-counter').textContent = '0 / 0';
+        return;
+      }
+
+      const card = filteredCards[currentIndex];
+      document.getElementById('card-cat-label').textContent = card.catName;
+      document.getElementById('card-cat-label-back').textContent = card.catName;
+      document.getElementById('card-source-label').textContent = card.source;
+      document.getElementById('card-front').innerHTML = card.q;
+      document.getElementById('card-back').innerHTML = card.a;
+      document.getElementById('card-counter').textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+
+      const st = cardStatus[card.id] || 'NEW';
+      const badge = document.getElementById('card-status-badge');
+      if (st === 'KNOWN') { badge.textContent = '✅ Opanowana'; badge.className = 'text-[11px] font-semibold text-emerald-500'; }
+      else if (st === 'HARD') { badge.textContent = '🤔 Powtórka'; badge.className = 'text-[11px] font-semibold text-amber-500'; }
+      else { badge.textContent = 'Nowa'; badge.className = 'text-[11px] font-medium text-[var(--muted)]'; }
+    }
+
+    function flipCard() {
+      if (filteredCards.length === 0) return;
+      isFlipped = !isFlipped;
+      document.getElementById('card-inner').classList.toggle('flipped', isFlipped);
+    }
+
+    function nextCard() {
+      if (filteredCards.length === 0) return;
+      currentIndex = (currentIndex + 1) % filteredCards.length;
+      renderCurrentCard();
+    }
+
+    function prevCard() {
+      if (filteredCards.length === 0) return;
+      currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+      renderCurrentCard();
+    }
+
+    function markCard(status) {
+      if (filteredCards.length === 0) return;
+      cardStatus[filteredCards[currentIndex].id] = status;
+      saveStatus();
+      nextCard();
+    }
+
+    function shuffleDeck() {
+      for (let i = filteredCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+      }
+      currentIndex = 0;
+      renderCurrentCard();
+    }
+
+    function resetProgress() {
+      cardStatus = {};
+      saveStatus();
+      applyFilters();
+    }
+
+    function updateStats() {
+      let known = 0, hard = 0;
+      FLASHCARDS.forEach(c => {
+        if (cardStatus[c.id] === 'KNOWN') known++;
+        else if (cardStatus[c.id] === 'HARD') hard++;
+      });
+      document.getElementById('stat-known').textContent = known;
+      document.getElementById('stat-hard').textContent = hard;
+      document.getElementById('stat-remaining').textContent = FLASHCARDS.length - known - hard;
+      document.getElementById('bar-known').style.width = `${(known / FLASHCARDS.length) * 100}%`;
+      document.getElementById('bar-hard').style.width = `${(hard / FLASHCARDS.length) * 100}%`;
+    }
+
+    function switchTab(tab) {
+      ['flashcards', 'guide', 'quiz', 'list'].forEach(t => {
+        document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById(`tab-${t}`);
+        btn.className = (t === tab)
+          ? 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-fg)] shrink-0 transition'
+          : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--secondary)] text-[var(--secondary-fg)] shrink-0 transition';
+      });
+      if (tab === 'quiz') initQuiz();
+      if (tab === 'list') renderList();
+    }
+
+    let quizAnswers = {};
+    function initQuiz() {
+      quizAnswers = {};
+      updateQuizScore();
+      document.getElementById('quiz-container').innerHTML = QUIZ_QUESTIONS.map((item, idx) => `
+        <div class="p-3.5 rounded-xl border border-[var(--border)] bg-[var(--bg)] space-y-2">
+          <p class="text-xs sm:text-sm font-bold"><span class="text-[var(--primary)] mr-1">#${idx + 1}.</span> ${item.q}</p>
+          <div class="space-y-1.5">
+            ${item.options.map((opt, oIdx) => `
+              <button onclick="answerQuiz(${idx}, ${oIdx})" id="q-btn-${idx}-${oIdx}" class="w-full text-left px-3 py-2 rounded-lg text-xs border border-[var(--border)] bg-[var(--card)] flex items-start gap-2">
+                <span class="font-mono font-bold text-[var(--muted)]">${String.fromCharCode(97 + oIdx)})</span>
+                <span>${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="q-exp-${idx}" class="hidden text-xs p-2.5 rounded-lg bg-[var(--card)] border border-[var(--border)] text-[var(--muted)]"></div>
+        </div>
+      `).join('');
+    }
+
+    function answerQuiz(qIdx, oIdx) {
+      if (quizAnswers[qIdx] !== undefined) return;
+      quizAnswers[qIdx] = oIdx;
+      const item = QUIZ_QUESTIONS[qIdx];
+      item.options.forEach((_, i) => {
+        const btn = document.getElementById(`q-btn-${qIdx}-${i}`);
+        if (i === item.correct) btn.className = 'w-full text-left px-3 py-2 rounded-lg text-xs border border-emerald-500 bg-emerald-500/15 font-semibold flex items-start gap-2';
+        else if (i === oIdx) btn.className = 'w-full text-left px-3 py-2 rounded-lg text-xs border border-red-500 bg-red-500/15 line-through flex items-start gap-2';
+      });
+      const exp = document.getElementById(`q-exp-${qIdx}`);
+      exp.classList.remove('hidden');
+      exp.innerHTML = `<strong class="${oIdx === item.correct ? 'text-emerald-500' : 'text-red-500'}">${oIdx === item.correct ? '✓ Dobrze!' : '✗ Błąd!'}</strong> ${item.explanation}`;
+      updateQuizScore();
+    }
+
+    function updateQuizScore() {
+      const answered = Object.keys(quizAnswers).length;
+      let correct = 0;
+      Object.entries(quizAnswers).forEach(([qIdx, oIdx]) => { if (QUIZ_QUESTIONS[qIdx].correct === oIdx) correct++; });
+      document.getElementById('quiz-score-badge').textContent = `Wynik: ${correct} / ${answered} (z ${QUIZ_QUESTIONS.length})`;
+    }
+
+    function renderList() {
+      const query = (document.getElementById('search-input').value || '').toLowerCase();
+      const matches = FLASHCARDS.filter(c => c.q.toLowerCase().includes(query) || c.a.toLowerCase().includes(query) || c.catName.toLowerCase().includes(query));
+      document.getElementById('all-cards-list').innerHTML = matches.map(c => `
+        <div class="py-3 space-y-1">
+          <div class="flex justify-between text-[11px] text-[var(--muted)]">
+            <span class="font-semibold text-[var(--primary)]">#${c.id} ${c.catName}</span>
+            <span class="font-mono">${c.source}</span>
+          </div>
+          <p class="text-xs sm:text-sm font-bold">${c.q}</p>
+          <div class="text-xs text-[var(--muted)] leading-relaxed pl-2.5 border-l-2 border-[var(--border)]">${c.a}</div>
+        </div>
+      `).join('');
+    }
+
+    // Touch swipe support on mobile for flashcards
+    let touchStartX = 0;
+    const cardEl = document.getElementById('card-inner');
+    cardEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    cardEl.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(diff) > 55) {
+        if (diff < 0) nextCard();
+        else prevCard();
+      }
+    }, { passive: true });
+
+    applyFilters();
+  </script>
+</body>
+</html>
